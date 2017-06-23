@@ -354,7 +354,7 @@ def update_gadget(gadget_item_id):
         return jsonify({'status': 'Error', 'message': res[0][0]})
     else:
         return jsonify({'status': 'Ok'})
-        
+
 @app.route('/gadget/itemid/<string:gadget_item_id>/<string:user_id>', methods=['GET'])
 def get_gadgetbyitemid(gadget_itemid, user_id):
     res = spcall('get_gadgetbyitemid', (gadget_item_id, user_id,), )
@@ -368,6 +368,59 @@ def get_gadgetbyitemid(gadget_itemid, user_id):
             'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]), 'gadget_owner_id': r[10], 'gadget_category_name': str(r[11]), 'user_id': r[12]})       
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/gadget/category/<string:user_id>/<string:gadget_category_name>', methods=['GET'])
+def get_gadgetbycategory(gadget_category_name,user_id):
+    res = spcall('get_gadgetbycategory', (gadget_category_name, user_id,), )
+
+    rescategory = spcall('get_category', (user_id,), )
+
+    resbrand = spcall('get_brand', ())
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    if 'Error' in str(rescategory[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    if 'Error' in str(resbrand[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_category_name': str(r[0]), 'gadget_item_id': str(r[1]),'gadget_color': str(r[2]), 'gadget_brandname': str(r[3]), 'gadget_model': str(r[4]), 
+            'gadget_rental_rate': str(r[5]), 'gadget_image': str(r[6]), 'gadget_scale': str(r[7]), 'gadget_ram': str(r[8]), 'gadget_memory': str(r[9]), 'gadget_description': str(r[10]), 'gadget_owner_id': r[11], 'user_id': r[12]})
+
+    recscategory = []
+    for r in rescategory:
+        recscategory.append({'category_name': str(r[0]), 'user_id': r[1]})
+
+    recsbrand = []
+    for r in resbrand:
+        recsbrand.append({'brandname': str(r[0])})
+
+    print ("user_id:" + str(user_id))
+    print ("categoryname:" + str(gadget_category_name))
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs), 'brands': recsbrand, 'countbrands': len(recsbrand),
+                    'categories': recscategory, 'countcategories': len(recscategory)})
+
+# Get gadget by brandname
+@app.route('/gadget/brand/<string:gadget_brandname>', methods=['GET'])
+def get_gadgetbybrandname(gadget_brandname):
+    res = spcall('get_gadgetbybrandname', (gadget_brandname,), )
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_item_id': str(r[0]), 'gadget_color': str(r[1]), 'gadget_model': str(r[2]), 'gadget_rental_rate': str(r[3]),
+            'gadget_image': str(r[4]), 'gadget_scale': str(r[5]), 'gadget_ram': str(r[6]), 'gadget_memory': str(r[7]), 'gadget_description': str(r[8]),  'gadget_owner_id': r[9], 'gadget_category_name': str(r[10])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})    
+
 
 @app.route('/gadget/itemid/<string:gadget_item_id>', methods=['GET'])
 def get_gadgetbyitemidinadmin(gadget_item_id):
