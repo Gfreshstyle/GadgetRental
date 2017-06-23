@@ -244,3 +244,66 @@ def update_useraccount(user_id):
 
 
 
+@app.route('/owner/<string:owner_first_name>/<string:owner_last_name>', methods=['POST'])
+def new_owner(owner_first_name, owner_last_name):
+    jsn = json.loads(request.data)
+
+    res = spcall('new_owner', (
+        jsn['owner_first_name'],
+        jsn['owner_last_name'],
+        jsn['owner_address1'],
+        jsn['owner_mobile_no'],), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
+
+
+# Logout
+@app.route('/logout', methods=['POST'])
+def logout():
+    session.pop('logged_in', None)
+    session.clear()
+    return jsonify({'message': 'Successfuly logged out'})
+
+ @app.route('/owner/update/<owner_id>', methods=['PUT'])
+def update_gadgetowner(owner_id):
+    jsn = json.loads(request.data)
+
+    owner_id = jsn.get('owner_id', '')
+    owner_first_name = jsn.get('owner_first_name', '')
+    owner_last_name = jsn.get('owner_last_name', '')
+    owner_address1 = jsn.get('owner_address1', '')
+    owner_mobile_no = jsn.get('owner_mobile_no', '')
+
+    print (jsn)
+
+    res = spcall('update_gadgetowner', (
+        owner_id,
+        owner_first_name,
+        owner_last_name,
+        owner_address1,
+        owner_mobile_no), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+    else:
+        return jsonify({'status': 'Ok'})
+
+# Get gadget owners
+@app.route('/owners', methods=['GET'])
+def get_gadgetowners():
+    res = spcall('get_gadgetowners', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'owner_id': str(r[0]), 'owner_firstname': str(r[1]), 'owner_lastname': str(r[2]),
+                    'owner_address1': str(r[3]), 'owner_mobile_no': str(r[4])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+# Get gadget owner by id
