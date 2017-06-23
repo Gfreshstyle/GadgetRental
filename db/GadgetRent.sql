@@ -306,3 +306,21 @@ $$
 $$
 	language 'sql';
 
+create or replace function login(p_email text, p_password text) returns text as
+$$
+declare
+	v_email text;
+	v_res text;
+
+begin
+	select into v_email email from UserAccount where email = p_email and password = p_password;
+	if v_email isnull or p_email = '' or p_password = '' then
+		v_res = 'Invalid credentials';
+	else
+		v_res = 'Login successful';
+	end if;
+	return v_res;
+end;
+$$
+	language 'plpgsql';
+
