@@ -103,3 +103,27 @@ def logout():
     session.pop('logged_in', None)
     session.clear()
     return jsonify({'message': 'Successfuly logged out'})
+
+@app.route('/register', methods=['POST'])
+def new_customer():
+    jsn = json.loads(request.data)
+
+    pas = hashlib.md5(jsn['password'].encode()).hexdigest()
+
+    if invalid(jsn['email']):
+        return jsonify({'status': 'Error', 'message': 'Invalid Email address'})
+
+    res = spcall('new_customer', (
+        jsn['email'],
+        pas), True)
+    
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    if 'Email already exists' in str(res[0][0]):
+        return jsonify({'status': 'Email already exists', 'message': res[0][0]})
+
+    if len(res) == 0:
+        return jsonify({'status': 'Password Mismatch'})
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
