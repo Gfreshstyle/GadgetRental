@@ -97,6 +97,22 @@ def login():
 def get_userbyemail(email):
     return spcall("get_userbyemail", (email,))
 
+@app.route('/owner/<string:owner_first_name>/<string:owner_last_name>', methods=['POST'])
+def new_owner(owner_first_name, owner_last_name):
+    jsn = json.loads(request.data)
+
+    res = spcall('new_owner', (
+        jsn['owner_first_name'],
+        jsn['owner_last_name'],
+        jsn['owner_address1'],
+        jsn['owner_mobile_no'],), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
+
+
 # Logout
 @app.route('/logout', methods=['POST'])
 def logout():
@@ -143,6 +159,21 @@ def get_customers():
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
 
+@app.route('/owner/<string:owner_first_name>/<string:owner_last_name>', methods=['POST'])
+def new_owner(owner_first_name, owner_last_name):
+    jsn = json.loads(request.data)
+
+    res = spcall('new_owner', (
+        jsn['owner_first_name'],
+        jsn['owner_last_name'],
+        jsn['owner_address1'],
+        jsn['owner_mobile_no'],), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
+
 @app.route('/account/<string:user_id>', methods=['GET'])
 def useraccount(user_id):
     res = spcall('get_userprofile', (user_id,), )
@@ -158,3 +189,34 @@ def useraccount(user_id):
     print recs
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/account/update/<string:user_id>', methods=['PUT'])
+def update_useraccount(user_id):
+    jsn = json.loads(request.data)
+
+    user_id = jsn.get('user_id', '')
+    first_name = jsn.get('first_name', '')
+    last_name = jsn.get('last_name', '')
+    address1 = jsn.get('address1', '')
+    mobile_no = jsn.get('mobile_no', '')
+    email = jsn.get('email', '')
+
+    print (jsn)
+
+    res = spcall('update_useraccount', (
+        user_id,
+        first_name,
+        last_name,
+        address1,
+        mobile_no,
+        email), True)
+
+    print res
+    
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+    else:
+        return jsonify({'status': 'Ok'})
+
+
+
