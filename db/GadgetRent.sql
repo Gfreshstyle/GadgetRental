@@ -250,3 +250,28 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function new_customer(p_email text, p_password text) returns text as
+$$
+declare 
+	v_email text;
+	v_res text;
+
+begin
+	select into v_email email from UserAccount where email = p_email;
+
+		if v_email isnull then
+			if p_email = '' or p_password = '' then
+				v_res = 'Error';
+			else
+				insert into UserAccount(email, password, is_customer)
+					values(p_email, p_password, TRUE);
+					v_res = 'Ok';
+			end if;
+		else
+			v_res = 'Email already exists';
+		end if;
+		return v_res;
+end;
+$$
+	language 'plpgsql';
