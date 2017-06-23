@@ -355,3 +355,11 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function get_category(in p_user_id int, out text, out int) returns setof record as 
+$$
+	select category_name, user_id from Category CROSS JOIN UserAccount where UserAccount.user_id = p_user_id;
+$$
+	language 'sql';
+
+
