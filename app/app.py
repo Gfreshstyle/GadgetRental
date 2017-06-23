@@ -524,3 +524,47 @@ def get_gadgetowners():
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
 
 # Get gadget owner by id
+
+@app.route('/gadget/category/<string:gadget_category_name>/brand/<string:gadget_brandname>/<string:user_id>', methods=['GET'])
+def get_gadgetbycategorybrandname(gadget_category_name, gadget_brandname, user_id):
+    res = spcall('get_gadgetbycategorybrandname', (gadget_category_name, gadget_brandname, user_id), )
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_category_name': str(r[0]) ,'gadget_plate_number': str(r[1]), 'gadget_color': str(r[2]), 'gadget_model': str(r[3]),
+                    'gadget_rental_rate': str(r[4]), 'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]), 'gadget_owner_id': r[10], 'user_id': r[11]})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/cart/<string:cart_item_id>/<string:cart_user_id>', methods=['POST'])
+def addtocart(cart_item_id, cart_user_id):
+    jsn = json.loads(request.data)    
+
+    res = spcall('cart_addproduct', (
+                jsn['cart_item_id'],
+                jsn['cart_user_id']), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    print res
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
+
+@app.route('/cart/<string:cart_user_id>', methods=['GET'])
+def cart(cart_user_id):
+    res = spcall('get_cartbyuser2', (cart_user_id,), )
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_item_id': str(r[0]), 'gadget_category_name': str(r[1]), 'gadget_brandname': str(r[2]), 'gadget_model': str(r[3]),
+            'gadget_color': str(r[4]), 'gadget_rental_rate': str(r[5]), 'gadget_image': str(r[6]), 'gadget_scale': str(r[7]), 'gadget_ram': str(r[8]), 'gadget_memory': str(r[9]), 'gadget_description': str(r[10]), 'cart_user_id': str(r[11]),
+            'cart_id': str(r[12])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)}) 
