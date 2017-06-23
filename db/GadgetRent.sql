@@ -102,3 +102,17 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function update_gadgetowner(in p_owner_id int, p_owner_fname text, p_owner_lname text, p_owner_add1 text, p_owner_mobile_no numeric) returns void as
+$$
+	update Owner
+	set
+		owner_first_name = p_owner_fname,
+		owner_last_name = p_owner_lname,
+		owner_address1 = p_owner_add1,
+		owner_mobile_no = p_owner_mobile_no
+
+	where 
+	owner_id = p_owner_id
+$$
+	language 'sql';
