@@ -154,3 +154,25 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function update_gadget(in p_item_id text, p_color text, p_brandname text, p_model text, p_rental_rate numeric, p_image text, p_owner_id int, 
+										p_category_name text, p_scale text, p_ram text, p_memory text, p_description text) returns void as
+$$
+	update Gadget
+	set 
+		gadget_color = p_color,
+		gadget_model = p_model,
+		gadget_rental_rate = p_rental_rate,
+		gadget_image = p_image,
+		gadget_category_name = p_category_name,
+		gadget_owner_id = p_owner_id,
+		gadget_brandname = p_brandname,
+		gadget_scale = p_scale,
+		gadget_ram = p_ram,
+		gadget_memory = p_memory,
+		gadget_description = p_description
+		
+	where 
+		gadget_item_id = p_item_id
+$$
+	language 'sql';
