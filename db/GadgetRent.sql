@@ -438,3 +438,29 @@ $$
 					and Cart.cart_user_id = p_user_id;
 $$
 	language 'sql'; 
+
+create or replace function rentgadget(p_rent_item_id text, p_user_id int) returns text as
+$$
+declare
+	v_rent_item_id text;
+	v_res text;
+
+begin 	
+	select into v_rent_item_id rent_item_id from Rent where rent_item_id = p_rent_item_id;
+
+		if v_rent_item_id isnull then
+			if p_rent_item_id = '' or p_user_id = null then
+				v_res = 'Error';
+			else 
+				insert into Rent(rent_item_id, rent_user_id)
+					values(p_rent_item_id, p_user_id);
+					v_res = 'Ok';
+
+			end if;
+		else
+			v_res = 'Gadget in Rent';
+		end if;
+		return v_res;
+end 
+$$
+	language 'plpgsql';
