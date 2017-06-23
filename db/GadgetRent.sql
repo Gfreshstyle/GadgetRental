@@ -79,3 +79,26 @@ create table Rent(
 );
 
 
+create or replace function new_owner(p_fname text, p_lname text, p_add1 text, p_mobile_no numeric) returns text as
+$$
+declare 
+	v_fname text;
+	v_res text;
+
+begin
+	select into v_fname from Owner where first_name = p_fname;
+		if v_fname isnull then
+			if p_fname = '' or p_lname = '' or p_add1 = '' or p_mobile_no = null then 
+				v_res = 'Error';
+			else 
+				insert into Owner(owner_first_name, owner_last_name, owner_address1, owner_mobile_no)
+						values(p_fname, p_lname, p_add1, p_mobile_no);
+						v_res = 'Ok';
+			end if;
+		else
+			v_res = 'Owner already exists';
+		end if;
+		return v_res;
+end;
+$$
+	language 'plpgsql';
