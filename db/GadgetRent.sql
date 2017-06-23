@@ -128,3 +128,29 @@ $$
 	select owner_id, owner_first_name, owner_last_name, owner_address1, owner_mobile_no from Owner where owner_id = p_owner_id;
 $$
 	language 'sql';
+
+
+create or replace function new_gadget(p_item_id text, p_color text, p_brandname text, p_model text, p_rental_rate numeric, p_image text, p_owner_id int, p_category_name text, p_gadget_scale text, p_gadget_ram text, p_gadget_memory text, p_gadget_description text) returns text as
+$$
+declare 
+	v_item_id text;
+	v_res text;
+
+begin 
+	select into v_item_id from Gadget where gadget_item_id = p_item_id;
+		if v_item_id isnull then
+			if p_item_id = '' or p_color = '' or p_brandname = '' or p_model = '' or p_rental_rate = null or
+				p_owner_id = null or p_image = null or p_category_name = null  then
+				v_res = 'Error';
+			else
+				insert into Gadget(gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description)
+					values(p_item_id, p_color, p_brandname, p_model, p_rental_rate, p_image, p_owner_id, p_category_name, p_gadget_scale, p_gadget_ram, p_gadget_memory, p_gadget_description);
+					v_res = 'Ok';
+			end if;
+		else
+			v_res = 'Gadget already exists';
+		end if;
+		return v_res;
+end;
+$$
+	language 'plpgsql';
