@@ -94,6 +94,30 @@ def login():
     #     session['logged_in'] = False
     #     return jsonify({'status': 'Invalid credentials'})
 
+@app.route('/owner/update/<owner_id>', methods=['PUT'])
+def update_gadgetowner(owner_id):
+    jsn = json.loads(request.data)
+
+    owner_id = jsn.get('owner_id', '')
+    owner_first_name = jsn.get('owner_first_name', '')
+    owner_last_name = jsn.get('owner_last_name', '')
+    owner_address1 = jsn.get('owner_address1', '')
+    owner_mobile_no = jsn.get('owner_mobile_no', '')
+
+    print (jsn)
+
+    res = spcall('update_gadgetowner', (
+        owner_id,
+        owner_first_name,
+        owner_last_name,
+        owner_address1,
+        owner_mobile_no), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+    else:
+        return jsonify({'status': 'Ok'})    
+
 def get_userbyemail(email):
     return spcall("get_userbyemail", (email,))
 
