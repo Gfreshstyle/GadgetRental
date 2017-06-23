@@ -316,6 +316,89 @@ def get_brands():
         recs.append({'brand_name': str(r[0])})
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+# Update gadget
+@app.route('/gadget/update/<string:gadget_item_id>', methods=['PUT'])
+def update_gadget(gadget_item_id):
+    jsn = json.loads(request.data)
+
+    gadget_item_id = jsn.get('gadget_item_id', '')
+    gadget_color = jsn.get('gadget_color', '')
+    gadget_model = jsn.get('gadget_model', '')
+    gadget_rental_rate = jsn.get('gadget_rental_rate', '')
+    gadget_image = jsn.get('gadget_image', '')
+    gadget_scale = jsn.get('gadget_scale', '')
+    gadget_ram = jsn.get('gadget_ram', '')
+    gadget_memory = jsn.get('gadget_memory', '')
+    gadget_description = jsn.get('gadget_description', '')
+    gadget_category_name = jsn.get('gadget_category_name', '')
+    gadget_owner_id = jsn.get('gadget_owner_id', '')
+    gadget_brandname = jsn.get('gadget_brandname', '')
+
+    print (jsn)
+
+    res = spcall('update_gadget', (
+        gadget_plate_number,
+        gadget_color,
+        gadget_brandname,
+        gadget_model,
+        gadget_rental_rate,
+        gadget_image,
+        gadget_scale,
+        gadget_ram,
+        gadget_memory,
+        gadget_description,
+        gadget_owner_id,
+        gadget_category_name,), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+    else:
+        return jsonify({'status': 'Ok'})
+
+# Get all gadgets
+@app.route('/gadgets/<string:user_id>', methods=['GET'])
+def get_gadgets(user_id):
+
+    print ("user_id:" + str(user_id))
+
+    res = spcall('get_gadgets', (user_id,), )
+
+    rescategory = spcall('get_category', (user_id,), )
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    if 'Error' in str(rescategory[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_plate_number': str(r[0]), 'gadget_color': str(r[1]), 'gadget_brandname': str(r[2]), 'gadget_model': r[3],
+            'gadget_rental_rate': str(r[4]), 'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]),'gadget_owner_id': r[10], 'gadget_category_name': str(r[11]),
+            'user_id': str(r[12])})
+
+    recscategory = []
+    for r in rescategory:
+        recscategory.append({'category_name': str(r[0]), 'user_id': r[1]})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs), 'categories': recscategory,
+                'countcategories': len(recscategory)})
+
+@app.route('/gadgets', methods=['GET'])
+def get_gadgetsinadmin():
+
+    res = spcall('get_gadgetsinadmin', (), )
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'gadget_item_id': str(r[0]), 'gadget_color': str(r[1]), 'gadget_brandname': str(r[2]), 'gadget_model': r[3],
+            'gadget_rental_rate': str(r[4]), 'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]), 'gadget_owner_id': r[10], 'gadget_category_name': str(r[11])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
 
 # Add new gadget
 @app.route('/gadget/<string:gadget_item_id', methods=['POST'])
