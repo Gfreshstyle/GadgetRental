@@ -127,3 +127,18 @@ def new_customer():
         return jsonify({'status': 'Password Mismatch'})
 
     return jsonify({'status': 'Ok', 'message': res[0][0]})
+
+# Get customers
+@app.route('/customers', methods=['GET'])
+def get_customers():
+    res = spcall('get_customers', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'user_id': r[0], 'first_name': str(r[1]), 'last_name': str(r[2]), 'address1': str(r[3]), 'mobile_no': str(r[4]), 'email': str(r[5]), 'password': str(r[6]),
+                    'is_admin': str(r[7]), 'is_customer': str(r[8])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
