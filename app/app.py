@@ -290,6 +290,57 @@ def update_gadgetowner(owner_id):
         return jsonify({'status': 'Error', 'message': res[0][0]})
     else:
         return jsonify({'status': 'Ok'})
+@app.route('/category', methods=['GET'])
+def get_categories():
+    res = spcall('get_category', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'category_name': str(r[0])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+# Get all brands
+@app.route('/brand', methods=['GET'])
+def get_brands():
+    res = spcall('get_brand', ())
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'brand_name': str(r[0])})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+# Add new gadget
+@app.route('/gadget/<string:gadget_item_id', methods=['POST'])
+def new_gadget(gadget_item_id):
+    jsn = json.loads(request.data)
+
+    res = spcall('new_gadget', (
+        jsn['gadget_item_id'],
+        jsn['gadget_color'],
+        jsn['gadget_brandname'],
+        jsn['gadget_model'],
+        jsn['gadget_rental_rate'],
+        jsn['gadget_image'],
+        jsn['gadget_scale'],
+        jsn['gadget_ram'],
+        jsn['gadget_memory'],
+        jsn['gadget_description'],
+        jsn['gadget_owner_id'],
+        jsn['gadget_category_name'],), True)
+
+    if 'Error' in res[0][0]:
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify({'status': 'Ok', 'message': res[0][0]})
+
 
 # Get gadget owners
 @app.route('/owners', methods=['GET'])
