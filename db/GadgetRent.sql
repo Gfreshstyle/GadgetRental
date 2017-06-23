@@ -290,3 +290,10 @@ $$
 		user_id = p_user_id
 $$
 	language 'sql';	
+
+create or replace function get_userprofile(in p_user_id int, out int, out text,
+								out text, out text, out numeric, out text) returns setof record as
+$$
+	select user_id, first_name, last_name, address1, mobile_no, email from UserAccount where user_id = p_user_id;
+$$
+	language 'sql'
