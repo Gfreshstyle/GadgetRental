@@ -324,3 +324,14 @@ end;
 $$
 	language 'plpgsql';
 
+create or replace function get_userbyemail(in p_email text, out text, out int, out text, out text, out text, 
+										 out numeric, out boolean, out boolean) returns setof record as
+$$
+	select email, user_id, first_name, last_name, address1, mobile_no, is_admin, is_customer from UserAccount where email = p_email;
+$$
+	language 'sql';
+
+create table Category(
+	category_name text primary key
+);
+
