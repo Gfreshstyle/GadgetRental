@@ -116,3 +116,15 @@ $$
 	owner_id = p_owner_id
 $$
 	language 'sql';
+
+create or replace function get_gadgetowners(out int, out text, out text, out text, out numeric) returns setof record as
+$$
+	select owner_id, owner_first_name, owner_last_name, owner_address1, owner_mobile_no from Owner;
+$$
+	language 'sql';
+
+create or replace function get_gadgetownerbyid(in p_owner_id int, out int, out text, out text, out text, out numeric) returns setof record as
+$$
+	select owner_id, owner_first_name, owner_last_name, owner_address1, owner_mobile_no from Owner where owner_id = p_owner_id;
+$$
+	language 'sql';
