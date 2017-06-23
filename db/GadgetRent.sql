@@ -297,3 +297,12 @@ $$
 	select user_id, first_name, last_name, address1, mobile_no, email from UserAccount where user_id = p_user_id;
 $$
 	language 'sql'
+
+create or replace function get_customers(out int, out text, out text, out text, out numeric, out text,
+										out text, out boolean, out boolean) returns setof record as
+$$
+	select user_id, first_name, last_name, address1, mobile_no, email,
+			password, is_admin, is_customer from UserAccount where is_customer = TRUE;
+$$
+	language 'sql';
+
