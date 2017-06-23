@@ -331,7 +331,27 @@ $$
 $$
 	language 'sql';
 
-create table Category(
-	category_name text primary key
-);
+create or replace function new_category(p_category_name text) returns text as
+$$
+declare
+	v_category_name text;
+	v_res text;
 
+begin
+	select into v_category_name category_name from Category where category_name = p_category_name;
+
+		if v_category_name isnull then
+			if p_category_name = '' then
+				v_res = 'Error';
+			else
+				insert into Category(category_name)
+					values(p_category_name);
+					v_res = 'Ok';
+			end if;
+		else
+			v_res = 'Category already exists';
+		end if;
+		return v_res;
+end;
+$$
+	language 'plpgsql';
