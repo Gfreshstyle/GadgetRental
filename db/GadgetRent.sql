@@ -154,7 +154,7 @@ $$
 	language 'sql';
 
 -- Get gadget by item_id
-create or replace function get_gadgetbyplatenumber(in p_item_id text, in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
+create or replace function get_gadgetbyitemid(in p_item_id text, in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
 $$
 	select  gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description, UserAccount.user_id 
 		from Gadget CROSS JOIN UserAccount where gadget_item_id = p_item_id and user_id = p_user_id;
@@ -414,7 +414,7 @@ create table Cart(
 	cart_user_id int references UserAccount(user_id)
 );
 
-create or replace function cart_addproduct(p_cart_plate_number text, p_user_id int) returns text as
+create or replace function cart_addproduct(p_cart_item_id text, p_user_id int) returns text as
 $$
 declare
 	v_cart_item_id text;
@@ -423,7 +423,7 @@ declare
 begin
 	select into v_cart_item_id cart_item_id from Cart where cart_item_id = p_cart_item_id and cart_user_id = p_user_id ;
 
-		if v_cart_plate_number isnull then
+		if v_cart_item_id isnull then
 			if p_cart_item_id = '' or p_user_id = null then
 				v_res = 'Error';
 			else

@@ -356,7 +356,7 @@ def update_gadget(gadget_item_id):
     print (jsn)
 
     res = spcall('update_gadget', (
-        gadget_plate_number,
+        gadget_item_id,
         gadget_color,
         gadget_brandname,
         gadget_model,
@@ -392,7 +392,7 @@ def get_gadgets(user_id):
 
     recs = []
     for r in res:
-        recs.append({'gadget_plate_number': str(r[0]), 'gadget_color': str(r[1]), 'gadget_brandname': str(r[2]), 'gadget_model': r[3],
+        recs.append({'gadget_item_id': str(r[0]), 'gadget_color': str(r[1]), 'gadget_brandname': str(r[2]), 'gadget_model': r[3],
             'gadget_rental_rate': str(r[4]), 'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]),'gadget_owner_id': r[10], 'gadget_category_name': str(r[11]),
             'user_id': str(r[12])})
 
@@ -510,7 +510,7 @@ def get_gadgetbycategorybrandname(gadget_category_name, gadget_brandname, user_i
 
     recs = []
     for r in res:
-        recs.append({'gadget_category_name': str(r[0]) ,'gadget_plate_number': str(r[1]), 'gadget_color': str(r[2]), 'gadget_model': str(r[3]),
+        recs.append({'gadget_category_name': str(r[0]) ,'gadget_item_id': str(r[1]), 'gadget_color': str(r[2]), 'gadget_model': str(r[3]),
                     'gadget_rental_rate': str(r[4]), 'gadget_image': str(r[5]), 'gadget_scale': str(r[6]), 'gadget_ram': str(r[7]), 'gadget_memory': str(r[8]), 'gadget_description': str(r[9]), 'gadget_owner_id': r[10], 'user_id': r[11]})
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
