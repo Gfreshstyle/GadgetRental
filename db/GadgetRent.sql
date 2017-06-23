@@ -429,3 +429,12 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function get_cartbyuser2(in p_user_id int, out text, out text, out text, out text,
+										out text, out numeric, out text, out text, out text, out text, out text, out int, out int) returns setof record as 
+$$
+	select Gadget.gadget_item_id, Gadget.gadget_category_name, Gadget.gadget_brandname, Gadget.gadget_model, Gadget.gadget_color, Gadget.gadget_rental_rate, Gadget.gadget_image, Gadget.gadget_scale, Gadget.gadget_ram, Gadget.gadget_memory, Gadget.gadget_description, 
+					cart_user_id, cart_id from Cart Cross Join Gadget where Gadget.gadget_item_id = Cart.cart_item_id
+					and Cart.cart_user_id = p_user_id;
+$$
+	language 'sql'; 
