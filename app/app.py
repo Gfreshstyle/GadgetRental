@@ -568,3 +568,65 @@ def cart(cart_user_id):
             'cart_id': str(r[12])})
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)}) 
+
+    @app.route('/rentals', methods=['GET'])
+def getallrents():
+    res = spcall('getallrents', (), )
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'rental_id': r[0], 'rent_date_rented': str(r[1]), 'rent_date_due': str(r[2]), 'rent_total_bill': str(r[3]),
+                    'rent_overdue_cost': str(r[4]), 'rent_item_id': str(r[5]), 'rent_user_id': r[6],
+                    'rent_quantity': r[7]})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/rentals/<string:user_id>', methods=['GET'])
+def getrentsbyid(user_id):
+    res = spcall('getrentbyuserid', (user_id,), )
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'rental_id': r[0], 'rent_date_rented': str(r[1]), 'rent_date_due': str(r[2]), 'rent_total_bill': str(r[3]),
+                    'rent_overdue_cost': str(r[4]), 'rent_item_id': str(r[5]), 'rent_user_id': r[6], 'rent_quantity': r[7]})
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
+                  "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
+                  "name", "net", "org", "pro", "tel", "travel"
+
+def invalid(emailaddress, domains=GENERIC_DOMAINS):
+    """Checks for a syntactically invalid email address."""
+
+    # Email address must be 7 characters in total.
+    if len(emailaddress) < 7:
+        return True  # Address too short.
+
+    # Split up email address into parts.
+    try:
+        localpart, domainname = emailaddress.rsplit('@', 1)
+        host, toplevel = domainname.rsplit('.', 1)
+    except ValueError:
+        return True  # Address does not have enough parts.
+
+    # Check for Country code or Generic Domain.
+    if len(toplevel) != 2 and toplevel not in domains:
+        return True  # Not a domain name.
+
+    for i in '-_.%+.':
+        localpart = localpart.replace(i, "")
+    for i in '-_.':
+        host = host.replace(i, "")
+
+    if localpart.isalnum() and host.isalnum():
+        return False  # Email address is fine.
+    else:
+        return True  # Email address has funny characters.
+
