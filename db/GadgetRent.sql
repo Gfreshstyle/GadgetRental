@@ -10,74 +10,7 @@ create table Owner(
 	owner_mobile_no numeric
 );
 
-create table Gadget(
-	-- gadget_id serial primary key,
-	gadget_item_id text primary key,
-	gadget_color text,
-	gadget_model text,
-	gadget_rental_rate numeric,
-	gadget_image text,
-	gadget_scale text,
-	gadget_ram text,
-	gadget_memory text,
-	gadget_description text, 
-	gadget_owner_id int references Owner(owner_id),
-	gadget_category_name text references Category(category_name),
-	gadget_brandname text references Brand(brandname)
-);
-
-create table GadgetPix(
-	cp_id serial primary key,
-	image1 text,
-	image2 text,
-	image3 text,
-	image4 text,
-	item_id text references Gadget(gadget_item_id)
-
-);
-
-
-create table UserAccount(
-	user_id serial primary key,
-	first_name text default null,
-	last_name text default null,
-	address1 text default null,
-	mobile_no numeric default null,
-	email text unique not null,
-	password text not null,
-	is_admin boolean default false,
-	is_customer boolean default false
-);
-
-
-create table Category(
-	category_name text primary key
-);
-
-create table Brand(
-	brandname text primary key
-);
-
-
-create table Cart(
-	cart_id serial primary key,
-	cart_total numeric default 0,
-	cart_time_added timestamp default current_timestamp ,
-	cart_item_id text references Gadget(gadget_item_id),
-	cart_user_id int references UserAccount(user_id)
-);
-
-create table Rent(
-	rental_id serial primary key,
-	rent_date_rented timestamp default current_timestamp,
-	rent_date_due date default now(),
-	rent_total_bill numeric,
-	rent_overdue_cost int default 0,
-	rent_item_id text references Gadget(gadget_item_id),
-	rent_user_id int references UserAccount(user_id),
-	rent_quantity int default 1
-);
-
+-- Add Owner
 
 create or replace function new_owner(p_fname text, p_lname text, p_add1 text, p_mobile_no numeric) returns text as
 $$
@@ -103,6 +36,7 @@ end;
 $$
 	language 'plpgsql';
 
+-- Update Owner
 create or replace function update_gadgetowner(in p_owner_id int, p_owner_fname text, p_owner_lname text, p_owner_add1 text, p_owner_mobile_no numeric) returns void as
 $$
 	update Owner
@@ -117,18 +51,45 @@ $$
 $$
 	language 'sql';
 
+-- Get gadget owners
 create or replace function get_gadgetowners(out int, out text, out text, out text, out numeric) returns setof record as
 $$
 	select owner_id, owner_first_name, owner_last_name, owner_address1, owner_mobile_no from Owner;
 $$
 	language 'sql';
 
+-- Get gadget owner by id
 create or replace function get_gadgetownerbyid(in p_owner_id int, out int, out text, out text, out text, out numeric) returns setof record as
 $$
 	select owner_id, owner_first_name, owner_last_name, owner_address1, owner_mobile_no from Owner where owner_id = p_owner_id;
 $$
 	language 'sql';
 
+create table Gadget(
+	-- gadget_id serial primary key,
+	gadget_item_id text primary key,
+	gadget_color text,
+	gadget_model text,
+	gadget_rental_rate numeric,
+	gadget_image text,
+	gadget_scale text,
+	gadget_ram text,
+	gadget_memory text,
+	gadget_description text, 
+	gadget_owner_id int references Owner(owner_id),
+	gadget_category_name text references Category(category_name),
+	gadget_brandname text references Brand(brandname)
+);
+
+create table GadgetPix(
+	cp_id serial primary key,
+	image1 text,
+	image2 text,
+	image3 text,
+	image4 text,
+	item_id text references Gadget(gadget_item_id)
+
+);
 
 create or replace function new_gadget(p_item_id text, p_color text, p_brandname text, p_model text, p_rental_rate numeric, p_image text, p_owner_id int, p_category_name text, p_gadget_scale text, p_gadget_ram text, p_gadget_memory text, p_gadget_description text) returns text as
 $$
@@ -177,6 +138,7 @@ $$
 $$
 	language 'sql';
 
+-- Get all Gadget
 create or replace function get_gadget(in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
 $$
 	select gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description, UserAccount.user_id 
@@ -184,19 +146,22 @@ $$
 $$
 	language 'sql';
 
+-- Get gadgets in admin
 create or replace function get_gadgetsinadmin(out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text) returns setof record as
 $$
 	select gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description from Gadget
 $$
 	language 'sql';
 
-create or replace function get_gadgetbyitemid(in p_item_id text, in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
+-- Get gadget by item_id
+create or replace function get_gadgetbyplatenumber(in p_item_id text, in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
 $$
 	select  gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description, UserAccount.user_id 
 		from Gadget CROSS JOIN UserAccount where gadget_item_id = p_item_id and user_id = p_user_id;
 $$
 	language 'sql';
 
+-- Get gadget by itemid in admin
 create or replace function get_gadgetbyitemidinadmin(in p_item_id text, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text) returns setof record as
 $$
 	select gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description 
@@ -204,6 +169,7 @@ $$
 $$
 	language 'sql';
 
+-- Get gadget by category
 create or replace function get_gadgetbycategory(in p_category_name text, in p_user_id int, out text, out text, out text, out text,
 		out text, out numeric, out text, out int, out text, out text, out text, out text, out int) returns setof record as
 $$
@@ -213,12 +179,14 @@ $$
 $$
 	language 'sql';
 
+-- Get gadget by brandname
 create or replace function get_gadgetbybrandname(in p_brandname text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text) returns setof record as
 $$
 	select gadget_item_id, gadget_color, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description from Gadget where gadget_brandname = p_brandname;
 $$
 	language 'sql';
 
+-- Get gadget by category and brandname
 create or replace function get_gadgetbycategorybrandname(in p_category_name text, in p_brandname text, in p_user_id int,
 	out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out int) returns setof record as
 $$
@@ -227,6 +195,20 @@ $$
 $$
 	language 'sql';
 
+create table UserAccount(
+	user_id serial primary key,
+	first_name text default null,
+	last_name text default null,
+	address1 text default null,
+	mobile_no numeric default null,
+	email text unique not null,
+	password text not null,
+	is_admin boolean default false,
+	is_customer boolean default false
+);
+
+-- New Admin
+	
 create or replace function new_admin(p_email text, p_password text) returns text as
 $$
 declare 
@@ -251,6 +233,7 @@ end;
 $$
 	language 'plpgsql';
 
+-- New Customer
 create or replace function new_customer(p_email text, p_password text) returns text as
 $$
 declare 
@@ -276,6 +259,7 @@ end;
 $$
 	language 'plpgsql';
 
+-- Update account
 create or replace function update_useraccount(in p_user_id int, p_firstname text, p_lastname text,
 								p_address1 text, p_mobileno numeric, email text) returns void as
 $$
@@ -291,6 +275,7 @@ $$
 $$
 	language 'sql';	
 
+-- Get userprofile by id
 create or replace function get_userprofile(in p_user_id int, out int, out text,
 								out text, out text, out numeric, out text) returns setof record as
 $$
@@ -298,6 +283,7 @@ $$
 $$
 	language 'sql'
 
+-- Get customers
 create or replace function get_customers(out int, out text, out text, out text, out numeric, out text,
 										out text, out boolean, out boolean) returns setof record as
 $$
@@ -306,6 +292,7 @@ $$
 $$
 	language 'sql';
 
+-- Login
 create or replace function login(p_email text, p_password text) returns text as
 $$
 declare
@@ -324,6 +311,7 @@ end;
 $$
 	language 'plpgsql';
 
+-- Login role with users email
 create or replace function get_userbyemail(in p_email text, out text, out int, out text, out text, out text, 
 										 out numeric, out boolean, out boolean) returns setof record as
 $$
@@ -331,6 +319,11 @@ $$
 $$
 	language 'sql';
 
+create table Category(
+	category_name text primary key
+);
+
+-- New category
 create or replace function new_category(p_category_name text) returns text as
 $$
 declare
@@ -356,12 +349,18 @@ end;
 $$
 	language 'plpgsql';
 
+-- Get category 
 create or replace function get_category(in p_user_id int, out text, out int) returns setof record as 
 $$
 	select category_name, user_id from Category CROSS JOIN UserAccount where UserAccount.user_id = p_user_id;
 $$
 	language 'sql';
 
+create table Brand(
+	brandname text primary key
+);
+
+-- New brandname
 create or replace function new_brand(p_brandname text) returns text as
 $$
 declare
@@ -387,6 +386,7 @@ end;
 $$
 	language 'plpgsql';
 
+-- Get Brand
 create or replace function get_brand(out text) returns setof text as
 $$
 	select brandname from Brand;
@@ -404,6 +404,15 @@ $$
 	select category_name, brandname From Category, Brand;
 $$
 	language 'sql';
+
+
+create table Cart(
+	cart_id serial primary key,
+	cart_total numeric default 0,
+	cart_time_added timestamp default current_timestamp ,
+	cart_item_id text references Gadget(gadget_item_id),
+	cart_user_id int references UserAccount(user_id)
+);
 
 create or replace function cart_addproduct(p_cart_plate_number text, p_user_id int) returns text as
 $$
@@ -439,6 +448,17 @@ $$
 $$
 	language 'sql'; 
 
+create table Rent(
+	rental_id serial primary key,
+	rent_date_rented timestamp default current_timestamp,
+	rent_date_due date default now(),
+	rent_total_bill numeric,
+	rent_overdue_cost int default 0,
+	rent_item_id text references Gadget(gadget_item_id),
+	rent_user_id int references UserAccount(user_id),
+	rent_quantity int default 1
+);
+
 create or replace function rentgadget(p_rent_item_id text, p_user_id int) returns text as
 $$
 declare
@@ -464,8 +484,7 @@ begin
 end 
 $$
 	language 'plpgsql';
-
-
+		
 create or replace function getrentbyuserid(in p_user_id int, out int, out timestamp, out date, out numeric, out int, out text, out int, out int) returns setof record as
 $$
 	select rental_id, rent_date_rented, rent_date_due, rent_total_bill, rent_overdue_cost, rent_item_id, rent_user_id, rent_quantity from Rent where rent_user_id = p_user_id;
