@@ -176,3 +176,10 @@ $$
 		gadget_item_id = p_item_id
 $$
 	language 'sql';
+
+create or replace function get_gadget(in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
+$$
+	select gadget_item_id, gadget_color, gadget_brandname, gadget_model, gadget_rental_rate, gadget_image, gadget_owner_id, gadget_category_name, gadget_scale, gadget_ram, gadget_memory, gadget_description, UserAccount.user_id 
+		from Gadget CROSS JOIN UserAccount where UserAccount.user_id = p_user_id;
+$$
+	language 'sql';
