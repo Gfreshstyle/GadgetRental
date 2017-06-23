@@ -464,3 +464,18 @@ begin
 end 
 $$
 	language 'plpgsql';
+
+
+create or replace function getrentbyuserid(in p_user_id int, out int, out timestamp, out date, out numeric, out int, out text, out int, out int) returns setof record as
+$$
+	select rental_id, rent_date_rented, rent_date_due, rent_total_bill, rent_overdue_cost, rent_item_id, rent_user_id, rent_quantity from Rent where rent_user_id = p_user_id;
+$$
+	language 'sql';
+
+
+create or replace function getallrents(out int, out timestamp, out date, out numeric, out int, out text, out int, out int) returns setof record as
+$$
+	select rental_id, rent_date_rented, rent_date_due, rent_total_bill, rent_overdue_cost, rent_item_id, rent_user_id, rent_quantity from Rent order by rent_date_rented desc;
+$$
+	language 'sql';
+
