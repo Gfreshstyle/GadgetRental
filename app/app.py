@@ -142,3 +142,19 @@ def get_customers():
                     'is_admin': str(r[7]), 'is_customer': str(r[8])})
 
     return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
+
+@app.route('/account/<string:user_id>', methods=['GET'])
+def useraccount(user_id):
+    res = spcall('get_userprofile', (user_id,), )
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+    for r in res:
+        recs.append({'user_id': str(r[0]), 'first_name': str(r[1]), 'last_name': str(r[2]), 'address1': str(r[3]), 
+            'mobile_no': str(r[4]), 'email': str(r[5])})
+
+    print recs
+
+    return jsonify({'status': 'Ok', 'entries': recs, 'count': len(recs)})
