@@ -404,3 +404,28 @@ $$
 	select category_name, brandname From Category, Brand;
 $$
 	language 'sql';
+
+create or replace function cart_addproduct(p_cart_plate_number text, p_user_id int) returns text as
+$$
+declare
+	v_cart_item_id text;
+	v_res text; 
+
+begin
+	select into v_cart_item_id cart_item_id from Cart where cart_item_id = p_cart_item_id and cart_user_id = p_user_id ;
+
+		if v_cart_plate_number isnull then
+			if p_cart_item_id = '' or p_user_id = null then
+				v_res = 'Error';
+			else
+				insert into Cart(cart_item_id, cart_user_id)
+					values(p_cart_item_id, p_user_id);
+					v_res = 'Ok';
+			end if;
+		else
+			v_res = 'Gadget already exists';
+		end if;
+		return v_res;
+end;
+$$
+	language 'plpgsql';
