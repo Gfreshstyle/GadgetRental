@@ -275,3 +275,18 @@ begin
 end;
 $$
 	language 'plpgsql';
+
+create or replace function update_useraccount(in p_user_id int, p_firstname text, p_lastname text,
+								p_address1 text, p_mobileno numeric, email text) returns void as
+$$
+	update UserAccount
+	set
+		first_name = p_firstname,
+		last_name = p_lastname,
+		address1 = p_address1,
+		mobile_no = p_mobileno
+
+	where
+		user_id = p_user_id
+$$
+	language 'sql';	
