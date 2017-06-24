@@ -36,6 +36,8 @@ end;
 $$
 	language 'plpgsql';
 
+select new_owner('of1', 'ol1', 'add1', 1);
+
 -- Update Owner
 create or replace function update_gadgetowner(in p_owner_id int, p_owner_fname text, p_owner_lname text, p_owner_add1 text, p_owner_mobile_no numeric) returns void as
 $$

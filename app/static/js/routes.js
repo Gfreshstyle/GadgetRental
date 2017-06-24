@@ -1,21 +1,21 @@
 // window.onload = function(){
 //     $("#userprofile").hide();
-//     $("#addcar").hide();
-//     $("#tableforcars").hide();
+//     $("#addgadget").hide();
+//     $("#tableforgadgets").hide();
 
 // } 
 
 function showmainpage() {
 	$("#mainpage").show();
 	$("#userprofilepage").hide();
-	$("#addcarpage").hide();
-	$("#carspage").hide();
+	$("#addgadgetpage").hide();
+	$("#gadgetspage").hide();
 	$("#addownerpage").hide();
-	$("#updatecarpage").hide();
+	$("#updategadgetpage").hide();
 	$("#accountcustomerspage").hide();
 	$("#updateownerpage").hide();
-	$("#cardetailspage").hide();
-	$("#carownersdetailspage").hide();
+	$("#gadgetdetailspage").hide();
+	$("#gadgetownersdetailspage").hide();
 	$("#allrentalspage").hide();
 
 }
@@ -23,47 +23,47 @@ function showmainpage() {
 function showuserprofilepage() {
 	$("#mainpage").hide();
 	$("#userprofilepage").show();
-	$("#addcarpage").hide();
-	$("#carspage").hide();
+	$("#addgadgetpage").hide();
+	$("#gadgetspage").hide();
 	$("#addownerpage").hide();
-	$("#updatecarpage").hide();
+	$("#updategadgetpage").hide();
 
 }
 
-function showaddcarpage() {
+function showaddgadgetpage() {
 	$("#mainpage").hide();
 	$("#userprofilepage").hide();
-	$("#addcarpage").show();
-	$("#carspage").hide();
+	$("#addgadgetpage").show();
+	$("#gadgetspage").hide();
 	$("#addownerpage").hide();
-	$("#updatecarpage").hide();
-	$("#carownerspage").hide();
-	$("#carownersdetailspage").hide();
+	$("#updategadgetpage").hide();
+	$("#gadgetownerspage").hide();
+	$("#gadgetownersdetailspage").hide();
 	$("#accountcustomerspage").hide();
 	$("#updateownerpage").hide();
 	$("#allrentalspage").hide();
 
 }
 
-// function showtableforcars() {
+// function showtableforgadgets() {
 // 	$("#main").hide();
 // 	$("#userprofile").hide();
-// 	$("#addcar").hide();
-// 	$("#tableforcars").show();
+// 	$("#addgadget").hide();
+// 	$("#tableforgadgets").show();
 // }
 
 function showaddownerpage() {
 	$("#mainpage").hide();
 	$("#userprofilepage").hide();
-	$("#addcarpage").hide();
-	$("#carspage").hide();
+	$("#addgadgetpage").hide();
+	$("#gadgetspage").hide();
 	$("#addownerpage").show();
-	$("#updatecarpage").hide();
-	$("#carownerspage").hide();
-	$("#cardetailspage").hide();
+	$("#updategadgetpage").hide();
+	$("#gadgetownerspage").hide();
+	$("#gadgetdetailspage").hide();
 	$("#accountcustomerspage").hide();
 	$("#updateownerpage").hide();
-	$("#carownersdetailspage").hide();
+	$("#gadgetownersdetailspage").hide();
 	$("#allrentalspage").hide();
 
 }
@@ -72,10 +72,10 @@ function showshophomepage() {
 	$("#accountpage").show();
 	$("#homepage").hide();
 	$("#shoppage").hide();
-	$("#cardetailspage").hide();
-	$("#cartpage").hide();
+	$("#gadgetdetailspage").hide();
+	$("#gadgettpage").hide();
 	$("#checkoutpage").hide();
-	$('#cardetailsecommercepage').hide();
+	$('#gadgetdetailsecommercepage').hide();
 	$("#profilepage").hide();
 
 }	
@@ -84,9 +84,9 @@ function showshophomepage2() {
 	$("#accountpage").hide();
 	$("#homepage").show();
 	$("#shoppage").hide();
-	$("#cardetailspage").hide();
-	$("#cartpage").hide();
+	$("#gadgetdetailspage").hide();
+	$("#gadgettpage").hide();
 	$("#checkoutpage").hide();
-	$('#cardetailsecommercepage').hide();
+	$('#gadgetdetailsecommercepage').hide();
 	$('#profilepage').hide();
 }
