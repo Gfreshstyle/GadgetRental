@@ -36,7 +36,7 @@ end;
 $$
 	language 'plpgsql';
 
-select new_owner('of1', 'ol1', 'add1', 1);
+--select new_owner('of1', 'ol1', 'add1', 1);
 
 -- Update Owner
 create or replace function update_gadgetowner(in p_owner_id int, p_owner_fname text, p_owner_lname text, p_owner_add1 text, p_owner_mobile_no numeric) returns void as
@@ -93,6 +93,7 @@ create table GadgetPix(
 
 );
 
+--Add Gadget
 create or replace function new_gadget(p_item_id text, p_color text, p_brandname text, p_model text, p_rental_rate numeric, p_image text, p_owner_id int, p_category_name text, p_gadget_scale text, p_gadget_ram text, p_gadget_memory text, p_gadget_description text) returns text as
 $$
 declare 
@@ -118,6 +119,11 @@ end;
 $$
 	language 'plpgsql';
 
+--select new_gadget('A1', 'silver', 'Acer', 'AspireF15', 10, 'image1', 1, 'Laptop', '1920x768', '4GB DDR4 Memory', '2000GB HDD Memory', 'No scratches');
+--select new_gadget('B1', 'gold', 'BlackBerry', 'E30', 10, 'image1', 1, 'Cellphone', '1920x768', '4GB PENTIUM 3', '2GB HDD Memory', 'No scratches');
+
+--update gadget
+
 create or replace function update_gadget(in p_item_id text, p_color text, p_brandname text, p_model text, p_rental_rate numeric, p_image text, p_owner_id int, 
 										p_category_name text, p_scale text, p_ram text, p_memory text, p_description text) returns void as
 $$
@@ -139,6 +145,8 @@ $$
 		gadget_item_id = p_item_id
 $$
 	language 'sql';
+
+--select gadget_update('1', 'black', 'Acer', 'Aspire F14', 10, 'image10', 2, 'Laptop', , '1920x768', '4GB PENTIUM 3', '2GB HDD Memory', 'No scratches');
 
 -- Get all Gadget
 create or replace function get_gadget(in p_user_id int, out text, out text, out text, out text, out numeric, out text, out int, out text, out text, out text, out text, out text, out int) returns setof record as
@@ -197,6 +205,9 @@ $$
 $$
 	language 'sql';
 
+--select get_gadgetbycategorybrandname('Laptop', 'Acer');
+--select get_gadgetbycategorybrandname('Cellphone', 'BlackBerry');
+
 create table UserAccount(
 	user_id serial primary key,
 	first_name text default null,
@@ -235,6 +246,8 @@ end;
 $$
 	language 'plpgsql';
 
+--select new_admin('giovanniespina@gmail.com', '12345');
+
 -- New Customer
 create or replace function new_customer(p_email text, p_password text) returns text as
 $$
@@ -261,6 +274,8 @@ end;
 $$
 	language 'plpgsql';
 
+--select new_customer('giovanniespina@yahoo.com', '12345');
+
 -- Update account
 create or replace function update_useraccount(in p_user_id int, p_firstname text, p_lastname text,
 								p_address1 text, p_mobileno numeric, email text) returns void as
@@ -276,6 +291,8 @@ $$
 		user_id = p_user_id
 $$
 	language 'sql';	
+
+--select update_useraccount(9, 'c99', 'c99', 'add9', 99, 'c9');
 
 -- Get userprofile by id
 create or replace function get_userprofile(in p_user_id int, out int, out text,
@@ -441,6 +458,9 @@ end;
 $$
 	language 'plpgsql';
 
+--select cart_addproduct('A1', 9);
+--select cart_addproduct('B2', 9);
+
 create or replace function get_cartbyuser2(in p_user_id int, out text, out text, out text, out text,
 										out text, out numeric, out text, out text, out text, out text, out text, out int, out int) returns setof record as 
 $$
@@ -449,6 +469,8 @@ $$
 					and Cart.cart_user_id = p_user_id;
 $$
 	language 'sql'; 
+
+select get_cartbyuser(9, 3)
 
 create table Rent(
 	rental_id serial primary key,
@@ -486,6 +508,9 @@ begin
 end 
 $$
 	language 'plpgsql';
+
+--select rentgadget('A1', 9)
+
 		
 create or replace function getrentbyuserid(in p_user_id int, out int, out timestamp, out date, out numeric, out int, out text, out int, out int) returns setof record as
 $$
