@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker
 class DBconn:
     def __init__(self):
         #engine = create_engine("postgresql://$OPENSHIFT_POSTGRESQL_DB_HOST:$OPENSHIFT_POSTGRESQL_DB_PORT", echo=False)
-        engine = create_engine("postgresql://postgres:password@localhost:5432/gadget_rental", echo=False)
+        engine = create_engine("postgresql://giovanni:password@localhost:5432/gadget_rental", echo=False)
         # session = sessionmaker(bind=engine)
         self.conn = engine.connect()
         self.trans = self.conn.begin()
