@@ -49,23 +49,17 @@ create table RentGadget
 (
 	id              serial primary key,
 	quantity		int default 1,
-	gadget_id		int references Gadget(id)
-);
-
-create table Rent
-(
-	id              serial primary key,
-	user_id			int references UserAccount(id),
-	rent_gadget_id	int references RentGadget(id),
-	rent_due_date	timestamp default now()
+	gadget_id		int references Gadget(id),
+	user_id			int references UserAccount(id)
 );
 
 create table Transaction
 (
 	id              	serial primary key,
 	transaction_number 	int,
-	transaction_date 	timestamp default now(),	
-	rent_id 			int references Rent(id),
+	transaction_date 	timestamp default now(),
+	rent_due_date		timestamp default now(),
+	rent_gadget_id		int references RentGadget(id),
 	rent_overdue_cost 	int default 0,
 	total				numeric
 );
