@@ -176,6 +176,24 @@ def get_gadgets():
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
+# View rented gadgets
+
+@app.route ('/rentals/', methods=['GET'])
+def viewrents():
+    res = spcall('view_rented', ())
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+
+    for r in res:
+        recs.append({'gadget_name': r[0], 'gadget_description': r[1], 'gadget_model': r[2], 'gadget_color': str(r[3]),
+            'gadget_image': r[4], 'rental_rate': str(r[5]), 'Brands.brand_name': r[6],'Category.category_name': r[7], 
+            'UserAccount.first_name' : r[8]})
+
+    return jsonify({'status': 'OK', 'message' : res[0][0]})
+    
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \

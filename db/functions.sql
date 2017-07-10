@@ -127,6 +127,22 @@ create or replace function get_gadgets(out int, out text, out text, out text, ou
 		language 'sql';
 
 
+-- View Rented Gadgets
+--select view_rented();
+
+create or replace function view_rented(out par_gadget_name varchar, out par_gadget_description text, out par_gadget_model varchar,
+					out par_gadget_color varchar, out par_gadget_image varchar, out par_rental_rate numeric,
+					out par_brand_name varchar, out par_category_name varchar, out par_username varchar) returns setof record as
+$$
+	Select gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
+			Category.category_name, UserAccount.first_name
+		from (((Gadget 
+			inner join Brands on Gadget.gadget_brand_id = Brands.id)
+			inner join Category on Gadget.gadget_category_id = Category.id)
+			inner join UserAccount on Gadget.gadget_owner_id = UserAccount.id)
+		where is_rented = TRUE;
+$$
+ LANGUAGE 'sql';
 
 --	QUERIES
 select new_role('Administrator');
