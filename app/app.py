@@ -60,10 +60,10 @@ def get_user_by_id(id):
     res = []
 
     if len(user) == 0:
-        return jsonify({"status": "FAILED", "message": "No User Found", "entries": []})
+        return jsonify({"status": "Error", "message": "No User Found", "entries": []})
 
     elif 'Error' in str(user[0][0]):
-        return jsonify({"status": "FAILED", "message": user[0][0]})
+        return jsonify({"status": "Error", "message": user[0][0]})
 
     else:
         r = user[0]
@@ -110,6 +110,38 @@ def new_gadget():
    
     elif complete_fields is False:
         return jsonify({"status": "Error", "message": "Please fill the required field/s"})
+
+
+# View Gadget
+@app.route('/gadgets/<int:id>/', methods=['GET'])
+def get_gadget_by_id(id):
+    gadget = spcall('get_gadget_by_id',(id,))
+    res = []
+
+    if len(gadget) == 0:
+        return jsonify({"status": "Error", "message": "No Gadget Found", "entries": []})
+
+    elif 'Error' in str(gadget[0][0]):
+        return jsonify({"status": "Error", "message": gadget[0][0]})
+
+    else:
+        r = gadget[0]
+        res.append({   
+                'id': str(id), 
+                'gadget_name': str(r[1]),
+                'gadget_description': str(r[2]),
+                'gadget_model': str(r[3]),
+                'gadget_color': str(r[4]),
+                'gadget_image': str(r[5]),
+                'rental_rate': str(r[6]),
+                'gadget_brand_id': str(r[7]),
+                'gadget_category_id': str(r[8]),
+                'gadget_owner_id': str(r[9]),
+                'is_rented': str(r[10]),
+                'is_active': str(r[11])
+                })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res})
 
 
 
