@@ -26,8 +26,8 @@ create or replace function new_role(p_role_name varchar)
 
 -- Add User Account
 -- select new_user('fname', 'mname', 'lname', 'test@gmail.com', 'pass', 'Iligan City', '09234567891', 1 );
-create or replace function new_user(p_first_name varchar, p_middle_name varchar, p_last_name varchar, p_email varchar, p_password varchar, p_address varchar, p_mobile_no varchar, p_role_id int
-)
+create or replace function new_user(p_first_name varchar, p_middle_name varchar, p_last_name varchar, p_email varchar, p_password varchar, 
+	p_address varchar, p_mobile_no varchar, p_role_id int)
 	returns text as
 	$$
 		declare
@@ -61,7 +61,19 @@ create or replace function new_user(p_first_name varchar, p_middle_name varchar,
 		language 'plpgsql';
 
 
+-- Get userprofile by id
+-- select get_userprofile(1);
+create or replace function get_userprofile(in p_user_id int, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
+	returns setof record as
+	$$
+		select *
+		from UserAccount
+		where id = p_user_id;
+	$$
+		language 'sql';
+
 
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
+select new_role('Owner');
