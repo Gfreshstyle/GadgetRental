@@ -144,6 +144,27 @@ $$
 $$
  LANGUAGE 'sql';
 
+
+
+create or replace function update_gadget(par_id int,par_gadget_name varchar, par_gadget_description text, par_gadget_model varchar,
+										 par_gadget_color varchar ,par_gadget_image varchar, par_rental_rate numeric,
+										 par_brand_id int, par_category_id int, par_userid int) returns void as
+	$$
+	Update Gadget
+	SET 
+	gadget_name = par_gadget_name,
+	gadget_description = par_gadget_description,
+	gadget_model = par_gadget_model,
+	gadget_color = par_gadget_color,
+	gadget_image = par_gadget_image,
+	rental_rate = par_rental_rate,
+	gadget_brand_id = par_brand_id,
+	gadget_category_id = par_category_id,
+	gadget_owner_id = par_userid
+
+	where id = par_id;
+$$
+LANGUAGE 'sql';
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');

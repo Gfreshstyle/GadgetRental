@@ -193,7 +193,41 @@ def viewrents():
             'UserAccount.first_name' : r[8]})
 
     return jsonify({'status': 'OK', 'message' : res[0][0]})
+
+
+
+@app.rout('/gadget/', methods =['PUT'])
+def update_gadget():
+    jsn = json.loads(request.data)
+
+    id = jsn.get('id','')
+    gadget_name = jsn.get('gadget_name', '')
+    gadget_description = jsn.get('gadget_description', '')
+    gadget_model = jsn.get('gadget_model', '')
+    gadget_color = jsn.get('gadget_color', '')
+    gadget_image = jsn.get('gadget_image', '')
+    rental_rate = jsn.get('rental_rate', '')
+    gadget_brand_id = jsn.get('gadget_brand_id', '')
+    gadget_category_id = jsn.get('gadget_category_id','')
+    gadget_owner_id = jsn.get('gadget_owner_id', '')
+
+
+    spcall('update_gadget', (id,
+        gadget_name,
+        gadget_description,
+        gadget_model,
+        gadget_color,
+        gadget_image,
+        rental_rate,
+        gadget_brand_id,
+        gadget_category_id,
+        gadget_owner_id), True)
+
+    return jsonify({'status': 'OK'})
+
+
     
+
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
