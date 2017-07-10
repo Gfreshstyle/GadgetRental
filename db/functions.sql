@@ -127,6 +127,7 @@ create or replace function get_gadgets(out int, out text, out text, out text, ou
 		language 'sql';
 
 -- Get Users
+-- select get_users(2);
 create or replace function get_users(in p_role_id int, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
 	returns setof record as
 	$$
