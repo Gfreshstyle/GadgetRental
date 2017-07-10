@@ -126,6 +126,15 @@ create or replace function get_gadgets(out int, out text, out text, out text, ou
 	$$
 		language 'sql';
 
+-- Get Users
+create or replace function get_users(in p_role_id int, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
+	returns setof record as
+	$$
+		select *
+		from UserAccount
+		where role_id = p_role_id;
+	$$
+		language 'sql';
 
 
 --	QUERIES
