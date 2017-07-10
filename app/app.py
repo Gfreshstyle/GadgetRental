@@ -50,6 +50,36 @@ def signup():
     return res
 
 
+# Get User Profile
+@app.route('/users/<int:id>/', methods=['GET'])
+def get_user_by_id(id):
+    user = spcall('get_userprofile',(id,))
+    res = []
+
+    if len(user) == 0:
+        return jsonify({"status": "FAILED", "message": "No User Found", "entries": []})
+
+    elif 'Error' in str(user[0][0]):
+        return jsonify({"status": "FAILED", "message": user[0][0]})
+
+    else:
+        r = user[0]
+        res.append({   
+                'id': str(id), 
+                'fname': str(r[1]), 
+                'mname': str(r[2]), 
+                'lname': str(r[3]),
+                'email': str(r[4]),
+                'password': str(r[5]),
+                'address': str(r[6]),
+                'mobile_no': str(r[7]),
+                'role_id': str(r[8])
+                })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res})
+
+
+
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
                   "name", "net", "org", "pro", "tel", "travel"
