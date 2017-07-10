@@ -102,6 +102,20 @@ create or replace function new_gadget(p_gadget_name varchar, p_gadget_descriptio
 		language 'plpgsql';
 
 
+-- Get gadget by id
+-- select get_gadget_by_id(1);
+create or replace function get_gadget_by_id(in p_gadget_id int, out int, out text, out text, out text, out text, out text, out numeric, out int, out int, out int, out boolean, out boolean)
+	returns setof record as
+	$$
+		select *
+		from Gadget
+		where id = p_gadget_id;
+
+	$$
+		language 'sql';
+
+
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
