@@ -115,6 +115,18 @@ create or replace function get_gadget_by_id(in p_gadget_id int, out int, out tex
 		language 'sql';
 
 
+-- Get all gadgets
+-- select get_gadgets();
+create or replace function get_gadgets(out int, out text, out text, out text, out text, out text, out numeric, out int, out int, out int, out boolean, out boolean)
+	returns setof record as
+	$$
+		select *
+		from Gadget;
+
+	$$
+		language 'sql';
+
+
 
 --	QUERIES
 select new_role('Administrator');
