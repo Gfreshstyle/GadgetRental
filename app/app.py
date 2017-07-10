@@ -176,6 +176,35 @@ def get_gadgets():
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
+# Get all customers
+@app.route('/customers/', methods=['GET'])
+def get_customers():
+    customers = spcall('get_users',('2'))
+    res = []
+
+    if len(customers) == 0:
+        return jsonify({"status": "Error", "message": "No Customer Found", "entries": []})
+
+    elif 'Error' in str(customers[0][0]):
+        return jsonify({"status": "Error", "message": customers[0][0]})
+
+    else:
+        for customer in customers:
+            res.append({   
+                    'id': str(id), 
+                    'fname': str(customer[1]), 
+                    'mname': str(customer[2]), 
+                    'lname': str(customer[3]),
+                    'email': str(customer[4]),
+                    'password': str(customer[5]),
+                    'address': str(customer[6]),
+                    'mobile_no': str(customer[7]),
+                    'role_id': str(customer[8])
+                    })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+
+
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
