@@ -42,7 +42,8 @@ create table Gadget
 	gadget_brand_id	int references Brands(id),
 	gadget_category_id int references Category(id),
 	gadget_owner_id	int references UserAccount(id),
-	is_rented		boolean default false
+	is_rented		boolean default false,
+	is_active		boolean default true
 );
 
 create table RentGadget

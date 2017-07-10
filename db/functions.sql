@@ -72,8 +72,36 @@ create or replace function get_userprofile(in p_user_id int, out int, out text, 
 	$$
 		language 'sql';
 
+-- Add Gadget
+-- select new_gadget('gname', 'gdesc', 'gmodel','black', 'g.jpg', 100, 1, 1, 1);
+create or replace function new_gadget(p_gadget_name varchar, p_gadget_description text, p_gadget_model varchar, p_gadget_color varchar, p_gadget_image varchar, p_rental_rate numeric, p_gadget_brand_id int, p_gadget_category_id int, p_gadget_owner_id int)
+	returns text as
+	$$
+		declare
+			loc_gadget_name text;
+			loc_response text;
+
+		begin
+			select into loc_gadget_name gadget_name from Gadget where gadget_name = p_gadget_name;
+			if loc_gadget_name isnull then
+				if p_gadget_name = '' or p_gadget_description = '' or p_gadget_model = '' or p_gadget_color = '' or p_gadget_image = '' then
+					loc_response = 'Please fill the require field/s';
+				else
+					insert into Gadget(gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, gadget_brand_id, gadget_category_id, gadget_owner_id)
+						values(p_gadget_name, p_gadget_description, p_gadget_model, p_gadget_color, p_gadget_image, p_rental_rate, p_gadget_brand_id, p_gadget_category_id, p_gadget_owner_id);
+
+					loc_response = 'Ok';
+				end if;
+			else
+				loc_response = 'Gadget already exists';
+			end if;
+			return loc_response;
+		end;
+
+	$$
+		language 'plpgsql';
+
 
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
-select new_role('Owner');
