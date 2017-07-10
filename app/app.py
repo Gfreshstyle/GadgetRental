@@ -38,6 +38,9 @@ def signup():
     if invalid(email):
         return jsonify({'status': 'Error', 'message': 'Invalid Email address'})
     
+    elif complete_fields is False:
+        return jsonify({"status": "Error", "message": "Please fill the required field/s"})
+    
     else:
         res = spcall('new_user', (fname, mname, lname, email, password, address, mobile_no, role_id), True)
 
@@ -77,6 +80,36 @@ def get_user_by_id(id):
                 })
 
         return jsonify({"status": "Ok", "message": "Ok", "entries": res})
+
+
+# Add new gadget
+@app.route('/gadgets/', methods=['POST'])
+def new_gadget():
+    jsn = json.loads(request.data)
+
+    gadget_name = jsn['gadget_name']
+    gadget_description = jsn['gadget_description']
+    gadget_model = jsn['gadget_model']
+    gadget_color = jsn['gadget_color']
+    gadget_image = jsn['gadget_image']
+    rental_rate = jsn['rental_rate']
+    gadget_brand_id = jsn['gadget_brand_id']
+    gadget_category_id = jsn['gadget_category_id']
+    gadget_owner_id = jsn['gadget_owner_id']
+
+    complete_fields = gadget_name is not '' and gadget_description is not '' and gadget_model is not '' and gadget_color is not '' and gadget_image is not '' and rental_rate is not '' and gadget_brand_id is not '' and gadget_category_id is not '' and gadget_owner_id is not ''
+
+    if complete_fields is True:
+        res = spcall('new_gadget', (gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, gadget_brand_id, gadget_category_id, gadget_owner_id), True)
+
+        if 'Error' in str(res[0][0]):
+            return jsonify({'status': 'Error', 'message': res[0][0]})
+        
+        else:
+            return jsonify({"status": "Ok", "message": res[0][0]})
+   
+    elif complete_fields is False:
+        return jsonify({"status": "Error", "message": "Please fill the required field/s"})
 
 
 
