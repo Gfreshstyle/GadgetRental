@@ -144,6 +144,38 @@ def get_gadget_by_id(id):
         return jsonify({"status": "Ok", "message": "Ok", "entries": res})
 
 
+# Get all gadgets
+@app.route('/gadgets/', methods=['GET'])
+def get_gadgets():
+    gadget = spcall('get_gadgets',())
+    res = []
+
+    if len(gadget) == 0:
+        return jsonify({"status": "Error", "message": "No Gadget Found", "entries": []})
+
+    elif 'Error' in str(gadget[0][0]):
+        return jsonify({"status": "Error", "message": gadget[0][0]})
+
+    else:
+        for r in gadget:
+            res.append({   
+                    'id': str(id), 
+                    'gadget_name': str(r[1]),
+                    'gadget_description': str(r[2]),
+                    'gadget_model': str(r[3]),
+                    'gadget_color': str(r[4]),
+                    'gadget_image': str(r[5]),
+                    'rental_rate': str(r[6]),
+                    'gadget_brand_id': str(r[7]),
+                    'gadget_category_id': str(r[8]),
+                    'gadget_owner_id': str(r[9]),
+                    'is_rented': str(r[10]),
+                    'is_active': str(r[11])
+                    })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+
+
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
