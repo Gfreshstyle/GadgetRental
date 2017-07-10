@@ -226,6 +226,17 @@ def update_gadget():
     return jsonify({'status': 'OK'})
 
 
+
+@app.route('/gadget/', methods= ['POST'])
+def rent_gadget():
+    jsn = json.loads(request.data)
+
+    res = spcall('rent_gadget', ( jsn['transaction_date'], jsn['rent_due_date'], jsn['gadget_id'], jsn['user_id']), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify ({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify ({'status': 'Error', 'message': res[0][0]})
     
 
 

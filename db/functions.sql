@@ -165,6 +165,30 @@ create or replace function update_gadget(par_id int,par_gadget_name varchar, par
 	where id = par_id;
 $$
 LANGUAGE 'sql';
+
+
+create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_gadget_id int, par_userid int,) returns text as
+	$$
+
+	declare
+	local_response text;
+	begin 
+
+		if (SELECT is_rented  from Gadget where id = par_gadget_id) = FALSE Then
+			Insert into RentGadget(transaction_date, rent_due_date, gadget_id, user_id)
+			values (par_transac_date, par_due_date par_gadget_id, par_userid);
+			Update Gadget SET is_rented = TRUE where id = par_gadget_id;
+			local_response = 'OK';
+		else 
+			local_response = 'Error';
+		end if;
+	return local_response;
+	end;
+
+
+$$
+LANGUAGE 'plpgsql';
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
