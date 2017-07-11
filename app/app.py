@@ -227,7 +227,7 @@ def viewrents():
 
 
 
-@app.rout('/gadget/', methods =['PUT'])
+@app.route('/gadgets/', methods =['PUT'])
 def update_gadget():
     jsn = json.loads(request.data)
 
@@ -268,6 +268,16 @@ def rent_gadget():
         return jsonify ({'status': 'Error', 'message': res[0][0]})
 
     return jsonify ({'status': 'Error', 'message': res[0][0]})
+
+@app.route('/gadget/', methods=['PUT'])
+def delete_gadget():
+    jsn = json.loads(request.data)
+
+    id = jsn.get('id', '')
+
+    spcall('delete', (id), True)
+
+    return jsonify({'status': 'OK'})
     
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \

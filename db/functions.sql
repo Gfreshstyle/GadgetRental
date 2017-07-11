@@ -199,6 +199,17 @@ create or replace function rent_gadget(par_transac_date timestamp, par_due_date 
 $$
 LANGUAGE 'plpgsql';
 
+create or replace function delete(par_gadget_id int) returns void as
+	$$
+
+	Update Gadget
+	SET 
+	is_active = False
+	where id = par_id;
+
+	$$
+ LANGUAGE 'sql';
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
