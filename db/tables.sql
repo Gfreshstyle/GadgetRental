@@ -11,8 +11,8 @@ create table UserAccount
 	middle_name		varchar(50),
 	last_name		varchar(50),
 	email			varchar(50),
-	password		varchar(50),
-	address			varchar(50),
+	password		varchar(250),
+	address			varchar(250),
 	mobile_no		varchar(50),
 	role_id			int references Role(id),
 	is_active		boolean default true
