@@ -177,6 +177,7 @@ def get_gadgets():
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
+
 # Get all customers
 @app.route('/customers/', methods=['GET'])
 def get_customers():
@@ -206,6 +207,68 @@ def get_customers():
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
+# View rented gadgets
+
+@app.route ('/rentals/', methods=['GET'])
+def viewrents():
+    res = spcall('view_rented', ())
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+
+    for r in res:
+        recs.append({'gadget_name': r[0], 'gadget_description': r[1], 'gadget_model': r[2], 'gadget_color': str(r[3]),
+            'gadget_image': r[4], 'rental_rate': str(r[5]), 'Brands.brand_name': r[6],'Category.category_name': r[7], 
+            'UserAccount.first_name' : r[8]})
+
+    return jsonify({'status': 'OK', 'message' : res[0][0]})
+
+
+
+@app.rout('/gadget/', methods =['PUT'])
+def update_gadget():
+    jsn = json.loads(request.data)
+
+    id = jsn.get('id','')
+    gadget_name = jsn.get('gadget_name', '')
+    gadget_description = jsn.get('gadget_description', '')
+    gadget_model = jsn.get('gadget_model', '')
+    gadget_color = jsn.get('gadget_color', '')
+    gadget_image = jsn.get('gadget_image', '')
+    rental_rate = jsn.get('rental_rate', '')
+    gadget_brand_id = jsn.get('gadget_brand_id', '')
+    gadget_category_id = jsn.get('gadget_category_id','')
+    gadget_owner_id = jsn.get('gadget_owner_id', '')
+
+
+    spcall('update_gadget', (id,
+        gadget_name,
+        gadget_description,
+        gadget_model,
+        gadget_color,
+        gadget_image,
+        rental_rate,
+        gadget_brand_id,
+        gadget_category_id,
+        gadget_owner_id), True)
+
+    return jsonify({'status': 'OK'})
+
+
+
+@app.route('/gadget/', methods= ['POST'])
+def rent_gadget():
+    jsn = json.loads(request.data)
+
+    res = spcall('rent_gadget', ( jsn['transaction_date'], jsn['rent_due_date'], jsn['gadget_id'], jsn['user_id']), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify ({'status': 'Error', 'message': res[0][0]})
+
+    return jsonify ({'status': 'Error', 'message': res[0][0]})
+    
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \

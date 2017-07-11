@@ -137,6 +137,67 @@ create or replace function get_users(in p_role_id int, out int, out text, out te
 	$$
 		language 'sql';
 
+-- View Rented Gadgets
+--select view_rented();
+
+create or replace function view_rented(out par_gadget_name varchar, out par_gadget_description text, out par_gadget_model varchar,
+					out par_gadget_color varchar, out par_gadget_image varchar, out par_rental_rate numeric,
+					out par_brand_name varchar, out par_category_name varchar, out par_username varchar) returns setof record as
+$$
+	Select gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
+			Category.category_name, UserAccount.first_name
+		from (((Gadget 
+			inner join Brands on Gadget.gadget_brand_id = Brands.id)
+			inner join Category on Gadget.gadget_category_id = Category.id)
+			inner join UserAccount on Gadget.gadget_owner_id = UserAccount.id)
+		where is_rented = TRUE;
+$$
+ LANGUAGE 'sql';
+
+
+
+create or replace function update_gadget(par_id int,par_gadget_name varchar, par_gadget_description text, par_gadget_model varchar,
+										 par_gadget_color varchar ,par_gadget_image varchar, par_rental_rate numeric,
+										 par_brand_id int, par_category_id int, par_userid int) returns void as
+	$$
+	Update Gadget
+	SET 
+	gadget_name = par_gadget_name,
+	gadget_description = par_gadget_description,
+	gadget_model = par_gadget_model,
+	gadget_color = par_gadget_color,
+	gadget_image = par_gadget_image,
+	rental_rate = par_rental_rate,
+	gadget_brand_id = par_brand_id,
+	gadget_category_id = par_category_id,
+	gadget_owner_id = par_userid
+
+	where id = par_id;
+$$
+LANGUAGE 'sql';
+
+
+create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_gadget_id int, par_userid int,) returns text as
+	$$
+
+	declare
+	local_response text;
+	begin 
+
+		if (SELECT is_rented  from Gadget where id = par_gadget_id) = FALSE Then
+			Insert into RentGadget(transaction_date, rent_due_date, gadget_id, user_id)
+			values (par_transac_date, par_due_date par_gadget_id, par_userid);
+			Update Gadget SET is_rented = TRUE where id = par_gadget_id;
+			local_response = 'OK';
+		else 
+			local_response = 'Error';
+		end if;
+	return local_response;
+	end;
+
+
+$$
+LANGUAGE 'plpgsql';
 
 --	QUERIES
 select new_role('Administrator');
