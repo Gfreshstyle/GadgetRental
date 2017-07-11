@@ -50,6 +50,7 @@ def signup():
         else:
             return jsonify({"status": "Ok", "message": res[0][0]})
 
+    print res
     return res
 
 
