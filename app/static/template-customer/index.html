@@ -62,11 +62,8 @@
                         <div class="col-md-6 col-sm-8">
                             <div class="right-header">
                                 <ul>
-                                    <li><a href="my-account.html"><i class="fa fa-user"></i>My account</a></li>
-                                    <li><a href="cart.html"><i class="fa fa-shopping-cart"></i>My cart</a></li>
-                                    <li><a href="wishlist.html"><i class="fa fa-heart"></i>My wishlist</a></li>
-                                    <li><a href="checkout.html"><i class="fa fa-usd"></i>Creck out</a></li>
                                     <li><a onclick="showlogin();"><i class="fa fa-lock"></i>Login</a></li>
+                                    <li><a onclick="showsignup();">Sign Up</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -443,103 +440,167 @@
         </section>
         <!-- slider section end -->
         <!-- pages-title-start -->
-        <section id="login_register_title" class="contact-img-area" style="display:none; padding:200px 0 20px;">
+        <section id="login_signup_title" class="contact-img-area" style="display:none; padding:200px 0 20px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
                         <div class="con-text">
-                            <h2 class="page-title">Login</h2>
-                            <p><a href="#">Home</a> | Login</p>
-                        </div>
+                           <!--  <h2 class="page-title">Login</h2>
+                            <p><a href="#">Home</a> | Login | Register</p>
+ -->                        </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- pages-title-end -->
         <!-- login content section start -->
-        <section id="login_register" style="display:none;">
+        <section id="login" style="display:none;">
             <div class="login-area">
                 <div class="container">
                     <div class="row">
+                        <div class="col-md-3 col-xs-12">
+                        </div>
                         <div class="col-md-6 col-xs-12">
                             <div class="tb-login-form ">
                                 <h5 class="tb-title">Login</h5>
                                 <p>Hello, Welcome your to account</p>
                                 <form action="#">
-                                    <p class="checkout-coupon top log a-an">
+                                    <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
                                         <label class="l-contact">
                                             Email Address
                                             <em>*</em>
                                         </label>
                                         <input id="login_email" type="email">
                                     </p>
-                                    <p class="checkout-coupon top-down log a-an">
+                                    <p class="checkout-coupon top-down log a-an" style="margin-bottom: 10px;">
                                         <label class="l-contact">
                                             Password
                                             <em>*</em>
                                         </label>
                                         <input id="login_password" type="password">
                                     </p>
-                                    <div class="forgot-password1">
+                                    <div class="forgot-password1" style="margin-bottom: 20px;>
                                         <label class="inline2">
                                             <input type="checkbox" name="rememberme7">
                                             Remember me! <em>*</em>
                                         </label>
-                                        <a class="forgot-password" href="#">Forgot Your password?</a>
                                     </div>
-                                    <p class="login-submit5">
-                                        <input onclick="login()" class="button-primary" type="button" value="login">
+                                    <p class="login-submit5" align="center">
+                                        <input onclick="login()" class="btn-primary" type="button" value="login" style="color: #fff; padding: 4px 20px; margin-bottom: 10px">
+                                    </p>
+                                    <p align="center" style="margin-bottom: 20px">New to site?
+                                        <a onclick="showsignup();"> Create Account </a>
                                     </p>
                                 </form>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xs-12">
-                            <div class="tb-login-form res">
-                                <h5 class="tb-title">Create a new account</h5>
-                                <p>Hello, Welcome your to account</p>
-                                <form action="#">
-                                    <div style="margin-bottom: 5px;">
-                                        <p class="checkout-coupon top log a-an" >
-                                            <!-- <label class="l-contact">
-                                                Email Address
-                                                <em>*</em>
-                                            </label>
-                                            <input type="email"> -->
-
-                                            <input id="fname" class="form-control" type="text" placeholder="First Name" name="fname" style="margin-bottom: 5px;">
-                                            <input id="mname" class="form-control" type="text" placeholder="Middle Name" name="mname" style="margin-bottom: 5px;">
-                                            <input id="lname" class="form-control" type="text" placeholder="Last Name" name="lname" style="margin-bottom: 5px;">
-                                            <input id="email" class="form-control" type="text" placeholder="Email" name="email" style="margin-bottom: 5px;">
-                                            <input id="password" class="form-control" type="password" placeholder="Password" name="password" style="margin-bottom: 5px;">
-                                            <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" name="password_confirmation" style="margin-bottom: 5px;">
-                                            <input id="address" class="form-control" type="text" placeholder="Address" name="address" style="margin-bottom: 5px;">
-                                            <input id="mobile_no" class="form-control" type="text" placeholder="Mobile no." name="mobile_no" style="margin-bottom: 5px;">
-                                            <select id="role_id" name="role_id" style="display:none">
-                                                <option value="2"> Customer </option>
-                                            </select>
-                                        </p>
-                                        <p class="login-submit5 ress">
-                                            <input value="SignUp" class="button-primary" type="button" onclick="signup();">
-                                        </p>
-                                    </div>
-
-                                </form>
-
-                                <div class="tb-info-login ">
-                                    <h5 class="tb-title4">SignUp today and you'll be able to:</h5>
-                                    <ul>
-                                        <li>Speed your way through the checkout.</li>
-                                        <li>Track your orders easily.</li>
-                                        <li>Keep a record of all your purchases.</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="col-md-3 col-xs-12">
+                        </div>                        
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- login  content section end -->
+        <!-- signup content section start -->
+        <section id="signup" style="display:none;">
+            <div class="login-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-2 col-xs-12">
+                        </div>
+                        <div class="col-md-8 col-xs-12">
+                            <div class="tb-login-form res">
+                                <h5 class="tb-title">Create a new account</h5>
+                                <div id="signup-alert"></div>
+                                <p>Hello, Welcome your to account</p>
+                                <form id="signup_form" action="#">
+                                    <div class="col-md-6 col-xs-12" style="margin-bottom: 5px;">
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                First Name
+                                                <em>*</em>
+                                            </label>                                
+                                            <input id="fname" class="form-control" type="text" name="fname" required>
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Middle Name
+                                                <em>*</em>
+                                            </label>
+                                            <input id="mname" class="form-control" type="text" name="mname">
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Last Name
+                                                <em>*</em>
+                                            </label>
+                                            <input id="lname" class="form-control" type="text" name="lname">
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Address
+                                                <em>*</em>
+                                            </label>
+                                            <input id="address" class="form-control" type="text" name="address">
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Mobile No.
+                                                <em>*</em>
+                                            </label>
+                                            <input id="mobile_no" class="form-control" type="text   " name="mobile_no">
+                                        </p>                                        
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">                                                
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Email
+                                                <em>*</em>
+                                            </label>
+                                            <input id="email" class="form-control" type="text" name="email">
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Password
+                                                <em>*</em>
+                                            </label>
+                                            <input id="password" class="form-control" type="password" name="password">
+                                        </p>
+                                        <p class="checkout-coupon top log a-an" style="margin-bottom: 10px;">
+                                            <label class="l-contact">
+                                                Password Confirmation
+                                                <em>*</em>
+                                            </label>
+                                            <input id="password_confirmation" class="form-control" type="password" name="password_confirmation">
+                                        </p>            
+                                        <p class="checkout-coupon top log a-an" >
+                                            <label for="text-input" class="l-contact"><span>Role</span></label>
+                                            <select id="role_id" name="role_id" class="form-control">
+                                                <option value="1"> Administrator </option>
+                                                <option value="2"> Customer </option>
+                                            </select>
+                                        </p> 
+                                    </div>
+                                    <br>
+                                    <div div class="col-md-12 col-xs-12" style="margin-bottom: 5px;">>
+                                        <p class="login-submit5 ress" align="center">
+                                            <input value="Sign Up" class="btn-primary" type="button" onclick="signup();" style="margin-bottom: 10px; padding: 4px 20px;">
+                                        </p>
+                                        <p align="center" style="margin-bottom: 20px">Already have an account?
+                                            <a onclick="showlogin();"> Login </a>
+                                        </p>
+                                    </div>
+                                        
+                                </form>                               
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-12">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- signup  content section end -->
 
         <!-- footer section start -->
         <footer class="re-footer-section">

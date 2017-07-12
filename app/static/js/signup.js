@@ -1,5 +1,7 @@
 auth_user = ''
 
+
+
 function signup()
 {
     var fname = $('#fname').val();
@@ -13,7 +15,7 @@ function signup()
     var role_id = $('#role_id').val();;
 
     var data = JSON.stringify({'fname': fname,'mname': mname,'lname': lname,'email': email,'password': password, 'password2': password2, 'address': address,'mobile_no': mobile_no, 'role_id': role_id});
-
+    console.log(data);
     $.ajax({
         url:'http://127.0.0.1:5000/signup',
         type: 'POST',
@@ -23,33 +25,26 @@ function signup()
         success: function(res){
             console.log(res);
 
-            if(res.message == 'Ok') {
-                alert('Registeration successful');
+            if(res.status == 'Ok' && res.message == 'Ok') {
+                $('#signup-alert').html('<div class="alert alert-success"><strong>Successfully Registered! </div>');
+                $("#signup-alert").fadeTo(2000, 500).slideUp(500);                        
+
+                var form = document.getElementById("signup_form");
+                form.reset();
+            
+            }else if( res.status == 'Ok' && ((password != password2) || (password == null || password2 == null)) ){
+                $('#signup-alert').html('<div class="alert alert-danger"><strong>Password mismatch! </div>');
+                $("#signup-alert").fadeTo(2000, 500).slideUp(500);
             }
 
-            else if (res.message == 'Please fill the require field/s'){
-                alert('Please fill the require field/s')
-            }
-
-            else if (res.message == 'User already exists'){
-                alert('User already exists')
-            }
-
-            else if (res.message == 'Email already exists'){
-                alert('Email already exists')
-            }
-
-            else if( (password != password2) || (password == null || password2 == null) ){
-                alert("Password mismatch")
-            }
-
-            else if( res.message =='Ok' && (password != password2))
-                alert("Password mismatch")
+            else if( res.status =='Ok' || res.status =='Error')
+                $('#signup-alert').html('<div class="alert alert-danger"><strong>'+ res.message +'</div>');
+                $("#signup-alert").fadeTo(2000, 500).slideUp(500);
 
         },
 
         error: function(e){
-                alert("Error in database or report to admin charot!: " + e);
+                alert("ERROR:" + e);
         },
         beforeSend: function (xhrObj){
 

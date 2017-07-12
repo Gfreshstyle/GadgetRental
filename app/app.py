@@ -37,20 +37,20 @@ def signup():
 
     if invalid(email):
         return jsonify({'status': 'Error', 'message': 'Invalid Email address'})
-    
+
     elif complete_fields is False:
         return jsonify({"status": "Error", "message": "Please fill the required field/s"})
-    
+
     else:
-        res = spcall('new_user', (fname, mname, lname, email, password, address, mobile_no, role_id), True)
+        hashed_password = generate_password_hash(password, method='sha256')
+        res = spcall('new_user', (fname, mname, lname, email, hashed_password, address, str(mobile_no), role_id), True)
 
         if 'Error' in str(res[0][0]):
             return jsonify({'status': 'Error', 'message': res[0][0]})
-        
+
         else:
             return jsonify({"status": "Ok", "message": res[0][0]})
 
-    print res
     return res
 
 
@@ -326,7 +326,7 @@ def add_cors(resp):
 
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", threaded=True, debug=True)
 
 
     

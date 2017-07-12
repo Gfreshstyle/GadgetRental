@@ -1,7 +1,16 @@
 auth_user = ''
 
 function showlogin(){
-	$('#login_register').show();
-	$('#login_register_title').show();
+	$('#login').show();
+	$('#login_signup_title').show();
 	$('#slider').hide();
+	$('#signup').hide();
+}
+
+
+function showsignup(){
+	$('#signup').show();
+	$('#login_signup_title').show();
+	$('#slider').hide();
+	$('#login').hide();
 }
