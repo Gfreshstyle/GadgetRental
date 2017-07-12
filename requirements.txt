@@ -1,0 +1,5 @@
+Passlib
+sqlalchemy
+simple-crypt
+psycopg2==2.6.1
+Flask
