@@ -220,11 +220,10 @@ def viewrents():
 
     for r in res:
         recs.append({'gadget_name': r[0], 'gadget_description': r[1], 'gadget_model': r[2], 'gadget_color': str(r[3]),
-            'gadget_image': r[4], 'rental_rate': str(r[5]), 'Brands.brand_name': r[6],'Category.category_name': r[7], 
-            'UserAccount.first_name' : r[8]})
+            'gadget_image': r[4], 'rental_rate': str(r[5]), 'brand_name': r[6],'category_name': r[7], 
+            'first_name' : r[8]})
 
-    return jsonify({'status': 'OK', 'message' : res[0][0]})
-
+    return jsonify({'status': 'OK', 'entries': recs, 'count': len(recs)})
 
 
 @app.route('/gadgets/', methods =['PUT'])
