@@ -61,6 +61,31 @@ create or replace function new_user(p_first_name varchar, p_middle_name varchar,
 		language 'plpgsql';
 
 
+-- Check email and password
+-- select check_email_password('test@gmail.com','sha256$j8a3VuIn$0ece41a3def180fce520ed15dd68d44a5626f7e33c51d672ed93e9ea4e4a67bd');
+create or replace function check_email_password(p_email varchar, p_password varchar)
+	returns text as
+	$$
+		declare
+		loc_email text;
+		loc_response text;
+
+		begin
+			select into loc_email email
+			from UserAccount
+			where email = p_email and password = p_password;
+
+			if loc_email isnull then
+				loc_response = 'Invalid email address or password';
+			else
+				loc_response = 'Ok';
+			end if;
+			return loc_response;
+		end;
+	$$
+		language 'plpgsql';
+
+
 -- Get userprofile by id
 -- select get_userprofile(1);
 create or replace function get_userprofile(in p_user_id int, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
@@ -255,7 +280,7 @@ create or replace function new_brand(p_brand_name varchar)
 			select into loc_name brand_name from Brands where lower(brand_name) = lower(p_brand_name);
 
 			if loc_name isnull then
-				insert into Brand(brand_name)
+				insert into Brands(brand_name)
 					values(p_brand_name); 
 
 				loc_response = 'Ok';
