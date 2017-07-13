@@ -266,6 +266,54 @@ create or replace function new_brand(p_brand_name varchar)
 		language 'plpgsql';
 
 
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
+
+
+select new_brand('Samsung');
+select new_brand('Panasonic');
+select new_brand('Sharp');
+select new_brand('LG');
+select new_brand('Sony');
+select new_brand('TOSHIBA');
+select new_brand('SANYO');
+select new_brand('Acer');
+select new_brand('Haier');
+select new_brand('Philips');
+select new_brand('Canon');
+select new_brand('Casio');
+select new_brand('Kodak');
+select new_brand('Nikon');
+
+
+select new_category('Cellphone');
+select new_category('Television');
+select new_category('Calculator');
+select new_category('Camera');
+select new_category('Speaker');--	QUERIES
+select new_role('Administrator');
+select new_role('Customer');
+
+select new_brand('Samsung');
+select new_brand('Panasonic');
+select new_brand('Sharp');
+select new_brand('LG');
+select new_brand('Sony');
+select new_brand('TOSHIBA');
+select new_brand('SANYO');
+select new_brand('Acer');
+select new_brand('Haier');
+select new_brand('Philips');
+select new_brand('Canon');
+select new_brand('Casio');
+select new_brand('Kodak');
+select new_brand('Nikon');
+
+
+select new_category('Cellphone');
+select new_category('Television');
+select new_category('Calculator');
+select new_category('Camera');
+select new_category('Speaker'); 
