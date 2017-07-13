@@ -172,7 +172,7 @@ def get_gadgets():
                     'rented': str(r[9]),
                     })
 
-        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+        return jsonify({"status": "OK", "message": "Ok", "entries": res, "count": len(res)})
 
 
 

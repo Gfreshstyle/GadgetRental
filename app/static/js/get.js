@@ -80,7 +80,7 @@ function getgadgets(){
 					owner = res.entries[i].first_name;
 					is_rented = res.entries[i].rented
 
-					$("#gadgets").append(getrental(gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
+					$("#gadgets").append(getgadget(gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
 				}
 			} else {
 				$("#gadgets").html("");

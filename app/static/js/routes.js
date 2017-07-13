@@ -15,20 +15,23 @@ function show_signup(){
 	$('#login').hide();
 }
 
+
 function show_rented(){
-	$("#dash").hide();
-	$("#rent").show();
+     $("#rent").show();
+     $("#dash").hide();
+     $("#gads").hide();
 }
 
-$(document).ready(function() {
-    $("#rent_button").click(function () {
-        $("#rent").show();
-        $("#dash").hide();
-     
-    });
-    $("#dashb").click(function () {
-        $("#rent").hide();
-        $("#dash").show();
+function show_dashboard(){
+     $("#rent").hide();
+     $("#gads").hide();
+     $("#dash").show();
 
-    });
-});
+}
+
+function show_gadgets(){
+     $("#rent").hide();
+     $("#gads").show();
+     $("#dash").hide();
+
+}
