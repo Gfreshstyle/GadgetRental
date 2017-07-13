@@ -238,6 +238,34 @@ create or replace function new_category(p_category_name varchar)
 		language 'plpgsql';
 
 
+
+-- Add brand
+-- select new_brand('Samsung');
+create or replace function new_brand(p_brand_name varchar) 
+	returns text as
+	$$
+		declare
+			loc_name text;
+			loc_response text;
+
+		begin
+			select into loc_name brand_name from Brands where lower(brand_name) = lower(p_brand_name);
+
+			if loc_name isnull then
+				insert into Brand(brand_name)
+					values(p_brand_name); 
+
+				loc_response = 'Ok';
+			else
+				loc_response = 'Existed';
+			end if;
+
+			return loc_response;
+		end;
+	$$
+		language 'plpgsql';
+
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
