@@ -42,8 +42,9 @@ def signup():
         return jsonify({"status": "Error", "message": "Please fill the required field/s"})
 
     else:
-        hashed_password = generate_password_hash(password, method='sha256')
-        res = spcall('new_user', (fname, mname, lname, email, hashed_password, address, str(mobile_no), role_id), True)
+        pw_hash = hashlib.md5(password.encode())
+
+        res = spcall('new_user', (fname, mname, lname, email, pw_hash.hexdigest(), address, str(mobile_no), role_id), True)
 
         if 'Error' in str(res[0][0]):
             return jsonify({'status': 'Error', 'message': res[0][0]})
@@ -52,6 +53,41 @@ def signup():
             return jsonify({"status": "Ok", "message": res[0][0]})
 
     return res
+
+
+@app.route('/login/', methods=['POST'])
+def login():
+    jsn = json.loads(request.data)
+
+    email = jsn['email_address']
+    password = jsn['password']  
+
+    pw_hash = hashlib.md5(password.encode())
+    check_email_password = spcall('check_email_password', (email, pw_hash.hexdigest(), ))
+
+    if not email or not password:
+        return jsonify ({'status': 'Error', 'message': 'Invalid email or password'})
+    
+    elif check_email_password[0][0] == 'Ok':
+        user = spcall('get_user_by_email', (email,))
+        res = []
+
+        r = user[0]
+        res.append({   
+                'id': str(r[0]), 
+                'fname': str(r[1]), 
+                'mname': str(r[2]), 
+                'lname': str(r[3]),
+                'email': str(r[4]),
+                'role_id': str(r[8])
+                })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res})  
+    
+    elif check_email_password[0][0] != 'Ok':
+        return jsonify({"status": "Error", "message": check_email_password[0][0]})
+
+
 
 
 # Get User Profile
