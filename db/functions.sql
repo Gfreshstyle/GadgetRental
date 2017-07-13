@@ -117,14 +117,17 @@ create or replace function get_gadget_by_id(in p_gadget_id int, out int, out tex
 
 -- Get all gadgets
 -- select get_gadgets();
-create or replace function get_gadgets(out int, out text, out text, out text, out text, out text, out numeric, out int, out int, out int, out boolean, out boolean)
-	returns setof record as
+CREATE OR REPLACE FUNCTION get_gadgets(OUT text,OUT text,OUT text,OUT text,OUT text,OUT numeric,OUT text,OUT text,OUT text,OUT boolean)returns setof record AS
 	$$
-		select *
-		from Gadget;
-
+		select gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
+				Category.category_name, UserAccount.first_name, is_rented
+		from (((Gadget 
+			inner join Brands on Gadget.gadget_brand_id = Brands.id)
+			inner join Category on Gadget.gadget_category_id = Category.id)
+			inner join UserAccount on Gadget.gadget_owner_id = UserAccount.id)
+		where Gadget.is_active = TRUE;
 	$$
-		language 'sql';
+	language 'sql';
 
 -- Get Users
 -- select get_users(2);
