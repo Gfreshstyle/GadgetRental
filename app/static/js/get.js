@@ -42,7 +42,7 @@ function getrentals(){
 	})
 };
 
-function getgadget( gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is-rented) {
+function getgadget( gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
 	return '<tr>' +
 					'<td>' + gadget_name + '</td>' +
 					'<td>' + gadget_description + '</td>' +
@@ -89,4 +89,3 @@ function getgadgets(){
 		}
 	})
 };
-
