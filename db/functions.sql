@@ -99,6 +99,18 @@ create or replace function get_password_by_email(p_email varchar)
 		language 'sql';
 
 
+-- Get userprofile by email
+select get_user_by_email('test@gmail.com');
+create or replace function get_user_by_email(in p_email varchar, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
+	returns setof record as
+	$$
+		select *
+		from UserAccount
+		where email = p_email;
+	$$
+		language 'sql';
+
+
 -- Get userprofile by id
 -- select get_userprofile(1);
 create or replace function get_userprofile(in p_user_id int, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
