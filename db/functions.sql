@@ -62,7 +62,7 @@ create or replace function new_user(p_first_name varchar, p_middle_name varchar,
 
 
 -- Check email and password
--- select check_email_password('test@gmail.com','sha256$j8a3VuIn$0ece41a3def180fce520ed15dd68d44a5626f7e33c51d672ed93e9ea4e4a67bd');
+-- select check_email_password('test@gmail.com','5f4dcc3b5aa765d61d8327deb882cf99');
 create or replace function check_email_password(p_email varchar, p_password varchar)
 	returns text as
 	$$
@@ -87,26 +87,14 @@ create or replace function check_email_password(p_email varchar, p_password varc
 		language 'plpgsql';
 
 
--- Get password by email
--- select get_password_by_email('test@gmail.com');
-create or replace function get_password_by_email(p_email varchar)
-	returns text as
-	$$
-		select password
-		from UserAccount
-		where email = p_email
-	$$
-		language 'sql';
-
-
 -- Get userprofile by email
-select get_user_by_email('test@gmail.com');
+-- select get_user_by_email('test@gmail.com');
 create or replace function get_user_by_email(in p_email varchar, out int, out text, out text, out text, out text, out text, out text, out text, out int, out boolean)
 	returns setof record as
 	$$
 		select *
 		from UserAccount
-		where email = p_email;
+		where email = p_email
 	$$
 		language 'sql';
 
@@ -258,7 +246,7 @@ create or replace function delete(par_gadget_id int) returns void as
 	Update Gadget
 	SET 
 	is_active = False
-	where id = par_id;
+	where id = par_gadget_id;
 
 	$$
  LANGUAGE 'sql';
@@ -319,6 +307,24 @@ create or replace function new_brand(p_brand_name varchar)
 		language 'plpgsql';
 
 
+-- Get rented gadgets by a specific user
+-- select get_rented_gadget_by_user_id(1);
+create or replace function get_rented_gadget_by_user_id(in p_user_id int, out int, out text, out text, out text, out text, out text, out numeric, out text, out text)
+	returns setof record as
+	$$
+
+		select 	gadget_id, Gadget.gadget_name, Gadget.gadget_description, Gadget.gadget_model, Gadget.gadget_color, Gadget.gadget_image, Gadget.rental_rate,
+				Brands.brand_name, Category.category_name
+						
+		from RentGadget
+			inner join Gadget on RentGadget.gadget_id = Gadget.id
+			inner join Category on Category.id = Gadget.gadget_category_id
+			inner join Brands on Brands.id = Gadget.gadget_brand_id
+		where user_id = p_user_id;
+
+	$$
+		language 'sql';
+
 
 --	QUERIES
 select new_role('Administrator');
@@ -345,28 +351,4 @@ select new_category('Cellphone');
 select new_category('Television');
 select new_category('Calculator');
 select new_category('Camera');
-select new_category('Speaker');--	QUERIES
-select new_role('Administrator');
-select new_role('Customer');
-
-select new_brand('Samsung');
-select new_brand('Panasonic');
-select new_brand('Sharp');
-select new_brand('LG');
-select new_brand('Sony');
-select new_brand('TOSHIBA');
-select new_brand('SANYO');
-select new_brand('Acer');
-select new_brand('Haier');
-select new_brand('Philips');
-select new_brand('Canon');
-select new_brand('Casio');
-select new_brand('Kodak');
-select new_brand('Nikon');
-
-
-select new_category('Cellphone');
-select new_category('Television');
-select new_category('Calculator');
-select new_category('Camera');
-select new_category('Speaker'); 
+select new_category('Speaker');
