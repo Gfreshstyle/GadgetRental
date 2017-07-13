@@ -311,6 +311,22 @@ def delete_gadget():
     spcall('delete', (id), True)
 
     return jsonify({'status': 'OK'})
+
+
+@app.route('/transaction/', methods = ['GET'])
+def trans():
+    res = spcall('transaction', ())
+
+    if 'Error' in str(res):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    recs = []
+
+    for r in res:
+        recs.append({'transaction_date': r[0], 'rent_due_date': r[1], 'rent_overdue_cost': r[2], 'gadget_name': str(r[3]),
+            'owner': r[4]})
+
+    return jsonify({'status': 'OK', 'entries': recs, 'count': len(recs)})
     
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
