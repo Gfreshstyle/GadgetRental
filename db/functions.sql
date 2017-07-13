@@ -68,6 +68,7 @@ create or replace function check_email_password(p_email varchar, p_password varc
 	$$
 		declare
 		loc_email text;
+		loc_password text;
 		loc_response text;
 
 		begin
@@ -84,6 +85,18 @@ create or replace function check_email_password(p_email varchar, p_password varc
 		end;
 	$$
 		language 'plpgsql';
+
+
+-- Get password by email
+-- select get_password_by_email('test@gmail.com');
+create or replace function get_password_by_email(p_email varchar)
+	returns text as
+	$$
+		select password
+		from UserAccount
+		where email = p_email
+	$$
+		language 'sql';
 
 
 -- Get userprofile by id
