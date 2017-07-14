@@ -48,3 +48,10 @@ function show_all_gadgets_customer(){
      $('#slider').hide();
      $('#signup-section').hide();
 }
+
+function show_gadget_customer(){
+     $('#gadget-section').show();
+     $('#login-section').hide();
+     $('#slider').hide();
+     $('#signup-section').hide();
+}

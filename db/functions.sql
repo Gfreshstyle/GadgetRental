@@ -142,12 +142,16 @@ create or replace function new_gadget(p_gadget_name varchar, p_gadget_descriptio
 
 -- Get gadget by id
 -- select get_gadget_by_id(1);
-create or replace function get_gadget_by_id(in p_gadget_id int, out int, out text, out text, out text, out text, out text, out numeric, out int, out int, out int, out boolean, out boolean)
+create or replace function get_gadget_by_id(in p_gadget_id int, out int, out text,out text,out text,out text,out text,out numeric,out text,out text,out text,out boolean)
 	returns setof record as
 	$$
-		select *
-		from Gadget
-		where id = p_gadget_id;
+		select Gadget.id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
+				Category.category_name, UserAccount.first_name, is_rented
+		from (((Gadget 
+			inner join Brands on Gadget.gadget_brand_id = Brands.id)
+			inner join Category on Gadget.gadget_category_id = Category.id)
+			inner join UserAccount on Gadget.gadget_owner_id = UserAccount.id)
+		where Gadget.id = p_gadget_id;
 
 	$$
 		language 'sql';
@@ -155,7 +159,8 @@ create or replace function get_gadget_by_id(in p_gadget_id int, out int, out tex
 
 -- Get all gadgets
 -- select get_gadgets();
-create or replace function get_gadgets(out int, out text,out text,out text,out text,out text,out numeric,out text,out text,out text,out boolean)returns setof record as
+create or replace function get_gadgets(out int, out text,out text,out text,out text,out text,out numeric,out text,out text,out text,out boolean)
+	returns setof record as
 	$$
 		select Gadget.id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
 				Category.category_name, UserAccount.first_name, is_rented

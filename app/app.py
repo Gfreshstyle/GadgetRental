@@ -171,14 +171,13 @@ def get_gadget_by_id(id):
                 'gadget_color': str(r[4]),
                 'gadget_image': str(r[5]),
                 'rental_rate': str(r[6]),
-                'gadget_brand_id': str(r[7]),
-                'gadget_category_id': str(r[8]),
-                'gadget_owner_id': str(r[9]),
-                'is_rented': str(r[10]),
-                'is_active': str(r[11])
+                'gadget_brand_name': str(r[7]),
+                'gadget_category_name': str(r[8]),
+                'gadget_owner_first_name': str(r[9]),
+                'is_rented': str(r[10])
                 })
 
-        return jsonify({"status": "Ok", "message": "Ok", "entries": res})
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
 # Get all gadgets

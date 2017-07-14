@@ -91,6 +91,7 @@ function getgadgets(){
 };
 
 function getgadgetcustomer(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
+
 	return	'<div class="col-md-4 col-lg-4 col-sm-6">'+
 				'<div class="single-product" style="margin-bottom: 30px;">' +
 			        '<div class="product-img">' +
@@ -112,12 +113,130 @@ function getgadgetcustomer(gadget_id, gadget_name, gadget_description, gadget_mo
 			            '</div>' +
 			        '</div>' +
 			        '<div class="actions-btn">'+
-                        '<a href="#" data-placement="top" data-target="#quick-view" data-trigger="hover" data-toggle="modal" data-original-title="Quick View"><i class="fa fa-eye"></i></a>'+
+                        // '<a onclick="$(\'#gadget-section\').show();getgadgetbyid('+ gadget_id +');"><i class="fa fa-eye"></i></a>'+
+                        '<a data-placement="top" data-target="#quick-view" data-trigger="hover" data-toggle="modal" data-original-title="Quick View" onclick="show_gadget_customer();getgadgetbyid('+ gadget_id +');"><i class="fa fa-eye"></i></a>'+
                     '</div>'+
 			    '</div>' +
 			'</div>'
 
 }
+
+function getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
+	return  '<div class="col-xs-12 col-sm-5">' +
+                '<div class="quick-image">' +
+                    '<div class="single-quick-image tab-content text-center">' +
+                        '<div class="tab-pane  fade in active" id="sin-pro-1">' +
+                            '<img src="../../template-customer/img/products/' + gadget_image +'" alt="" />' +
+                            // '<img src="../../template-customer/img/quick-view/'+ gadget_image +'" alt="" />' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+             '<div class="col-xs-12 col-sm-7">' +
+                '<div class="quick-right">' +
+                    '<div class="quick-right-text">' +
+                        '<h3><strong>'+ brand_name +' '+ gadget_name +' '+ gadget_model +'</strong></h3>' +
+                        '<div class="rating">' +
+                            '<i class="fa fa-star"></i>' +
+                            '<i class="fa fa-star"></i>' +
+                            '<i class="fa fa-star"></i>' +
+                            '<i class="fa fa-star-half-o"></i>' +
+                            '<i class="fa fa-star-o"></i>' +
+                            '<a href="#">06 Review</a>' +
+                            '<a href="#">Add review</a>' +
+                        '</div>' +
+                        '<div class="amount">' +
+                            '<h4>₱' + rental_rate +'</h4>' +
+                        '</div>' +
+                        '<p>'+ gadget_description +'</p>' +
+                        '<div class="row m-p-b">' +
+                            '<div class="col-sm-12 col-md-6">' +
+                                '<div class="por-dse responsive-strok clearfix">' +
+                                    '<ul>' +
+                                        '<li><span>color</span><strong>:</strong> <a href="#">'+ gadget_color +'</a></li>' +
+                                        '<li><span>Category</span><strong>:</strong> <a href="#">'+ category_name +'</a></li>' +
+                                    '</ul>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-sm-12 col-md-6">' +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="dse-btn">' +
+                            '<div class="row">' +
+                                '<div class="col-sm-12 col-md-6">' +
+                                    '<div class="por-dse clearfix">' +
+                                        '<ul>' +
+                                            '<li class="share-btn qty clearfix"><span>quantity</span>' +
+                                                '<form action="#" method="POST">' +
+                                                    '<div class="plus-minus">' +
+                                                        '<a class="dec qtybutton">-</a>' +
+                                                        '<input type="text" value="02" name="qtybutton" class="plus-minus-box">' +
+                                                        '<a class="inc qtybutton">+</a>' +
+                                                    '</div>' +
+                                                '</form>' +
+                                            '</li>' +
+                                        '</ul>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col-sm-12 col-md-6">' +
+                                    '<div class="por-dse clearfix responsive-othre">' +
+                                        '<a class="btn btn-success" role="button">Rent</a>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+}
+
+function getgadgetbyid(id){
+	$.ajax({
+		url: 'http://127.0.0.1:5000/gadgets/'+ id +'/',
+		type: 'GET',
+		dataType: 'json',
+
+		success: function(res){	
+			$("single-gadget").html("");
+			$('#single-gadget').empty();
+			
+			if (res.status == 'Ok') {
+
+				for (i=0; i<res.count; i++) {
+					gadget_id = res.entries[i].id;
+					gadget_name = res.entries[i].gadget_name;
+					gadget_description = res.entries[i].gadget_description;
+					gadget_model = res.entries[i].gadget_model;
+					gadget_color = res.entries[i].gadget_color;
+					gadget_image = res.entries[i].gadget_image;
+					rental_rate = res.entries[i].rental_rate;
+					brand_name = res.entries[i].gadget_brand_name;
+					category_name = res.entries[i].category_name;
+					owner = res.entries[i].gadget_owner_first_name;
+					is_rented = res.entries[i].rented
+			
+					$("#single-gadget").append(getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
+				}
+			} 
+
+			if(res.status == 'Error'){
+
+				$('#single-gadget-alert').html(
+						'<div class="alert alert-danger"><strong>FAILED ' +
+
+						 '!</strong>'+ res.message +' </div>');
+				$("#single-gadget-alert").fadeTo(2000, 500).slideUp(500);
+
+			}
+		},
+		beforeSend: function (xhrObj){
+
+            xhrObj.setRequestHeader("Authorization", "Basic " + btoa( auth_user ));
+
+        }
+	})
+}
+
 function getgadgetscustomer(){
 	$.ajax({
 		url: 'http://127.0.0.1:5000/gadgets/',
@@ -125,7 +244,8 @@ function getgadgetscustomer(){
 		dataType: 'json',
 		success: function(res){
 			$("single-gadget-box").html("");
-			$('#single-gadget-box').empty();
+			$('#single-gadget-box').empty();;
+			
 			if (res.status == 'Ok') {
 				for (i=0; i<res.count; i++) {
 					gadget_id = res.entries[i].gadget_id;
@@ -166,7 +286,6 @@ function getransac(transaction_date, rent_due_date, rent_overdue_cost, gadget_na
 					'<td>' + owner + '</td>' +
 			'</tr>'
 }
-
 
 function gettransactions(){
 	$.ajax({
