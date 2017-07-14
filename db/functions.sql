@@ -155,9 +155,9 @@ create or replace function get_gadget_by_id(in p_gadget_id int, out int, out tex
 
 -- Get all gadgets
 -- select get_gadgets();
-CREATE OR REPLACE FUNCTION get_gadgets(OUT text,OUT text,OUT text,OUT text,OUT text,OUT numeric,OUT text,OUT text,OUT text,OUT boolean)returns setof record AS
+create or replace function get_gadgets(out int, out text,out text,out text,out text,out text,out numeric,out text,out text,out text,out boolean)returns setof record as
 	$$
-		select gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
+		select Gadget.id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, Brands.brand_name,
 				Category.category_name, UserAccount.first_name, is_rented
 		from (((Gadget 
 			inner join Brands on Gadget.gadget_brand_id = Brands.id)
@@ -269,7 +269,7 @@ create or replace function delete(par_gadget_id int) returns void as
 	Update Gadget
 	SET 
 	is_active = False
-	where id = par_id;
+	where id = par_gadget_id;
 
 	$$
  LANGUAGE 'sql';

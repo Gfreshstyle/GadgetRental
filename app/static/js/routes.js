@@ -1,20 +1,16 @@
 auth_user = ''
 
 function show_login(){
-	$('#login').show();
-	$('#login_signup_title').show();
-	$('#slider').hide();
-	$('#signup').hide();
+     $('#login-section').show();
+     $('#slider').hide();
+     $('#signup-section').hide();
 }
-
 
 function show_signup(){
-	$('#signup').show();
-	$('#login_signup_title').show();
-	$('#slider').hide();
-	$('#login').hide();
+     $('#signup-section').show();
+     $('#slider').hide();
+     $('#login-section').hide();
 }
-
 
 function show_rented(){
      $("#rent").show();
@@ -44,5 +40,11 @@ function show_trans(){
      $("#gads").hide();
      $("#dash").hide();
      $("#trans").show();
+}
 
+function show_all_gadgets_customer(){
+     $('#get-all-gadgets-customer-section').show();
+     $('#login-section').hide();
+     $('#slider').hide();
+     $('#signup-section').hide();
 }

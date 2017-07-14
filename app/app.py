@@ -196,16 +196,17 @@ def get_gadgets():
     else:
         for r in gadget:
             res.append({   
-                    'gadget_name': str(r[0]),
-                    'gadget_description': str(r[1]),
-                    'gadget_model': str(r[2]),
-                    'gadget_color': str(r[3]),
-                    'gadget_image': str(r[4]),
-                    'rental_rate': str(r[5]),
-                    'brand_name': str(r[6]),
-                    'category_name': str(r[7]),
-                    'owner': str(r[8]),
-                    'rented': str(r[9]),
+                    'gadget_id': str(r[0]),
+                    'gadget_name': str(r[1]),
+                    'gadget_description': str(r[2]),
+                    'gadget_model': str(r[3]),
+                    'gadget_color': str(r[4]),
+                    'gadget_image': str(r[5]),
+                    'rental_rate': str(r[6]),
+                    'brand_name': str(r[7]),
+                    'category_name': str(r[8]),
+                    'owner': str(r[9]),
+                    'rented': str(r[10]),
                     })
 
         return jsonify({"status": "OK", "message": "Ok", "entries": res, "count": len(res)})
