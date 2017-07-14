@@ -89,3 +89,41 @@ function getgadgets(){
 		}
 	})
 };
+
+function getransac(transaction_date, rent_due_date, rent_overdue_cost, gadget_name, owner){
+	return '<tr>' +		
+					'<td>' + transaction_date + '</td>' +
+					'<td>' + rent_due_date + '</td>' +
+					'<td>' + rent_overdue_cost + '</td>' +
+					'<td>' + gadget_name + '</td>' +
+					'<td>' + owner + '</td>' +
+			'</tr>'
+}
+
+
+function gettransactions(){
+	$.ajax({
+		url: 'http://127.0.0.1:5000/transaction/',
+		type: 'GET',
+		dataType: 'json',
+		success: function(res){
+			$("#transaction").html("");
+			$('#transaction').empty();
+			if (res.status == 'OK') {
+				for (i=0; i<res.count; i++) {
+					transaction_date = res.entries[i].transaction_date;
+					rent_due_date = res.entries[i].rent_due_date;
+					rent_overdue_cost = res.entries[i].rent_overdue_cost;
+					gadget_name = res.entries[i].gadget_name;
+					owner = res.entries[i].owner;
+					
+
+					$("#transaction").append(getransac(transaction_date, rent_due_date, rent_overdue_cost, gadget_name, owner));
+				}
+			} else {
+				$("#transaction").html("");
+				alert('Error')
+			}
+		}
+	})
+};

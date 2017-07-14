@@ -218,7 +218,7 @@ $$
 LANGUAGE 'sql';
 
 
-create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_gadget_id int, par_userid int,) returns text as
+create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_gadget_id int, par_userid int) returns text as
 	$$
 
 	declare
@@ -227,7 +227,7 @@ create or replace function rent_gadget(par_transac_date timestamp, par_due_date 
 
 		if (SELECT is_rented  from Gadget where id = par_gadget_id) = FALSE Then
 			Insert into RentGadget(transaction_date, rent_due_date, gadget_id, user_id)
-			values (par_transac_date, par_due_date par_gadget_id, par_userid);
+			values (par_transac_date, par_due_date, par_gadget_id, par_userid);
 			Update Gadget SET is_rented = TRUE where id = par_gadget_id;
 			local_response = 'OK';
 		else 
@@ -250,6 +250,30 @@ create or replace function delete(par_gadget_id int) returns void as
 
 	$$
  LANGUAGE 'sql';
+
+
+create or replace function transaction(out timestamp, out timestamp, out int, out text, out text) returns setof record as
+	$$
+
+	select transaction_date, rent_due_date, rent_overdue_cost, Gadget.gadget_name, UserAccount.first_name
+	from ((RentGadget 
+		inner join Gadget on RentGadget.gadget_id = Gadget.id)
+		inner join UserAccount on RentGadget.user_id = UserAccount.id)
+	$$
+
+	LANGUAGE 'sql';
+
+create or replace function delete(par_gadget_id int) returns void as
+	$$
+
+	Update Gadget
+	SET 
+	is_active = False
+	where id = par_id;
+
+	$$
+ LANGUAGE 'sql';
+
 
 
 -- Add category
