@@ -380,6 +380,28 @@ def get_categories():
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
+
+@app.route('/brands/', methods=['GET'])
+def get_brands():
+    brands = spcall('get_brands',())
+    res = []
+
+    if len(brands) == 0:
+        return jsonify({"status": "Error", "message": "No Customer Found", "entries": []})
+
+    elif 'Error' in str(brands[0][0]):
+        return jsonify({"status": "Error", "message": brands[0][0]})
+
+    else:
+        for r in brands:
+            res.append({   
+                    'id': str(id), 
+                    'brand_name': str(r[1])
+                    })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+
+
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
                   "name", "net", "org", "pro", "tel", "travel"
