@@ -34,13 +34,18 @@ function login(){
 			
 			if(res.status == 'Ok'){
 
+				var token = res.token;
+
+				//user_tk is abbrev of user_token
+				document.cookie = "user_tk=" + token;
+
 
 				// for system admin
 				if(res.entries[0].role_id == 1){
-
-
 					
 					user_role = res.entries[0].role_id;
+					
+                	document.location.href="../../partials/admin/dashboard.html";
 				}
 
 
@@ -52,7 +57,6 @@ function login(){
 
 					$('#header-options2').show();
 					$('#header-options1').hide();
-
 				}
 
 

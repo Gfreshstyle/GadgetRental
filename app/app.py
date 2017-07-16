@@ -14,6 +14,9 @@ from datetime import timedelta
 app = Flask(__name__)
 app.secret_key = "a_random_secret_key_$%#!@"
 
+SECRET_KEY = "a_random_secret_key_$%#!@"
+login_serializer = URLSafeTimedSerializer(SECRET_KEY)
+
 @app.route('/')
 def hello():
     return "Hello! :)"
@@ -32,27 +35,49 @@ def signup():
     address = jsn['address']
     mobile_no = jsn['mobile_no']
     role_id = jsn['role_id']
+    
 
-    complete_fields = fname is not '' and mname is not '' and lname is not '' and password is not '' and role_id is not '' and email is not '' and mobile_no is not '' and address is not ''
+    pw_hash = hashlib.md5(password.encode())
 
-    if invalid(email):
+    res = spcall('new_user', (fname, mname, lname, email, pw_hash.hexdigest(), address, str(mobile_no), role_id), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+
+    elif res[0][0] != 'Ok':
+        return jsonify ({'status': 'Error', 'message': res[0][0]})
+
+    elif invalid(email):
         return jsonify({'status': 'Error', 'message': 'Invalid Email address'})
 
-    elif complete_fields is False:
-        return jsonify({"status": "Error", "message": "Please fill the required field/s"})
-
     else:
-        pw_hash = hashlib.md5(password.encode())
+        return jsonify({"status": "Ok", "message": res[0][0]})
 
-        res = spcall('new_user', (fname, mname, lname, email, pw_hash.hexdigest(), address, str(mobile_no), role_id), True)
 
-        if 'Error' in str(res[0][0]):
-            return jsonify({'status': 'Error', 'message': res[0][0]})
+def get_auth_token(email, password):
+    """
+    Encode a secure token for cookie
+    """
+    data = [email, password]
+    return login_serializer.dumps(data)
 
-        else:
-            return jsonify({"status": "Ok", "message": res[0][0]})
 
-    return res
+def load_token(token):
+    """
+    The Token was encrypted using itsdangerous.URLSafeTimedSerializer which
+    allows us to have a max_age on the token itself.  When the cookie is stored
+    on the users computer it also has a exipry date, but could be changed by
+    the user, so this feature allows us to enforce the exipry date of the token
+    server side and not rely on the users cookie to exipre.
+    source: http://thecircuitnerd.com/flask-login-tokens/
+    """
+    days = timedelta(days=14)
+    max_age = days.total_seconds()
+
+    # Decrypt the Security Token, data = [username, hashpass]
+    data = login_serializer.loads(token, max_age=max_age)
+
+    return data[0] + ':' + data[1]
 
 
 @app.route('/login/', methods=['POST'])
@@ -64,9 +89,11 @@ def login():
 
     pw_hash = hashlib.md5(password.encode())
     check_email_password = spcall('check_email_password', (email, pw_hash.hexdigest(), ))
+    token = get_auth_token(email, pw_hash.hexdigest())
+
 
     if not email or not password:
-        return jsonify ({'status': 'Error', 'message': 'Invalid email or password'})
+        return jsonify ({'status': 'Error', 'message': 'Please fill the required field/s'})
     
     elif check_email_password[0][0] == 'Ok':
         user = spcall('get_user_by_email', (email,))
@@ -82,7 +109,7 @@ def login():
                 'role_id': str(r[8])
                 })
 
-        return jsonify({"status": "Ok", "message": "Ok", "entries": res})  
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "token": token})  
     
     elif check_email_password[0][0] != 'Ok':
         return jsonify({"status": "Error", "message": check_email_password[0][0]})

@@ -27,20 +27,16 @@ function signup()
 
             if(res.status == 'Ok' && res.message == 'Ok') {
                 $('#signup-alert').html('<div class="alert alert-success"><strong>Successfully Registered! </div>');
-                $("#signup-alert").fadeTo(2000, 500).slideUp(500);                        
 
                 var form = document.getElementById("signup_form");
                 form.reset();
             
             }else if( res.status == 'Ok' && ((password != password2) || (password == null || password2 == null)) ){
                 $('#signup-alert').html('<div class="alert alert-danger"><strong>Password mismatch! </div>');
-                $("#signup-alert").fadeTo(2000, 500).slideUp(500);
             }
 
             else if( res.status =='Ok' || res.status =='Error')
                 $('#signup-alert').html('<div class="alert alert-danger"><strong>'+ res.message +'</div>');
-                $("#signup-alert").fadeTo(2000, 500).slideUp(500);
-
         },
 
         error: function(e){
