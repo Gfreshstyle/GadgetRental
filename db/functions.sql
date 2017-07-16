@@ -355,6 +355,18 @@ create or replace function get_rented_gadget_by_user_id(in p_user_id int, out in
 		language 'sql';
 
 
+-- Get all categories
+-- select get_categories();
+create or replace function get_categories(out int, out text)
+	returns setof record as
+	$$
+		select id, category_name
+		from Category;
+	$$
+		language 'sql';
+
+
+
 --	QUERIES
 select new_role('Administrator');
 select new_role('Customer');
