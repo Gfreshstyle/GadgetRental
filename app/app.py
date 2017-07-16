@@ -234,7 +234,7 @@ def get_gadgets():
                     'rental_rate': str(r[6]),
                     'brand_name': str(r[7]),
                     'category_name': str(r[8]),
-                    'owner': str(r[9]),
+                    'first_name': str(r[9]),
                     'rented': str(r[10]),
                     })
 
