@@ -357,7 +357,28 @@ def trans():
             'owner': r[4]})
 
     return jsonify({'status': 'OK', 'entries': recs, 'count': len(recs)})
-    
+
+
+@app.route('/categories/', methods=['GET'])
+def get_categories():
+    categories = spcall('get_categories',())
+    res = []
+
+    if len(categories) == 0:
+        return jsonify({"status": "Error", "message": "No Customer Found", "entries": []})
+
+    elif 'Error' in str(categories[0][0]):
+        return jsonify({"status": "Error", "message": categories[0][0]})
+
+    else:
+        for r in categories:
+            res.append({   
+                    'id': str(id), 
+                    'category_name': str(r[1])
+                    })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
                   "edu", "gov", "info", "int", "jobs", "mil", "mobi", "museum", \
