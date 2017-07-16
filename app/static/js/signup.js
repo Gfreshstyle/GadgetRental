@@ -15,7 +15,7 @@ function signup()
     var role_id = $('#role_id').val();;
 
     var data = JSON.stringify({'fname': fname,'mname': mname,'lname': lname,'email': email,'password': password, 'password2': password2, 'address': address,'mobile_no': mobile_no, 'role_id': role_id});
-    console.log(data);
+    
     $.ajax({
         url:'http://127.0.0.1:5000/signup',
         type: 'POST',
@@ -23,7 +23,6 @@ function signup()
         data: data,
         dataType: 'json',
         success: function(res){
-            console.log(res);
 
             if(res.status == 'Ok' && res.message == 'Ok') {
                 $('#signup-alert').html('<div class="alert alert-success"><strong>Successfully Registered! </div>');

@@ -980,46 +980,39 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-
+                    <div id="add-gadget-alert"></div>
                     <!-- start form for add gadget -->
-                    <form id="demo-form" data-parsley-validate>
-                      <label for="gadgget_name">Name :</label>
-                      <input type="text" id="gadgget_name" class="form-control" name="fullname" required /><br/>
+                    <form id="add-gadget-form" data-parsley-validate>
+                      <label for="gadget_name">Name :</label>
+                      <input type="text" id="gadget_name" class="form-control" name="gadget_name" required /><br/>
 
-                      <label for="gadgget_model">Model :</label>
-                      <input type="text" id="gadgget_model" class="form-control" name="fullname" required /><br/>
+                      <label for="gadget_model">Model :</label>
+                      <input type="text" id="gadget_model" class="form-control" name="gadget_model" required /><br/>
 
-                      <label for="gadgget_color">Color :</label>
-                      <input type="text" id="gadgget_color" class="form-control" name="fullname" required /><br/>
+                      <label for="gadget_color">Color :</label>
+                      <input type="text" id="gadget_color" class="form-control" name="gadget_color" required /><br/>
 
-                      <label for="gadgget_rental_rate">Rental Rate :</label>
-                      <input type="text" id="gadgget_rental_rate" class="form-control" name="fullname" required /><br/>
+                      <label for="rental_rate">Rental Rate :</label>
+                      <input type="number" id="rental_rate" class="form-control" name="rental_rate" value="0" required /><br/>
 
-                      <label for="gadgget_description">Description :</label>
-                      <textarea id="gadgget_description" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="300" data-parsley-validation-threshold="10"></textarea><br/>
+                      <label for="gadget_description">Description :</label>
+                      <textarea id="gadget_description" required="required" class="form-control" name="gadget_description" data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="300" data-parsley-validation-threshold="10"></textarea><br/>
 
-                      <label for="gadgget_brand_id">Brand:</label>
-                      <select id="gadgget_brand_id" class="form-control" required>
+                      <label for="gadget_brand_id">Brand:</label>
+                      <select id="gadget_brand_id" class="form-control" required>
                         <option value="">Choose..</option>
                         <option value="press">Press</option>
                         <option value="net">Internet</option>
                         <option value="mouth">Word of mouth</option>
                       </select><br/>
 
-                      <label for="gadgget_category_id">Category:</label>
-                      <select id="gadgget_category_id" class="form-control" required>
+                      <label for="gadget_category_id">Category:</label>
+                      <select id="gadget_category_id" class="form-control" required>
                         <option value="">Choose..</option>
                         <option value="press">Press</option>
                         <option value="net">Internet</option>
                         <option value="mouth">Word of mouth</option>
                       </select><br/>
-
-                      <!-- <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-                        <input class="sr-only" id="gadgget_image" name="file" type="file" accept="image/*">
-                        <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
-                        <span class="fa fa-upload"></span>
-                        </span>
-                      </label> -->
 
                       <label for="gadget_image">Image</label>
                       <input type="file" id="gadget_image">
@@ -1309,6 +1302,7 @@
   <script type="text/javascript" src="../../template-admin/js/maps/jquery-jvectormap-us-aea-en.js"></script>
   <script type="text/javascript" src="../../js/routes.js"></script>
   <script type="text/javascript" src="../../js/get.js"></script>
+  <script type="text/javascript" src="../../js/post.js"></script>
 
 
   <!-- pace -->

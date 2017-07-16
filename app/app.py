@@ -169,8 +169,11 @@ def new_gadget():
         if 'Error' in str(res[0][0]):
             return jsonify({'status': 'Error', 'message': res[0][0]})
         
-        else:
+        elif res[0][0] == 'Ok':
             return jsonify({"status": "Ok", "message": res[0][0]})
+        
+        else:
+            return jsonify({"status": "Error", "message": res[0][0]})
    
     elif complete_fields is False:
         return jsonify({"status": "Error", "message": "Please fill the required field/s"})
