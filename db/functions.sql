@@ -366,6 +366,17 @@ create or replace function get_categories(out int, out text)
 		language 'sql';
 
 
+-- Get all brands
+-- select get_brands();
+create or replace function get_brands(out int, out text)
+	returns setof record as
+	$$
+		select id, brand_name
+		from Brands;
+	$$
+		language 'sql';
+
+
 
 --	QUERIES
 select new_role('Administrator');
