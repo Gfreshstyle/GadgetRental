@@ -78,6 +78,8 @@
                 </li> 
                 <li><a><i class="fa fa-mobile"></i> Gadgets<span class="fa fa-chevron-down"></span></a>
                  <ul class="nav child_menu" style="display: none">
+                    <li onclick = "show_add_gadget();"><a href="#">Add Gadget</a>
+                    </li>
                     <li onclick = "getgadgets();show_gadgets();"><a href="#">All</a>
                     </li>
                     <li id = "rent_button" onclick = "getrentals();show_rented();"><a href="#">Rented</a>
@@ -966,7 +968,76 @@
         </div>        
       </div>
       <!-- /page content -->
-      <div id = "rent">
+
+
+      <div id = "add-gadget" style="display:none">
+        <div class="clearfix"></div>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Add Gadget</h2>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <!-- start form for add gadget -->
+                    <form id="demo-form" data-parsley-validate>
+                      <label for="gadgget_name">Name :</label>
+                      <input type="text" id="gadgget_name" class="form-control" name="fullname" required /><br/>
+
+                      <label for="gadgget_model">Model :</label>
+                      <input type="text" id="gadgget_model" class="form-control" name="fullname" required /><br/>
+
+                      <label for="gadgget_color">Color :</label>
+                      <input type="text" id="gadgget_color" class="form-control" name="fullname" required /><br/>
+
+                      <label for="gadgget_rental_rate">Rental Rate :</label>
+                      <input type="text" id="gadgget_rental_rate" class="form-control" name="fullname" required /><br/>
+
+                      <label for="gadgget_description">Description :</label>
+                      <textarea id="gadgget_description" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="1" data-parsley-maxlength="300" data-parsley-validation-threshold="10"></textarea><br/>
+
+                      <label for="gadgget_brand_id">Brand:</label>
+                      <select id="gadgget_brand_id" class="form-control" required>
+                        <option value="">Choose..</option>
+                        <option value="press">Press</option>
+                        <option value="net">Internet</option>
+                        <option value="mouth">Word of mouth</option>
+                      </select><br/>
+
+                      <label for="gadgget_category_id">Category:</label>
+                      <select id="gadgget_category_id" class="form-control" required>
+                        <option value="">Choose..</option>
+                        <option value="press">Press</option>
+                        <option value="net">Internet</option>
+                        <option value="mouth">Word of mouth</option>
+                      </select><br/>
+
+                      <!-- <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                        <input class="sr-only" id="gadgget_image" name="file" type="file" accept="image/*">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="Import image with Blob URLs">
+                        <span class="fa fa-upload"></span>
+                        </span>
+                      </label> -->
+
+                      <label for="gadget_image">Image</label>
+                      <input type="file" id="gadget_image">
+
+                      <br/>
+                      <span class="btn btn-primary" onclick="add_gadget();">Submit</span>
+
+                    </form>
+                    <!-- end form for add gadget -->
+
+                  </div>
+              </div>
+
+            </div>
+          </div>
+      </div>
+
+      <div id = "rent" style="display:none">
          <div class="clearfix"></div>
 
           <div class="row">
@@ -1015,7 +1086,7 @@
     </div>
     </div>
 
-     <div id = "gads">
+     <div id = "gads" style="display:none">
          <div class="clearfix"></div>
 
           <div class="row">
@@ -1065,7 +1136,7 @@
     </div>
     </div>
 
-   <div id = "trans">
+   <div id = "trans" style="display:none">
          <div class="clearfix"></div>
 
           <div class="row">
