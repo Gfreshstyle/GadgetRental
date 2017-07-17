@@ -50,22 +50,9 @@
         <div class="left_col scroll-view">
 
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+            <a href="index.html" class="site_title"><i class="fa fa-laptop"></i> <span>Gadget Rental</span></a>
           </div>
           <div class="clearfix"></div>
-
-          <!-- menu prile quick info -->
-          <div class="profile">
-            <div class="profile_pic">
-              <img src="../../template-admin/images/img.jpg" alt="..." class="img-circle profile_img">
-            </div>
-            <div class="profile_info">
-              <span>Welcome,</span>
-              <h2>John Doe</h2>
-            </div>
-          </div>
-          <!-- /menu prile quick info -->
-
           <br />
 
           <!-- sidebar menu -->
@@ -132,7 +119,7 @@
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-                  <li><a href="javascript:;">  Profile</a>
+                  <li><a href="javascript:;" onclick="show_user_account_admin();">  Profile</a>
                   </li>
                   <li>
                     <a href="javascript:;">
@@ -1169,7 +1156,7 @@
     </div>
 
 
-    <div id = "customers" >
+    <div id = "customers" style="display:none">
      <div class="clearfix"></div>
 
       <div class="row">
@@ -1193,6 +1180,25 @@
                   <tbody id = "customer"></tbody>
               </table>
             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id = "user-account" style="display:none">
+     <div class="clearfix"></div>
+
+      <div class="row">
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Profile</h2>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content" id="user-info-admin">
+                           
           </div>
         </div>
       </div>

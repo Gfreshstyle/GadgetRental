@@ -99,7 +99,7 @@ function show_home(id){
      $('#signup-section').hide();
 }
 
-function show_user_account(){
+function show_user_account_customer(){
      getuserbyid(user_id);
      $('#user-account-section').show();
      $('#rented-gadget-menu').hide();
@@ -108,4 +108,15 @@ function show_user_account(){
      $('#get-all-gadgets-customer-section').hide();
      $('#login-section').hide();
      $('#signup-section').hide();
+}
+
+function show_user_account_admin(){
+     getuserbyid(user_id);
+     $('#user-account').show();
+     $("#add-gadget").hide();
+     $("#rent").hide();
+     $("#gads").hide();
+     $("#dash").hide();
+     $("#trans").hide();
+     $("#customers").hide();
 }

@@ -507,8 +507,8 @@ function getuserbyid(user_id){
         type: 'GET',
         dataType: 'json',
         success: function(res){
-            $("user-info").html("");
-            $('#user-info').empty();
+            $("user-info-customer").html("");
+            $('#user-info-customer').empty();
             
             if (res.status == 'Ok') {
                 id = res.entries[0].id
@@ -521,10 +521,10 @@ function getuserbyid(user_id){
 				mobile_no = res.entries[0].mobile_no
 				role_id = res.entries[0].role_id
 
-                $("#user-info").append(getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id));
+                $("#user-info-customer").append(getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id));
             
             } else {
-                $("#user-info").html("");
+                $("#user-info-customer").html("");
                 alert('Error')
             }
         }
