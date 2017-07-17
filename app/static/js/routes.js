@@ -18,6 +18,7 @@ function show_rented(){
      $("#gads").hide();
      $("#trans").hide();
      $('#add-gadget').hide();
+     $("#customers").hide();
 }
 
 function show_dashboard(){
@@ -26,6 +27,7 @@ function show_dashboard(){
      $("#dash").show();
      $("#trans").hide();
      $('#add-gadget').hide();
+     $("#customers").hide();
 }
 
 function show_gadgets(){
@@ -34,6 +36,7 @@ function show_gadgets(){
      $("#dash").hide();
      $("#trans").hide();
      $('#add-gadget').hide();
+     $("#customers").hide();
 }
 
 function show_trans(){
@@ -42,6 +45,7 @@ function show_trans(){
      $("#dash").hide();
      $("#trans").show();
      $('#add-gadget-section').hide();
+     $("#customers").hide();
 }
 
 function show_all_gadgets_customer(){
@@ -64,4 +68,13 @@ function show_add_gadget(){
      $("#gads").hide();
      $("#dash").hide();
      $("#trans").hide();
+}
+
+function show_customers(){
+     $("#customers").show();
+     $("#rent").hide();
+     $("#gads").hide();
+     $("#dash").hide();
+     $("#trans").hide();
+     $("#add-gadget").hide();
 }
