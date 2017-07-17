@@ -257,7 +257,7 @@ def get_customers():
     else:
         for customer in customers:
             res.append({   
-                    'id': str(id), 
+                    'id': str(customer[0]), 
                     'fname': str(customer[1]), 
                     'mname': str(customer[2]), 
                     'lname': str(customer[3]),
