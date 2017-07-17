@@ -405,7 +405,6 @@ function getcustomers(){
 }
 
 
-
 function getcustomer(id,fname,mname,lname,email,address,mobile_no) {
 	return '<tr>' +
 				'<td>' + fname + ' ' + mname + ' ' + lname + '</td>' +
@@ -413,4 +412,60 @@ function getcustomer(id,fname,mname,lname,email,address,mobile_no) {
 				'<td>' + address + '</td>' +
 				'<td>' + mobile_no + '</td>' +
 			'</tr>'
-}					
+}
+
+function getusergadgetrental(gadget_id, gadget_name, gadget_description, gadget_model, gadget_model, gadget_color, rental_rate, brand_name, category_name){
+    return  '<div class="col-md-4 col-lg-4 col-sm-6">'+
+                '<div class="single-product">' +
+                    '<div class="product-img">' +
+                        '<a href="#">' +
+                            '<img src="../../template-customer/img/products/1.jpg" alt="Product Title" />' +
+                        '</a>' +
+                    '</div>' +
+                    '<div class="product-dsc">' +
+                        '<h3><a href="#">'  + ' ' + brand_name + ' ' + gadget_name + ' ' + gadget_model + '</a></h3>' +
+                        '<div class="star-price">' +
+                            '<span class="price-left">P' + rental_rate+ '</span>' +
+                            '<span class="star-right">' +
+                                '<i class="fa fa-star"></i>' +
+                                '<i class="fa fa-star"></i>' +
+                                '<i class="fa fa-star"></i>' +
+                                '<i class="fa fa-star"></i>' +
+                                '<i class="fa fa-star-half-o"></i>' +
+                            '</span>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+
+}
+
+function getusergadgetrentals(user_id){
+    $.ajax({
+        url: 'http://127.0.0.1:5000/rentals/' + user_id +'/',
+        type: 'GET',
+        dataType: 'json',
+        success: function(res){
+            $("single-rented-gadget").html("");
+            $('#single-rented-gadget').empty();
+            if (res.status == 'Ok') {
+                for (i=0; i<res.count; i++) {
+                    gadget_id = res.entries[i].gadget_id
+                    gadget_name = res.entries[i].gadget_name
+                    gadget_description = res.entries[i].gadget_description
+                    gadget_model = res.entries[i].gadget_model
+                    gadget_color = res.entries[i].gadget_color
+                    gadget_image = res.entries[i].gadget_image
+                    rental_rate = res.entries[i].rental_rate
+                    brand_name = res.entries[i].brand_name
+                    category_name = res.entries[i].category_name
+
+                    $("#single-rented-gadget").append(getusergadgetrental(gadget_id, gadget_name, gadget_description, gadget_model, gadget_model, gadget_color, rental_rate, brand_name, category_name));
+                }
+            } else {
+                $("#gadgets").html("");
+                alert('Error')
+            }
+        }
+    })
+}
