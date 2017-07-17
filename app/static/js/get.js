@@ -294,7 +294,7 @@ function getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model,
                                 '</div>' +
                                 '<div class="col-sm-12 col-md-6">' +
                                     '<div class="por-dse clearfix responsive-othre">' +
-                                        '<a class="btn btn-success" role="button">Rent</a>' +
+                                        '<a class="btn btn-success" role="button" onclick = "addrent(' + gadget_id+ ');">Rent</a>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -489,3 +489,4 @@ function get_brands(){
 		}
 	})	
 }
+
