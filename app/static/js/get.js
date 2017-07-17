@@ -470,7 +470,7 @@ function getusergadgetrentals(user_id){
     })
 }
 
-function getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id){
+function getusercustomer(id, fname, mname, lname, password, email, address, mobile_no, role_id){
 	return '<div class="panel-heading" role="tab" id="headingOne">' +
                 '<h4 class="panel-title" style="color:#fff;">' +
                     'Personal Details' + 
@@ -501,6 +501,29 @@ function getuser(id, fname, mname, lname, password, email, address, mobile_no, r
             '</div>'					
 }
 
+function getuseradmin(id, fname, mname, lname, password, email, address, mobile_no, role_id){
+	return '<div class="col-xs-5" >' +
+	          '<ul class="nav side-menu">' +
+	            '<b>' +
+	              '<li style="margin-bottom: 10px;">Name</li><hr>' +
+	              '<li style="margin-bottom: 10px;">Password</li><hr>' +
+	              '<li style="margin-bottom: 10px;">Email</li><hr>' +
+	              '<li style="margin-bottom: 10px;">Address</li><hr>' +
+	              '<li style="margin-bottom: 10px;">Mobile No.</li>' +
+	            '</b>                      ' +
+	          '</ul> ' +
+	        '</div>' +
+	        '<div class="col-xs-7">' +
+	          '<ul class="nav side-menu">' +
+	              '<li style="margin-bottom: 10px;">' + fname + ' ' + mname + ' ' + lname + '</li><hr>' +
+	              '<li style="margin-bottom: 10px;">********</li>' +
+	              '<li style="margin-bottom: 10px;">' + email + '</li>' +
+	              '<li style="margin-bottom: 10px;">' + address + '</li>' +
+	              '<li style="margin-bottom: 10px;">' + mobile_no + '</li>' +
+	          '</ul>' +
+	        '</div> '
+}
+
 function getuserbyid(user_id){
 	$.ajax({
         url: 'http://127.0.0.1:5000/users/' + user_id +'/',
@@ -509,6 +532,9 @@ function getuserbyid(user_id){
         success: function(res){
             $("user-info-customer").html("");
             $('#user-info-customer').empty();
+
+            $("user-info-admin").html("");
+            $('#user-info-admin').empty();
             
             if (res.status == 'Ok') {
                 id = res.entries[0].id
@@ -521,10 +547,12 @@ function getuserbyid(user_id){
 				mobile_no = res.entries[0].mobile_no
 				role_id = res.entries[0].role_id
 
-                $("#user-info-customer").append(getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id));
+                $("#user-info-customer").append(getusercustomer(id, fname, mname, lname, password, email, address, mobile_no, role_id));
+                $("#user-info-admin").append(getuseradmin(id, fname, mname, lname, password, email, address, mobile_no, role_id));
             
             } else {
                 $("#user-info-customer").html("");
+                $("#user-info-admin").html("");
                 alert('Error')
             }
         }

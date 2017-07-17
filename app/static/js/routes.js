@@ -22,7 +22,10 @@ function show_rented(){
      $("#customers").hide();
 }
 
-function show_dashboard(){
+function show_dashboard(id){
+     user_id = id;
+     getuserbyid(id);
+     $('#admin-dash').show();
      $("#rent").hide();
      $("#gads").hide();
      $("#dash").show();
