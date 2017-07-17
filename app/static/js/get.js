@@ -463,9 +463,70 @@ function getusergadgetrentals(user_id){
                     $("#single-rented-gadget").append(getusergadgetrental(gadget_id, gadget_name, gadget_description, gadget_model, gadget_model, gadget_color, rental_rate, brand_name, category_name));
                 }
             } else {
-                $("#gadgets").html("");
+                $("#single-rented-gadget").html("");
                 alert('Error')
             }
         }
     })
+}
+
+function getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id){
+	return '<div class="panel-heading" role="tab" id="headingOne">' +
+                '<h4 class="panel-title" style="color:#fff;">' +
+                    'Personal Details' + 
+                '</h4>' +
+            '</div>' +
+            '<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" >' +
+               ' <div class="row">' +
+               		'<div class="easy2">' +
+		                '<h2>' + fname + ' ' + mname + ' ' +  lname +'</h2>' +
+		                '<hr>' +                
+						'<div class="col-md-4">' +
+							'<p>Password</p>' +
+							'<p>Email</p>' +
+							'<p>Address</p>' +
+							'<p>Mobile No.</p>' +
+						'</div>' +
+						'<div class="col-md-6">' +
+							'<p>********</p>' +
+							'<p>'+ email +'</p>' +
+			                '<p>'+ address +'</p>' +
+			                '<p>'+ mobile_no +'</p>' +
+						'</div>' +
+						'<div class="col-md-2">' +
+                			'<a class="btn btn-primary" onclick=""><i class="fa fa-pencil fa-fw"></i> Edit</a>' +
+						'</div>' +
+		            '</div>' +                    
+                '</div>' +
+            '</div>'					
+}
+
+function getuserbyid(user_id){
+	$.ajax({
+        url: 'http://127.0.0.1:5000/users/' + user_id +'/',
+        type: 'GET',
+        dataType: 'json',
+        success: function(res){
+            $("user-info").html("");
+            $('#user-info').empty();
+            
+            if (res.status == 'Ok') {
+                id = res.entries[0].id
+				fname = res.entries[0].fname
+				mname = res.entries[0].mname
+				lname = res.entries[0].lname
+				password = res.entries[0].password
+				email = res.entries[0].email
+				address = res.entries[0].address
+				mobile_no = res.entries[0].mobile_no
+				role_id = res.entries[0].role_id
+
+                $("#user-info").append(getuser(id, fname, mname, lname, password, email, address, mobile_no, role_id));
+            
+            } else {
+                $("#user-info").html("");
+                alert('Error')
+            }
+        }
+    })	
 }

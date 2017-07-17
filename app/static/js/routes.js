@@ -98,3 +98,14 @@ function show_home(id){
      $('#login-section').hide();
      $('#signup-section').hide();
 }
+
+function show_user_account(){
+     getuserbyid(user_id);
+     $('#user-account-section').show();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
+     $('#login-section').hide();
+     $('#signup-section').hide();
+}
