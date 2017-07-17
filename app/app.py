@@ -400,6 +400,34 @@ def get_brands():
                     })
 
         return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
+        
+
+@app.route('/rentals/<int:user_id>/', methods=['GET'])
+def get_user_rented_gadgets(user_id):
+    gadgets = spcall('get_rented_gadget_by_user_id', (user_id,))
+    res = []
+
+    if len(gadgets) == 0:
+        return jsonify({"status": "Error", "message": "No Rented Gadgets Found", "entries": []})
+
+    elif 'Error' in str(gadgets[0][0]):
+        return jsonify({"status": "Error", "message": gadgets[0][0]})
+
+    else:
+        for gadget in gadgets:
+            res.append({
+                    'gadget_id': str(gadget[0]), 
+                    'gadget_name': str(gadget[1]), 
+                    'gadget_description': str(gadget[2]), 
+                    'gadget_model': str(gadget[3]),
+                    'gadget_color': str(gadget[4]),
+                    'gadget_image': str(gadget[5]),
+                    'rental_rate': str(gadget[6]),
+                    'brand_name': str(gadget[7]),
+                    'category_name': str(gadget[8]),
+                    })
+
+        return jsonify({"status": "Ok", "message": "Ok", "entries": res, "count": len(res)})
 
 
 GENERIC_DOMAINS = "aero", "asia", "biz", "cat", "com", "coop", \
