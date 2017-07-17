@@ -327,7 +327,7 @@ function get_categories(){
 				for (i=0; i<res.count; i++) {
 					category_id = res.entries[i].id;
 					category_name = res.entries[i].category_name;
-					
+
 					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
 				}
 			} 
@@ -375,3 +375,42 @@ function get_brands(){
 		}
 	})	
 }
+
+function getcustomers(){
+	$.ajax({
+		url: 'http://127.0.0.1:5000/customers/',
+		type: 'GET',
+		dataType: 'json',
+		success: function(res){
+			$("customer").html("");
+			$('#customer').empty();
+			if (res.status == 'Ok') {
+				for (i=0; i<res.count; i++) {
+					id = res.entries[i].id;
+					fname = res.entries[i].fname;
+					mname = res.entries[i].mname;
+					lname = res.entries[i].lname;
+					email = res.entries[i].email;
+					address = res.entries[i].address;
+					mobile_no = res.entries[i].mobile_no
+
+					$("#customer").append(getcustomer(id,fname,mname,lname,email,address,mobile_no));
+				}
+			} else {
+				$("#customer").html("");
+				alert('Error')
+			}
+		}
+	})
+}
+
+
+
+function getcustomer(id,fname,mname,lname,email,address,mobile_no) {
+	return '<tr>' +
+				'<td>' + fname + ' ' + mname + ' ' + lname + '</td>' +
+				'<td>' +  email + '</td>' +
+				'<td>' + address + '</td>' +
+				'<td>' + mobile_no + '</td>' +
+			'</tr>'
+}					
