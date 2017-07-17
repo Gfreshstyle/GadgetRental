@@ -99,6 +99,8 @@
                                                     <li><a>Speaker</a></li>
                                                 </ul>
                                             </li>
+                                            <li><a href="shop.html" id="rented_gadget_menu" style="display:none" onclick="show_rented_gadgets_by_user(); getusergadgetrentals(1);">Rented Gadgets</a></li>
+                                            <li><a href="about-us.html">About</a></li>
                                             <li><a href="about-us.html">About</a></li>
                                             <li><a href="contact.html">Contact</a></li>
                                         </ul>
@@ -540,7 +542,239 @@
             </div>
             <!-- single gadget content section end --> 
         </section>           
-        <!-- GET GADGET END --> 
+        <!-- GET GADGET END -->
+        <!-- USER RENTED GADGETS START -->
+        <section id="rent-by-user-section" style="display:none">
+            <!-- pages-title-start -->
+            <section class="contact-img-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <div class="con-text">
+                                <h2 class="page-title">Rent</h2>
+                                <p><a href="#">Home</a> | rent</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- pages-title-end -->
+            <!-- shop-style content section start -->
+            <section class="pages products-page section-padding-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-4 col-lg-3 col-sm-12">
+                            <div class="all-shop-sidebar">
+                                <div class="top-shop-sidebar">
+                                    <h3 class="wg-title">RENT BY</h3>
+                                </div>
+                                <div class="shop-one">
+                                    <h3 class="wg-title2">Categories</h3>
+                                    <ul class="product-categories">
+                                        <li class="cat-item">
+                                            <a href="#">Laptop</a>
+                                            <span class="count">(10)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">Cellphone</a>
+                                            <span class="count">(10)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">Television</a>
+                                            <span class="count">(8)</span>
+                                        </li>
+                                        <li class="cat-item current-cat">
+                                            <a href="#">Calculator</a>
+                                            <span class="count">(5)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">Camera</a>
+                                            <span class="count">(6)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">Speaker</a>
+                                            <span class="count">(10)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="shop-one">
+                                    <h3 class="wg-title2">Our Brand</h3>
+                                    <ul class="product-categories">
+                                        <li class="cat-item">
+                                            <a href="#">Samsung</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">Panasonic</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                        <li class="cat-item-10">
+                                            <a href="#">Sharp</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                        <li class="cat-item">
+                                            <a href="#">LG</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="shop-one re-shop-one">
+                                    <h3 class="wg-title2">Choose Price</h3>
+                                    <div class="widget shop-filter">
+                                        <div class="info_widget">
+                                            <div class="price_filter">
+                                                <div id="slider-range"></div>
+                                                <div id="amount">
+                                                    <input type="text" name="first_price" class="first_price" />
+                                                    <input type="text" name="last_price" class="last_price"/>
+                                                    <button class="button-shop" type="submit"><i class="fa fa-search search-icon"></i></button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>                          
+                                    </div>
+                                </div>
+                                <div class="shop-one re-shop-one">
+                                    <h3 class="wg-title2">Choose Color</h3>
+                                    <ul class="product-categories">
+                                        <li class="cat-item cat-item-11">
+                                            <a href="#">Black</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                        <li class="cat-item cat-item-8">
+                                            <a href="#">Orange</a>
+                                            <span class="count">(1)</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8 col-lg-9 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <div class="features-tab">
+                                      <!-- Nav tabs -->
+                                        <div class="shop-all-tab">
+                                            <div class="two-part">
+                                                <ul class="nav tabs" role="tablist">
+                                                    <li class="vali">View as:</li>
+                                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="fa fa-th-large"></i></a></li>
+                                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="fa fa-align-justify"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="re-shop">
+                                               <div class="sort-by">
+                                                    <div class="shop6">
+                                                        <label>Sort By :</label>
+                                                        <select>
+                                                            <option value="">Default sorting</option>
+                                                            <option value="">Sort by popularity</option>
+                                                            <option value="">Sort by average rating</option>
+                                                            <option value="">Sort by newness</option>
+                                                            <option value="">Sort by price: low to high</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="shop5">
+                                                    <label>Show :</label>
+                                                    <select>
+                                                        <option value="">12</option>
+                                                        <option value="">24</option>
+                                                        <option value="">36</option>
+                                                    </select>      
+                                                </div>
+                                            </div>
+                                        </div>
+                                      <!-- Tab panes -->
+                                        <div class="tab-content" >
+                                            <div role="tabpanel" class="tab-pane active" id="home">
+                                                <div class="row">
+                                                    <div class="shop-tab" id="single-rented-gadget">
+                                                        <!-- single-product start -->
+                                                        <!-- <div class="col-md-4 col-lg-4 col-sm-6" >
+                                                            
+                                                        </div> -->
+                                                        <!-- single-product end -->             
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="profile">
+                                                <div class="row">
+                                                    <div class="li-item">
+                                                        <div class="col-md-4 col-sm-4">
+                                                            <div class="tb-product-item-inner tb2 pct-last">
+                                                                <div class="pro-type">
+                                                                    <span>new</span>
+                                                                </div>
+                                                                <div class="re-img">
+                                                                    <a href="#"><img alt="" src="img/products/1.jpg"></a>
+                                                                </div>
+                                                                <div class="actions-btn">
+                                                                    <a data-original-title="Quick View" data-toggle="modal" data-trigger="hover" data-target="#quick-view" data-placement="top" href="#">
+                                                                    <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8 col-sm-8">
+                                                            <div class="f-fix">
+                                                                <div class="tb-beg">
+                                                                    <a href="#">Vintage Shoulder Bag</a>
+                                                                </div>
+                                                                <div class="tb-product-wrap-price-rating">
+                                                                    <div class="tb-product-price font-noraure-3">
+                                                                        <span class="amount2 ana">$79.00 - </span>
+                                                                        <span class="amount2 ana">$100.00</span>
+                                                                    </div>
+                                                                </div>
+                                                                <p class="desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo  </p>
+                                                                <div class="last-cart l-mrgn ns">
+                                                                    <a class="las4" href="#">Add To Cart</a>
+                                                                </div>
+                                                                <div class="tb-product-btn">
+                                                                    <a href="#">
+                                                                        <i class="fa fa-eye"></i>
+                                                                    </a>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-heart"></i>
+                                                                    </a>
+                                                                    <a href="#">
+                                                                        <i class="fa fa-retweet"></i>
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="shop-all-tab-cr shop-bottom">
+                                            <div class="two-part">
+                                                <div class="shop5 page">
+                                                    <ul style="margin-bottom:10px;">
+                                                        <li>
+                                                            <a class="active" href="#">1</a>
+                                                            <a href="#">2</a>
+                                                            <a href="#">3</a>
+                                                            <a href="#">4</a>
+                                                            <a href="#">5</a>
+                                                            <a href="#"><i class="fa fa-arrow-right"></i></a>
+                                                        </li>
+                                                    </ul>        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- shop-style  content section end -->            
+        </section>
+        <!-- USER RENTED GADGETS END --> 
 
         <!-- footer section start -->
         <footer class="re-footer-section">
