@@ -327,8 +327,39 @@ function get_categories(){
 				for (i=0; i<res.count; i++) {
 					category_id = res.entries[i].id;
 					category_name = res.entries[i].category_name;
-
+					
 					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
+				}
+			} 
+
+			if(res.status == 'Error'){
+
+				$('#single-gadget-box-alert').html(
+						'<div class="alert alert-danger"><strong>FAILED ' +
+
+						 '!</strong>'+ res.message +' </div>');
+				$("#single-gadget-box-alert").fadeTo(2000, 500).slideUp(500);
+
+			}
+		}
+	})	
+}
+
+function get_brands(){
+	$.ajax({
+		url: 'http://127.0.0.1:5000/brands/',
+		type: 'GET',
+		dataType: 'json',
+		success: function(res){
+			$("gadget_brand_id").html("");
+			$('#gadget_brand_id').empty();;
+			
+			if (res.status == 'Ok') {
+				for (i=0; i<res.count; i++) {
+					brand_id = res.entries[i].id;
+					brand_name = res.entries[i].brand_name;
+
+					$("#gadget_brand_id").append('<option value="'+ brand_id +'">'+ brand_name +'</option>');
 				}
 			} 
 

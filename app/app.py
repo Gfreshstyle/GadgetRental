@@ -373,7 +373,7 @@ def get_categories():
     else:
         for r in categories:
             res.append({   
-                    'id': str(id), 
+                    'id': str(r[0]), 
                     'category_name': str(r[1])
                     })
 
@@ -395,7 +395,7 @@ def get_brands():
     else:
         for r in brands:
             res.append({   
-                    'id': str(id), 
+                    'id': str(r[0]), 
                     'brand_name': str(r[1])
                     })
 

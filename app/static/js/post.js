@@ -10,7 +10,7 @@ function add_gadget()
 	var rental_rate = $('#rental_rate').val();
 	var gadget_brand_id = $('#gadget_brand_id').val();
 	var gadget_category_id = $('#gadget_category_id').val();
-	var gadget_owner_id = $('#gadget_owner_id').val();
+	var gadget_owner_id = 1;//$('#gadget_owner_id').val();
 
 
     var data = JSON.stringify({'gadget_name': gadget_name, 'gadget_description': gadget_description, 'gadget_model': gadget_model, 'gadget_color': gadget_color, 'gadget_image': gadget_image, 'rental_rate': rental_rate, 'gadget_brand_id': gadget_brand_id, 'gadget_category_id': gadget_category_id, 'gadget_owner_id': gadget_owner_id });
