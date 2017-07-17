@@ -78,3 +78,10 @@ function show_customers(){
      $("#trans").hide();
      $("#add-gadget").hide();
 }
+
+function show_rented_gadgets_by_user(){
+    $('#rent-by-user-section').show();
+    $('#login-section').hide();
+    $('#slider').hide();
+    $('#signup-section').hide();
+}
