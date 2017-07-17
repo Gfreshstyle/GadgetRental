@@ -313,3 +313,34 @@ function gettransactions(){
 		}
 	})
 };
+
+function get_categories(){
+	$.ajax({
+		url: 'http://127.0.0.1:5000/categories/',
+		type: 'GET',
+		dataType: 'json',
+		success: function(res){
+			$("gadget_category_id").html("");
+			$('#gadget_category_id').empty();;
+			
+			if (res.status == 'Ok') {
+				for (i=0; i<res.count; i++) {
+					category_id = res.entries[i].id;
+					category_name = res.entries[i].category_name;
+
+					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
+				}
+			} 
+
+			if(res.status == 'Error'){
+
+				$('#single-gadget-box-alert').html(
+						'<div class="alert alert-danger"><strong>FAILED ' +
+
+						 '!</strong>'+ res.message +' </div>');
+				$("#single-gadget-box-alert").fadeTo(2000, 500).slideUp(500);
+
+			}
+		}
+	})	
+}

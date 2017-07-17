@@ -365,7 +365,7 @@ def get_categories():
     res = []
 
     if len(categories) == 0:
-        return jsonify({"status": "Error", "message": "No Customer Found", "entries": []})
+        return jsonify({"status": "Error", "message": "No Categories Found", "entries": []})
 
     elif 'Error' in str(categories[0][0]):
         return jsonify({"status": "Error", "message": categories[0][0]})
@@ -387,7 +387,7 @@ def get_brands():
     res = []
 
     if len(brands) == 0:
-        return jsonify({"status": "Error", "message": "No Customer Found", "entries": []})
+        return jsonify({"status": "Error", "message": "No Brands Found", "entries": []})
 
     elif 'Error' in str(brands[0][0]):
         return jsonify({"status": "Error", "message": brands[0][0]})

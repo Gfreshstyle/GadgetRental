@@ -78,7 +78,7 @@
                 </li> 
                 <li><a><i class="fa fa-mobile"></i> Gadgets<span class="fa fa-chevron-down"></span></a>
                  <ul class="nav child_menu" style="display: none">
-                    <li onclick = "show_add_gadget();"><a href="#">Add Gadget</a>
+                    <li onclick = "show_add_gadget();get_categories();"><a href="#">Add Gadget</a>
                     </li>
                     <li onclick = "getgadgets();show_gadgets();"><a href="#">All</a>
                     </li>
@@ -1008,10 +1008,6 @@
 
                       <label for="gadget_category_id">Category:</label>
                       <select id="gadget_category_id" class="form-control" required>
-                        <option value="">Choose..</option>
-                        <option value="press">Press</option>
-                        <option value="net">Internet</option>
-                        <option value="mouth">Word of mouth</option>
                       </select><br/>
 
                       <label for="gadget_image">Image</label>
