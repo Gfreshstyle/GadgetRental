@@ -1,4 +1,5 @@
 auth_user = ''
+var user_id;
 
 function show_login(){
      $('#login-section').show();
@@ -80,8 +81,20 @@ function show_customers(){
 }
 
 function show_rented_gadgets_by_user(){
+     getusergadgetrentals(user_id);
     $('#rent-by-user-section').show();
     $('#login-section').hide();
     $('#slider').hide();
     $('#signup-section').hide();
+}
+
+function show_home(id){
+     user_id = id;
+     $('#rented-gadget-menu').show();
+     $('#slider').show();
+     $('#header-options2').show();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
+     $('#login-section').hide();
+     $('#signup-section').hide();
 }

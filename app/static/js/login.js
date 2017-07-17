@@ -5,8 +5,8 @@ $(document).ready(function(){
 
 });
 
-var auth_user = "";
 var user_role;
+var user_id;
 var timer = 0;
 
 $(document).ready(function(){
@@ -43,6 +43,7 @@ function login(){
 				// for system admin
 				if(res.entries[0].role_id == 1){
 					
+					user_id = res.entries[0].id;
 					user_role = res.entries[0].role_id;
 					
                 	document.location.href="../../partials/admin/dashboard.html";
@@ -52,11 +53,10 @@ function login(){
 				// for customer
 				if(res.entries[0].role_id == 2){
 
+					user_id = res.entries[0].id;
+					user_role = res.entries[0].role_id;
 
-					user_role = res.entries[0].role_id;		
-
-					$('#header-options2').show();
-					$('#header-options1').hide();
+					show_home(user_id);					
 				}
 
 
