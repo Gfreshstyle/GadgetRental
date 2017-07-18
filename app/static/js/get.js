@@ -108,7 +108,7 @@ function getsinglegadget(gadget_id, gadget_name, gadget_description, gadget_mode
 			'</form>' +
 			 '<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">' +
                         '<button type="submit" class="btn btn-primary">Update</button>' +
-                        '<button type="submit" class="btn btn-danger">Delete</button>' +
+                        '<button type="submit" class="btn btn-danger" onclick = "delete_gadget(' + gadget_id +');">Delete</button>' +
                       '</div>' +
                 
             '</div>'
@@ -197,7 +197,7 @@ function getgadgets(){
 				}
 			} else {
 				$("#gadgets").html("");
-				alert('Error')
+				alert('No gadgets Available')
 			}
 		}
 	})

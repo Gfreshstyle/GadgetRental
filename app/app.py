@@ -290,6 +290,8 @@ def viewrents():
     return jsonify({'status': 'OK', 'entries': recs, 'count': len(recs)})
 
 
+#Update Gadget
+
 @app.route('/gadgets/', methods =['PUT'])
 def update_gadget():
     jsn = json.loads(request.data)
@@ -319,8 +321,7 @@ def update_gadget():
 
     return jsonify({'status': 'OK'})
 
-
-
+#Rent Gadget
 
 @app.route('/gadget/', methods= ['POST'])
 def rent_gadget():
@@ -333,17 +334,15 @@ def rent_gadget():
 
     return jsonify ({'status': 'OK', 'message': res[0][0]})
 
-@app.route('/gadget/', methods=['PUT'])
-def delete_gadget():
-    jsn = json.loads(request.data)
-
-    id = jsn.get('id', '')
-
-    spcall('delete', (id), True)
+# Delete Gadget
+@app.route('/gadget/<int:id>/', methods=['PUT'])
+def delete_gadget(id):
+    spcall('delete', (id,), True)
 
     return jsonify({'status': 'OK'})
 
 
+# Get Rent Gadget transactions
 @app.route('/transaction/', methods = ['GET'])
 def trans():
     res = spcall('transaction', ())
