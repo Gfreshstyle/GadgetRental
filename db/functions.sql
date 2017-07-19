@@ -207,7 +207,7 @@ create or replace function update_gadget(par_id int,par_gadget_name varchar, par
 										 par_brand_id int, par_category_id int, par_userid int) returns void as
 	$$
 	Update Gadget
-	SET 
+	set 
 	gadget_name = par_gadget_name,
 	gadget_description = par_gadget_description,
 	gadget_model = par_gadget_model,
@@ -373,6 +373,24 @@ create or replace function get_brands(out int, out text)
 	$$
 		select id, brand_name
 		from Brands;
+	$$
+		language 'sql';
+
+
+-- Update user account
+create or replace function update_useraccount(p_user_id int, p_first_name varchar, p_middle_name varchar, p_last_name varchar, p_email varchar, p_address varchar, p_mobile_no varchar)
+	returns void as
+	$$
+		update UserAccount
+		set
+			first_name = p_first_name,
+			middle_name = p_middle_name,
+			last_name = p_last_name,
+			email = p_email,
+			address = p_address,
+			mobile_no = p_mobile_no
+
+		where id = p_user_id;
 	$$
 		language 'sql';
 
