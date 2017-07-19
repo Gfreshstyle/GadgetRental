@@ -106,12 +106,14 @@ function show_home(id){
 function show_user_account_customer(){
      getuserbyid(user_id);
      $('#user-account-section').show();
+     $('#user-info-customer').show();
      $('#rented-gadget-menu').hide();
      $('#slider').hide();
      $('#header-options1').hide();
      $('#get-all-gadgets-customer-section').hide();
      $('#login-section').hide();
      $('#signup-section').hide();
+     $('#user-info-customer-update').hide();
 }
 
 function show_user_account_admin(){

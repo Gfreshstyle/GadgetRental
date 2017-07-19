@@ -554,6 +554,8 @@ function getuserbyid(user_id){
 }
 
 function updateforuserhtml(user_id, fname, mname, lname, email, address, mobile_no){
+	$("user-info-customer-update").html("");
+    $('#user-info-customer-update').empty();
 	$("#user-info-customer-update").append('<div class="panel-heading" role="tab" id="headingOne">' +
 							                '<h4 class="panel-title" style="color:#fff;">' +
 							                    'Edit Personal Details' + 
@@ -562,6 +564,7 @@ function updateforuserhtml(user_id, fname, mname, lname, email, address, mobile_
 							            '<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" >' +
 								            '<div class="easy2">' +
 								                '<form class="form-horizontal" action="#">' +
+								                	'<div id ="update-alert"></div>'+
 								                    '<fieldset>' +
 								                        '<div class="form-group required">' +
 								                            '<label class="col-sm-2 control-label">First Name </label>' +
@@ -601,6 +604,9 @@ function updateforuserhtml(user_id, fname, mname, lname, email, address, mobile_
 								                        '</div>' +
 								                    '</fieldset>' +
 								                    '<div class="buttons clearfix">' +
+								                    	'<div class="pull-left">' +
+								                            '<a class="btn btn-primary" onclick="show_user_account_customer();" type="button">Back</a>' +
+								                        '</div>' +
 								                        '<div class="pull-right">' +
 								                            '<a class="btn btn-primary" onclick="updateuserdetails('+ user_id +');" type="button">Save</a>' +
 								                        '</div>' +
@@ -629,7 +635,6 @@ function updateuserdetails(user_id){
         dataType: 'json',
         
         success: function(res){
-            console.log(res);
             
             if(res.status==='Ok') {
                	$('#update-alert').html(
