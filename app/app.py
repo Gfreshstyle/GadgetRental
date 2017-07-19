@@ -115,8 +115,6 @@ def login():
         return jsonify({"status": "Error", "message": check_email_password[0][0]})
 
 
-
-
 # Get User Profile
 @app.route('/users/<int:id>/', methods=['GET'])
 def get_user_by_id(id):
@@ -144,6 +142,26 @@ def get_user_by_id(id):
                 })
 
         return jsonify({"status": "Ok", "message": "Ok", "entries": res})
+
+
+# Update User Profile
+@app.route('/users/update/<int:user_id>/', methods=['PUT'])
+def update_useraccount(user_id):
+    jsn = json.loads(request.data)
+
+    fname = jsn['fname']
+    mname = jsn['mname']
+    lname = jsn['lname']
+    email = jsn['email']
+    address = jsn['address']
+    mobile_no = jsn['mobile_no']
+
+    res = spcall('update_useraccount',(user_id, fname, mname, lname, email, address, mobile_no), True)
+
+    if 'Error' in str(res[0][0]):
+        return jsonify({'status': 'Error', 'message': res[0][0]})
+    else:
+        return jsonify({'status': 'Ok'})
 
 
 # Add new gadget
