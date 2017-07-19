@@ -367,10 +367,7 @@ function get_brands(){
 
 				$('#single-gadget-box-alert').html(
 						'<div class="alert alert-danger"><strong>FAILED ' +
-
 						 '!</strong>'+ res.message +' </div>');
-				$("#single-gadget-box-alert").fadeTo(2000, 500).slideUp(500);
-
 			}
 		}
 	})	
@@ -556,7 +553,7 @@ function getuserbyid(user_id){
     })	
 }
 
-function updateforuserhtml(id, fname, mname, lname, email, address, mobile_no){
+function updateforuserhtml(user_id, fname, mname, lname, email, address, mobile_no){
 	$("#user-info-customer-update").append('<div class="panel-heading" role="tab" id="headingOne">' +
 							                '<h4 class="panel-title" style="color:#fff;">' +
 							                    'Edit Personal Details' + 
@@ -604,14 +601,56 @@ function updateforuserhtml(id, fname, mname, lname, email, address, mobile_no){
 								                        '</div>' +
 								                    '</fieldset>' +
 								                    '<div class="buttons clearfix">' +
-								                        '<div class="pull-left">' +
-								                            '<a class="btn btn-default ce5" href="#">Back</a>' +
-								                        '</div>' +
 								                        '<div class="pull-right">' +
-								                            '<input id="updateuser('+ id +')" class="btn btn-primary ce5" type="submit" value="Continue">' +
+								                            '<a class="btn btn-primary" onclick="updateuserdetails('+ user_id +');" type="button">Save</a>' +
 								                        '</div>' +
 								                    '</div>' +
 								                '</form>' +
 							            	'</div>' +
 										'</div>');
+}
+
+function updateuserdetails(user_id){
+	var fname = $("#update-fname").val();
+	var mname = $("#update-mname").val();
+	var lname = $("#update-lname").val();
+	var email = $("#update-email").val();
+	var address = $("#update-address").val();
+	var mobile_no = $("#update-mobile").val();
+
+	var data = JSON.stringify({'fname' : fname, 'mname' : mname, 'lname' : lname, 'email' : email, 'address' : address, 'mobile_no' : mobile_no})
+
+
+	$.ajax({
+        url: 'http://127.0.0.1:5000/users/update/'+ user_id + '/',
+        type: 'PUT',
+        contentType: 'application/json; charset=utf-8',
+        data: data,
+        dataType: 'json',
+        
+        success: function(res){
+            console.log(res);
+            
+            if(res.status==='Ok') {
+               	$('#update-alert').html(
+					'<div class="alert alert-success"><strong>Successfully updated your account!</div>');
+			            
+            } else {
+                $('#update-alert').html(
+					'<div class="alert alert-success"><strong>Failed!'+ res.message +'</div>');
+			}
+            
+        },
+
+        error: function(e){
+                alert("Error: " + e);
+        },
+        
+        beforeSend: function (xhrObj){
+
+            xhrObj.setRequestHeader("Authorization", "Basic " + btoa( auth_user ));
+
+        }
+
+    });
 }
