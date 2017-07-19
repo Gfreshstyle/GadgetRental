@@ -100,6 +100,7 @@ function show_home(id){
      $('#get-all-gadgets-customer-section').hide();
      $('#login-section').hide();
      $('#signup-section').hide();
+     $('#user-account-section-update').hide(); 
 }
 
 function show_user_account_customer(){
@@ -115,6 +116,7 @@ function show_user_account_customer(){
 
 function show_user_account_admin(){
      getuserbyid(user_id);
+     $('#user-info-customer-update').show();
      $('#user-account').show();
      $("#add-gadget").hide();
      $("#rent").hide();
@@ -122,4 +124,16 @@ function show_user_account_admin(){
      $("#dash").hide();
      $("#trans").hide();
      $("#customers").hide();
+}
+
+function show_user_update(){
+     $('#user-account-section').show();
+     $('#user-info-customer-update').show();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
+     $('#login-section').hide();
+     $('#signup-section').hide();
 }
