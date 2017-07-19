@@ -557,56 +557,61 @@ function getuserbyid(user_id){
 }
 
 function updateforuserhtml(id, fname, mname, lname, email, address, mobile_no){
-	$("#user-info-customer").append('<div class="easy2">' +
-                '<h2>My Account Information</h2>' +
-                '<form class="form-horizontal" action="#">' +
-                    '<fieldset>' +
-                        '<legend>Your Personal Details</legend>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">First Name </label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-fname" class="form-control" type="text" value="'+ fname +'">' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">Middle Name</label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-mname" class="form-control" type="text" value="'+ mname +'">' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">Last Name</label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-lname" class="form-control" type="text" value="'+ lname +'">' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">Email</label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-email" class="form-control" type="email" value="'+ email +'">' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">Address</label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-address" class="form-control" type="tel" value="'+ address +'">' +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="form-group required">' +
-                            '<label class="col-sm-2 control-label">Mobile No.</label>' +
-                            '<div class="col-sm-10">' +
-                                '<input id="update-mobile" class="form-control" type="tel" value="'+ mobile_no +'">' +
-                            '</div>' +
-                        '</div>' +
-                    '</fieldset>' +
-                    '<div class="buttons clearfix">' +
-                        '<div class="pull-left">' +
-                            '<a class="btn btn-default ce5" href="#">Back</a>' +
-                        '</div>' +
-                        '<div class="pull-right">' +
-                            '<input id="updateuser('+ id +')" class="btn btn-primary ce5" type="submit" value="Continue">' +
-                        '</div>' +
-                    '</div>' +
-                '</form>' +
-            '</div>');
+	$("#user-info-customer-update").append('<div class="panel-heading" role="tab" id="headingOne">' +
+							                '<h4 class="panel-title" style="color:#fff;">' +
+							                    'Edit Personal Details' + 
+							                '</h4>' +
+							            '</div>' +
+							            '<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" >' +
+								            '<div class="easy2">' +
+								                '<form class="form-horizontal" action="#">' +
+								                    '<fieldset>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">First Name </label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-fname" class="form-control" type="text" value="'+ fname +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">Middle Name</label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-mname" class="form-control" type="text" value="'+ mname +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">Last Name</label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-lname" class="form-control" type="text" value="'+ lname +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">Email</label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-email" class="form-control" type="email" value="'+ email +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">Address</label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-address" class="form-control" type="tel" value="'+ address +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                        '<div class="form-group required">' +
+								                            '<label class="col-sm-2 control-label">Mobile No.</label>' +
+								                            '<div class="col-sm-10">' +
+								                                '<input id="update-mobile" class="form-control" type="tel" value="'+ mobile_no +'">' +
+								                            '</div>' +
+								                        '</div>' +
+								                    '</fieldset>' +
+								                    '<div class="buttons clearfix">' +
+								                        '<div class="pull-left">' +
+								                            '<a class="btn btn-default ce5" href="#">Back</a>' +
+								                        '</div>' +
+								                        '<div class="pull-right">' +
+								                            '<input id="updateuser('+ id +')" class="btn btn-primary ce5" type="submit" value="Continue">' +
+								                        '</div>' +
+								                    '</div>' +
+								                '</form>' +
+							            	'</div>' +
+										'</div>');
 }
