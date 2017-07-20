@@ -322,6 +322,9 @@ function get_categories(){
 		success: function(res){
 			$("gadget_category_id").html("");
 			$('#gadget_category_id').empty();;
+
+			$("gadget_categories").html("");
+			$('#gadget_categories').empty();;
 			
 			if (res.status == 'Ok') {
 				for (i=0; i<res.count; i++) {
@@ -329,6 +332,7 @@ function get_categories(){
 					category_name = res.entries[i].category_name;
 
 					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
+					$("#gadget_categories").append('<li><a>'+ category_name +'</a></li>');
 				}
 			} 
 

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>Tasnm || Home Version One</title>
+        <title>Gadget Rental</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -87,21 +87,15 @@
                                 <div class="mainmenu clearfix hidden-sm hidden-xs">
                                     <nav>
                                         <ul>
-                                            <li><a href="index.html">Home</a>
+                                            <li><a onclick="show_home1();">Home</a>
                                             </li>
                                             <li><a onclick="show_all_gadgets_customer();getgadgetscustomer();">Gadgets</a>
-                                                <ul id="#gadget_categories">
-                                                    <li><a>Laptop</a></li>
-                                                    <li><a>Cellphone</a></li>
-                                                    <li><a>Television</a></li>
-                                                    <li><a>Calculator</a></li>
-                                                    <li><a>Camera</a></li>
-                                                    <li><a>Speaker</a></li>
+                                                <ul id="gadget_categories">
                                                 </ul>
                                             </li>
                                             <li><a id="rented-gadget-menu" style="display:none" onclick="show_rented_gadgets_by_user();">Rented Gadgets</a></li>
-                                            <li><a href="about-us.html">About</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
+                                            <li><a onclick="show_about();">About</a></li>
+                                            <li><a onclick="show_contact();">Contact</a></li>
                                         </ul>
                                     </nav>
                                 </div>
@@ -110,11 +104,11 @@
                                     <div class="mobile-menu">
                                         <nav id="dropdown">
                                             <ul>
-                                                <li><a href="index.html">Home</a>
+                                                <li><a onclick="show_home1();">Home</a>
                                                 </li>
                                                 <li><a href="shop.html">Gadgets</a>
                                                      <ul id="#gadget_categories">
-                                                        <li><a>Laptop</a></li>
+                                                        <li id="ceg"><a>Laptop</a></li>
                                                         <li><a>Cellphone</a></li>
                                                         <li><a>Television</a></li>
                                                         <li><a>Calculator</a></li>
@@ -122,9 +116,8 @@
                                                         <li><a>Speaker</a></li>
                                                     </ul>
                                                 </li>
-                                                <li><a href="shop.html">Lookbook</a></li>
-                                                <li><a href="about-us.html">About</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
+                                                <li><a onclick="show_about();">About</a></li>
+                                                <li><a onclick="show_contact();">Contact</a></li>
                                             </ul>
                                         </nav>
                                     </div>

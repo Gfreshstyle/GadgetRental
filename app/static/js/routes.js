@@ -5,12 +5,25 @@ function show_login(){
      $('#login-section').show();
      $('#slider').hide();
      $('#signup-section').hide();
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#get-all-gadgets-customer-section').hide();
 }
 
 function show_signup(){
      $('#signup-section').show();
      $('#slider').hide();
      $('#login-section').hide();
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
 }
 
 function show_rented(){
@@ -57,6 +70,12 @@ function show_all_gadgets_customer(){
      $('#login-section').hide();
      $('#slider').hide();
      $('#signup-section').hide();
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
 }
 
 function show_gadget_customer(){
@@ -64,6 +83,13 @@ function show_gadget_customer(){
      $('#login-section').hide();
      $('#slider').hide();
      $('#signup-section').hide();
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
 }
 
 function show_add_gadget(){
@@ -85,14 +111,20 @@ function show_customers(){
 
 function show_rented_gadgets_by_user(){
      getusergadgetrentals(user_id);
-    $('#rent-by-user-section').show();
-    $('#login-section').hide();
-    $('#slider').hide();
-    $('#signup-section').hide();
-}
+         $('#rent-by-user-section').show();
+         $('#login-section').hide();
+         $('#slider').hide();
+         $('#signup-section').hide();
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
 
 function show_home(id){
      user_id = id;
+     get_categories();
      $('#rented-gadget-menu').show();
      $('#slider').show();
      $('#header-options2').show();
@@ -100,8 +132,13 @@ function show_home(id){
      $('#get-all-gadgets-customer-section').hide();
      $('#login-section').hide();
      $('#signup-section').hide();
-     $('#user-account-section-update').hide(); 
-}
+     $('#user-account-section').hide();
+     $('#user-info-customer-update').hide();
+     $('#user-info-customer').hide();
+     $('#rented-gadget-menu').hide();
+     $('#slider').hide();
+     $('#header-options1').hide();
+     $('#get-all-gadgets-customer-section').hide();
 
 function show_user_account_customer(){
      getuserbyid(user_id);
