@@ -70,7 +70,7 @@ function addrent(id){
             if(res.status == 'OK'){
                 alert('Success')
             } else {
-                alert('Already Rented')
+                alert(res.status)
             }
         }
     })

@@ -168,6 +168,7 @@ function show_user_account_customer(){
      $('#get-all-gadgets-customer-section').hide();
      $('#login-section').hide();
      $('#signup-section').hide();
+     $('#rent-by-user-section').hide();
      $('#user-info-customer-update').hide();
 }
 

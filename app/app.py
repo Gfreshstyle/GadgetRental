@@ -4,7 +4,6 @@ import flask
 from config import *
 from passlib.hash import sha256_crypt, oracle10
 from werkzeug.security import generate_password_hash, check_password_hash
-from simplecrypt import encrypt, decrypt
 import hashlib
 from itsdangerous import URLSafeTimedSerializer
 from datetime import timedelta
