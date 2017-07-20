@@ -33,6 +33,8 @@ function show_rented(){
      $("#trans").hide();
      $('#add-gadget').hide();
      $("#customers").hide();
+     $("#gad_admin").hide();
+
 }
 
 function show_dashboard(id){
@@ -45,6 +47,8 @@ function show_dashboard(id){
      $("#trans").hide();
      $('#add-gadget').hide();
      $("#customers").hide();
+     $("#gad_admin").hide();
+
 }
 
 function show_gadgets(){
@@ -52,6 +56,7 @@ function show_gadgets(){
      $("#gads").show();
      $("#dash").hide();
      $("#trans").hide();
+     $("#gad_admin").hide();
      $('#add-gadget').hide();
      $("#customers").hide();
 }
@@ -62,6 +67,7 @@ function show_trans(){
      $("#dash").hide();
      $("#trans").show();
      $('#add-gadget-section').hide();
+     $("#gad_admin").hide();
      $("#customers").hide();
 }
 
@@ -119,6 +125,7 @@ function show_customers(){
      $("#gads").hide();
      $("#dash").hide();
      $("#trans").hide();
+     $("#gad_admin").hide();
      $("#add-gadget").hide();
 }
 

@@ -310,20 +310,15 @@ def viewrents():
 
 #Update Gadget
 
-@app.route('/gadgets/', methods =['PUT'])
-def update_gadget():
+@app.route('/gadgets/<int:id>/', methods =['PUT'])
+def update_gadget(id):
     jsn = json.loads(request.data)
 
-    id = jsn.get('id','')
-    gadget_name = jsn.get('gadget_name', '')
-    gadget_description = jsn.get('gadget_description', '')
-    gadget_model = jsn.get('gadget_model', '')
-    gadget_color = jsn.get('gadget_color', '')
-    gadget_image = jsn.get('gadget_image', '')
-    rental_rate = jsn.get('rental_rate', '')
-    gadget_brand_id = jsn.get('gadget_brand_id', '')
-    gadget_category_id = jsn.get('gadget_category_id','')
-    gadget_owner_id = jsn.get('gadget_owner_id', '')
+    gadget_name = jsn['gadget_name']
+    gadget_description =  jsn['gadget_description']
+    gadget_model =  jsn['gadget_model']
+    gadget_color =  jsn['gadget_color']
+    rental_rate =  jsn['rental_rate']
 
 
     spcall('update_gadget', (id,
@@ -331,11 +326,7 @@ def update_gadget():
         gadget_description,
         gadget_model,
         gadget_color,
-        gadget_image,
-        rental_rate,
-        gadget_brand_id,
-        gadget_category_id,
-        gadget_owner_id), True)
+        rental_rate), True)
 
     return jsonify({'status': 'OK'})
 

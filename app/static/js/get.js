@@ -62,40 +62,40 @@ function getsinglegadget(gadget_id, gadget_name, gadget_description, gadget_mode
                       '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="gadget_name">Name<span class="required">*</span>' +
                       '</label>' +
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text" required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_name+'">' +
+                        '<input type="text" id = "update_gadgetname" required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_name+'">' +
                       '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
                       '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="gadget_description">Description<span class="required">*</span>' +
                       '</label>' +
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_description+'">' +
+                        '<input type="text" id = "update_description" required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_description+'">' +
                       '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
                       '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="gadget_model">Model<span class="required">*</span>' +
                       '</label>' +
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_model+'">' +
+                        '<input type="text" id = "update_model" required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_model+'">' +
                       '</div>' +
                     '</div>' +
                     '<div class="form-group">' +
                       '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="gadget_color">Color<span class="required">*</span>' +
                       '</label>' +
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_color+'">' +
+                        '<input type="text" id = "update_color" required="required" class="form-control col-md-7 col-xs-12" value = "'+ gadget_color+'">' +
                       '</div>' +
                       '</div>' +
                       '<div class="form-group">' +
                       '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="rental_rate">Rental Rate<span class="required">*</span>' +
                       '</label>' +
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ rental_rate+'">' +
+                        '<input type="text" id = "update_rentalrate" required="required" class="form-control col-md-7 col-xs-12" value = "'+ rental_rate+'">' +
                     '</div>' +
                     '</div>' +                  
 			'</form>' +
 			 '<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">' +
-                        '<button type="submit" class="btn btn-primary">Update</button>' +
+                        '<button type="submit" class="btn btn-primary" onclick = "updategadget(' + gadget_id +');">Update</button>' +
                         '<button type="submit" class="btn btn-danger" onclick = "delete_gadget(' + gadget_id +');">Delete</button>' +
                       '</div>' +
             '</div>'
