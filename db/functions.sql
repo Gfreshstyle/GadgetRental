@@ -223,7 +223,7 @@ $$
 LANGUAGE 'sql';
 
 
-create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_gadget_id int, par_userid int) returns text as
+create or replace function rent_gadget(par_transac_date timestamp, par_due_date timestamp, par_overduecost numeric, par_gadget_id int, par_userid int) returns text as
 	$$
 
 	declare
@@ -231,8 +231,8 @@ create or replace function rent_gadget(par_transac_date timestamp, par_due_date 
 	begin 
 
 		if (SELECT is_rented  from Gadget where id = par_gadget_id) = FALSE Then
-			Insert into RentGadget(transaction_date, rent_due_date, gadget_id, user_id)
-			values (par_transac_date, par_due_date, par_gadget_id, par_userid);
+			Insert into RentGadget(transaction_date, rent_due_date, rent_overdue_cost, gadget_id, user_id)
+			values (par_transac_date, par_due_date,par_overduecost, par_gadget_id, par_userid);
 			Update Gadget SET is_rented = TRUE where id = par_gadget_id;
 			local_response = 'OK';
 		else 
@@ -241,9 +241,9 @@ create or replace function rent_gadget(par_transac_date timestamp, par_due_date 
 	return local_response;
 	end;
 
-
 $$
 LANGUAGE 'plpgsql';
+
 
 create or replace function delete(par_gadget_id int) returns void as
 	$$

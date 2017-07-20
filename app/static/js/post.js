@@ -48,3 +48,30 @@ function add_gadget()
 
     });
 }
+
+function addrent(id){
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var transac = date;
+    var due_date = date;
+    var overdue_cost = 0;
+    var gadget_id = id;
+    var user_id = 1//$('user_id').val();
+
+    var data = JSON.stringify({'transaction_date': transac, 'rent_due_date': due_date,'rent_overdue_cost': overdue_cost, 'gadget_id': gadget_id, 'user_id': user_id});
+    console.log(data);
+    $.ajax({
+        url:'http://127.0.0.1:5000/gadget/',
+        type: 'POST',
+        contentType: 'application/json; charset=utf-8',
+        data: data,
+        dataType: 'json',
+        success: function(res){
+            if(res.status == 'OK'){
+                alert('Success')
+            } else {
+                alert('Already Rented')
+            }
+        }
+    })
+}
