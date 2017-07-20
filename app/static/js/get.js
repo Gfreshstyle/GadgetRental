@@ -52,7 +52,9 @@ function getsinglegadget(gadget_id, gadget_name, gadget_description, gadget_mode
                     '</div>' +
                 '</div>' +
             '</div>' +
-             '<div class="col-xs-12 col-sm-7">' +
+             '<div class="col-xs-12 col-sm-1">' +
+             '</div>' +
+             '<div class="col-xs-12 col-sm-6">' +
              '<center><h4> Gadget </h4></center>'+
              '<div class="clearfix"></div>' +
              '<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">'+
@@ -90,27 +92,12 @@ function getsinglegadget(gadget_id, gadget_name, gadget_description, gadget_mode
                       '<div class="col-md-6 col-sm-6 col-xs-12">' +
                         '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ rental_rate+'">' +
                     '</div>' +
-                    '</div>' + 
-                    '<div class="form-group">' +
-                      '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="brand_name">Brand<span class="required">*</span>' +
-                      '</label>' +
-                      '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ brand_name+'">' +
-                    '</div>' +
-                    '</div>' +
-                    '<div class="form-group">' +
-                      '<label class="control-label col-md-3 col-sm-3 col-xs-12" for="category_name">Category<span class="required">*</span>' +
-                      '</label>' +
-                      '<div class="col-md-6 col-sm-6 col-xs-12">' +
-                        '<input type="text"  required="required" class="form-control col-md-7 col-xs-12" value = "'+ category_name+'">' +
-                    '</div>' +
-                    '</div>' +
+                    '</div>' +                  
 			'</form>' +
-			 '<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">' +
+			 '<div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-4">' +
                         '<button type="submit" class="btn btn-primary">Update</button>' +
                         '<button type="submit" class="btn btn-danger" onclick = "delete_gadget(' + gadget_id +');">Delete</button>' +
                       '</div>' +
-                
             '</div>'
 }
 
@@ -434,18 +421,14 @@ function get_categories(){
 		dataType: 'json',
 		success: function(res){
 			$("gadget_category_id").html("");
-			$('#gadget_category_id').empty();;
+			$('#gadget_category_id').empty();
 
-			$("gadget_categories").html("");
-			$('#gadget_categories').empty();;
-			
 			if (res.status == 'Ok') {
 				for (i=0; i<res.count; i++) {
 					category_id = res.entries[i].id;
 					category_name = res.entries[i].category_name;
 
 					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
-					$("#gadget_categories").append('<li><a>'+ category_name +'</a></li>');
 				}
 			} 
 
@@ -469,7 +452,10 @@ function get_brands(){
 		dataType: 'json',
 		success: function(res){
 			$("gadget_brand_id").html("");
-			$('#gadget_brand_id').empty();;
+			$('#gadget_brand_id').empty();
+
+			$("update_gadget_brand").html("");
+			$('#update_gadget_brand').empty();
 			
 			if (res.status == 'Ok') {
 				for (i=0; i<res.count; i++) {
@@ -477,6 +463,7 @@ function get_brands(){
 					brand_name = res.entries[i].brand_name;
 
 					$("#gadget_brand_id").append('<option value="'+ brand_id +'">'+ brand_name +'</option>');
+					$("#update_gadget_brand").append('<option value="'+ brand_id +'">'+ brand_name +'</option>');
 				}
 			} 
 
