@@ -226,3 +226,7 @@ function show_home2(){
      $('#user-info-customer').hide();
      $('#rent-by-user-section').hide();
 }
+
+function show_logout_admin(){
+     document.location.href="../../partials/customer/dashboard.html";
+}
