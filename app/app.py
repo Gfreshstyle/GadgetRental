@@ -79,6 +79,32 @@ def load_token(token):
     return data[0] + ':' + data[1]
 
 
+@app.route('/decrypt', methods=['POST'])
+def decr():
+    credentials = json.loads(request.data)
+    token = credentials['token']
+
+    return jsonify({'status': 'Ok', 'token': load_token(token)})
+
+
+@app.route('/home/<string:token>', methods=['GET'])
+def index(token):
+    days = timedelta(days=14)
+    max_age = days.total_seconds()
+
+    # Decrypt the Security Token, data = [username, hashpass]
+    email = login_serializer.loads(token, max_age=max_age)
+
+    user = spcalls.spcall('get_user_by_email', (email,))
+    entry = []
+
+    for u in user:
+        entry.append({'id': u[0], 'fname': u[1], 'mname': u[2], 'lname': u[3], 'email': u[10], 'role': u[8]})
+
+    return jsonify({'status': 'Ok', 'message': 'Welcome user', 'data': entry})
+
+
+
 @app.route('/login/', methods=['POST'])
 def login():
     jsn = json.loads(request.data)
@@ -177,7 +203,7 @@ def new_gadget():
     gadget_brand_id = jsn['gadget_brand_id']
     gadget_category_id = jsn['gadget_category_id']
     gadget_owner_id = jsn['gadget_owner_id']
-
+ 
     complete_fields = gadget_name is not '' and gadget_description is not '' and gadget_model is not '' and gadget_color is not '' and gadget_image is not '' and rental_rate is not '' and gadget_brand_id is not '' and gadget_category_id is not '' and gadget_owner_id is not ''
 
     if complete_fields is True:
