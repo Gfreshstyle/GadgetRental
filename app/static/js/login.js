@@ -34,9 +34,7 @@ function eraseCookie(name) {
 	var login_form = document.getElementById("login_form");
 	login_form.reset();
 
-	$('#login-alert').html(
-		'<div class="alert alert-success" role="alert"><strong>Success ' +
-		 '!</strong> Successfully logged out.</div>');
+	alert('Successfully logged out!');
 
 }
 
@@ -53,15 +51,13 @@ function decryptCookie(){
 	    data:data,
 	    dataType:"json",
 
-	    success: function(results){
-	    	auth_user = results.token;
+	    success: function(res){
+	    	auth_user = res.token;
 	    	home();
 	    },
 
 	    error: function(e, stats, err){
-	    	$('#Home').show();
-	    	$('#login').show();
-	    	$('#top-right').show();
+	    	show_home2();
 	    }
 
 	});
@@ -75,42 +71,31 @@ function home(){
 	$.ajax({
 
 		type:"GET",
-	    url:"http://localhost:5000/api/foodcart/home/" + myCookie,
+	    url:"http://localhost:5000/home/" + myCookie,
 	    dataType:"json",
 
-	    success: function(results){
+	    success: function(res){
 
-	    	$('#login-form').hide();
-
-	    	if(results.status == 'OK'){
+	    	if(results.status == 'Ok'){
 				var token = results.token;
 				//user_tk is abbrev of user_token
 				document.cookie = "user_tk=" + token;
 
-				$('#login').hide(0);
-				$('#Home').hide(0);
-
-				if(results.data[0].role == 1){
+				if(res.data[0].role == 1){
 
 
-					user_role = results.data[0].role;
-
+					user_role = res.data[0].role;
+					user_id = res.data[0].id;
+				
 				}
 
-				if(results.data[0].role == 2){
+				if(res.data[0].role == 2){
 
-					user_role = results.data[0].role;
-					getNotification();
+					user_role = res.data[0].role;
+					user_id = res.data[0].id;
+					show_home(user_id);
+				
 				}
-
-				if(results.data[0].role == 3){
-
-					user_role = results.data[0].role;
-				}
-			}
-
-			if(results.status == 'FAILED'){
-				console.log('FAILED');
 			}
 
 	    },
@@ -119,7 +104,6 @@ function home(){
 	    	console.log(err);
 	    	console.log(stats);
 			eraseCookie();
-	    	$('#login-form').show();
 	    },
 
 	    beforeSend: function (xhrObj){
