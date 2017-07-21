@@ -11,8 +11,6 @@ var timer = 0;
 
 $(document).ready(function(){
 
-	// decryptCookie();
-
 });
 
 
@@ -26,7 +24,6 @@ function eraseCookie(name) {
     document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 
 	stop();
-	show_home2();
 
 	var signup_form = document.getElementById("signup_form");
 	signup_form.reset();
@@ -57,7 +54,7 @@ function decryptCookie(){
 	    },
 
 	    error: function(e, stats, err){
-	    	show_home2();
+	    	alert('e: ' + e + ' ,' + 'stats: ' + stats + ' ,' + 'err: ' + err);
 	    }
 
 	});

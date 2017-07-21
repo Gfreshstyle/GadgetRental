@@ -6,11 +6,13 @@ from passlib.hash import sha256_crypt, oracle10
 from werkzeug.security import generate_password_hash, check_password_hash
 import hashlib
 from itsdangerous import URLSafeTimedSerializer
+from flask_httpauth import HTTPBasicAuth
 from datetime import timedelta
 
 
 
 app = Flask(__name__)
+auth = HTTPBasicAuth()
 app.secret_key = "a_random_secret_key_$%#!@"
 
 SECRET_KEY = "a_random_secret_key_$%#!@"

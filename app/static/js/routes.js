@@ -72,6 +72,7 @@ function show_trans(){
 }
 
 function show_all_gadgets_customer(){
+     getgadgetscustomer(user_id);
      $('#get-all-gadgets-customer-section').show();
      $('#login-section').hide();
      $('#slider').hide();
@@ -145,7 +146,6 @@ function show_rented_gadgets_by_user(){
 
 function show_home(id){
      user_id = id;
-     get_categories();
      $('#rented-gadget-menu').show();
      $('#slider').show();
      $('#header-options2').show();
@@ -197,7 +197,6 @@ function show_user_update(){
 }
 
 function show_home1(){
-     get_categories();
      $('#rented-gadget-menu').show();
      $('#slider').show();
      $('#header-options2').show();
@@ -213,7 +212,7 @@ function show_home1(){
 }
 
 function show_home2(){
-     get_categories();
+     eraseCookie('user_tk');
      $('#rented-gadget-menu').show();
      $('#slider').show();
      $('#header-options1').show();

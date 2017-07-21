@@ -190,38 +190,37 @@ function getgadgets(){
 	})
 };
 
-function getgadgetcustomer(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
-
-	return	'<div class="col-md-4 col-lg-4 col-sm-6">'+
-				'<div class="single-product" style="margin-bottom: 30px;">' +
-			        '<div class="product-img">' +
-			            '<a href="#">' +
-			                '<img src="../../template-customer/img/products/1.jpg" alt="Product Title" />' +
-			            '</a>' +
-			        '</div>' +
-			        '<div class="product-dsc">' +
-			            '<h3><a href="#">'  + ' ' + brand_name + ' ' + gadget_name + ' ' + gadget_model + '</a></h3>' +
-			            '<div class="star-price">' +
-			                '<span class="price-left">P' + rental_rate+ '</span>' +
-			                '<span class="star-right">' +
-			                    '<i class="fa fa-star"></i>' +
-			                    '<i class="fa fa-star"></i>' +
-			                    '<i class="fa fa-star"></i>' +
-			                    '<i class="fa fa-star"></i>' +
-			                    '<i class="fa fa-star-half-o"></i>' +
-			                '</span>' +
-			            '</div>' +
-			        '</div>' +
-			        '<div class="actions-btn">'+
-                        // '<a onclick="$(\'#gadget-section\').show();getgadgetbyid('+ gadget_id +');"><i class="fa fa-eye"></i></a>'+
-                        '<a data-placement="top" data-target="#quick-view" data-trigger="hover" data-toggle="modal" data-original-title="Quick View" onclick="show_gadget_customer();getgadgetbyid('+ gadget_id +');"><i class="fa fa-eye"></i></a>'+
-                    '</div>'+
-			    '</div>' +
-			'</div>'
-
+function getgadgetcustomer(user_id, gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
+	if (is_rented == 'False') {
+		return	'<div class="col-md-4 col-lg-4 col-sm-6">'+
+					'<div class="single-product" style="margin-bottom: 30px;">' +
+				        '<div class="product-img">' +
+				            '<a href="#">' +
+				                '<img src="../../template-customer/img/products/1.jpg" alt="Product Title" />' +
+				            '</a>' +
+				        '</div>' +
+				        '<div class="product-dsc">' +
+				            '<h3><a href="#">'  + ' ' + brand_name + ' ' + gadget_name + ' ' + gadget_model + '</a></h3>' +
+				            '<div class="star-price">' +
+				                '<span class="price-left">P' + rental_rate+ '</span>' +
+				                '<span class="star-right">' +
+				                    '<i class="fa fa-star"></i>' +
+				                    '<i class="fa fa-star"></i>' +
+				                    '<i class="fa fa-star"></i>' +
+				                    '<i class="fa fa-star"></i>' +
+				                    '<i class="fa fa-star-half-o"></i>' +
+				                '</span>' +
+				            '</div>' +
+				        '</div>' +
+				        '<div class="actions-btn">'+
+	                        '<a data-placement="top" data-target="#quick-view" data-trigger="hover" data-toggle="modal" data-original-title="Quick View" onclick="show_gadget_customer();getgadgetbyid('+ user_id +','+ gadget_id +');"><i class="fa fa-eye"></i></a>'+
+	                    '</div>'+
+				    '</div>' +
+				'</div>'
+	}		
 }
 
-function getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
+function getgadgetview(user_id, gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented) {
 	return  '<div class="col-xs-12 col-sm-5">' +
                 '<div class="quick-image">' +
                     '<div class="single-quick-image tab-content text-center">' +
@@ -280,7 +279,7 @@ function getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model,
                                 '</div>' +
                                 '<div class="col-sm-12 col-md-6">' +
                                     '<div class="por-dse clearfix responsive-othre">' +
-                                        '<a class="btn btn-success" role="button" onclick = "addrent(' + gadget_id+ ');">Rent</a>' +
+                                        '<a class="btn btn-success" role="button" onclick = "addrent(' + user_id +','+ gadget_id+ ');">Rent</a>' +
                                     '</div>' +
                                 '</div>' +
                             '</div>' +
@@ -290,9 +289,9 @@ function getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model,
             '</div>'
 }
 
-function getgadgetbyid(id){
+function getgadgetbyid(user_id, gadget_id){
 	$.ajax({
-		url: 'http://127.0.0.1:5000/gadgets/'+ id +'/',
+		url: 'http://127.0.0.1:5000/gadgets/'+ gadget_id +'/',
 		type: 'GET',
 		dataType: 'json',
 
@@ -311,11 +310,11 @@ function getgadgetbyid(id){
 					gadget_image = res.entries[i].gadget_image;
 					rental_rate = res.entries[i].rental_rate;
 					brand_name = res.entries[i].gadget_brand_name;
-					category_name = res.entries[i].category_name;
+					category_name = res.entries[i].gadget_category_name;
 					owner = res.entries[i].gadget_owner_first_name;
 					is_rented = res.entries[i].rented
 			
-					$("#single-gadget").append(getgadgetview(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
+					$("#single-gadget").append(getgadgetview(user_id, gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
 				}
 			} 
 
@@ -337,7 +336,7 @@ function getgadgetbyid(id){
 	})
 }
 
-function getgadgetscustomer(){
+function getgadgetscustomer(user_id){
 	$.ajax({
 		url: 'http://127.0.0.1:5000/gadgets/',
 		type: 'GET',
@@ -360,7 +359,7 @@ function getgadgetscustomer(){
 					owner = res.entries[i].first_name;
 					is_rented = res.entries[i].rented
 
-					$("#single-gadget-box").append(getgadgetcustomer(gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
+					$("#single-gadget-box").append(getgadgetcustomer(user_id, gadget_id, gadget_name, gadget_description, gadget_model, gadget_color, gadget_image, rental_rate, brand_name, category_name, owner, is_rented));
 				}
 			} 
 
@@ -423,12 +422,17 @@ function get_categories(){
 			$("gadget_category_id").html("");
 			$('#gadget_category_id').empty();
 
+			// $("gadget_categories").html("");
+			// $('#gadget_categories').empty();
+
+
 			if (res.status == 'Ok') {
 				for (i=0; i<res.count; i++) {
 					category_id = res.entries[i].id;
 					category_name = res.entries[i].category_name;
 
 					$("#gadget_category_id").append('<option value="'+ category_id +'">'+ category_name +'</option>');
+					// $("#gadget_categories").append('<li><a>'+ category_name +'</a></li>');
 				}
 			} 
 

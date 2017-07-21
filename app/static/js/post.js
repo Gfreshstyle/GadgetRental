@@ -49,17 +49,17 @@ function add_gadget()
     });
 }
 
-function addrent(id){
+function addrent(user, gadget_id){
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var transac = date;
     var due_date = date;
     var overdue_cost = 0;
-    var gadget_id = id;
-    var user_id = $('user_id').val();
+    var gadget_id = gadget_id;
+    var user_id = user;
 
     var data = JSON.stringify({'transaction_date': transac, 'rent_due_date': due_date,'rent_overdue_cost': overdue_cost, 'gadget_id': gadget_id, 'user_id': user_id});
-    console.log(data);
+
     $.ajax({
         url:'http://127.0.0.1:5000/gadget/',
         type: 'POST',
@@ -70,7 +70,7 @@ function addrent(id){
             if(res.status == 'OK'){
                 alert('Success')
             } else {
-                alert(res.status)
+                alert(res.message)
             }
         }
     })
