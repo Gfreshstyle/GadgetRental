@@ -196,11 +196,11 @@ function getgadgetcustomer(user_id, gadget_id, gadget_name, gadget_description, 
 					'<div class="single-product" style="margin-bottom: 30px;">' +
 				        '<div class="product-img">' +
 				            '<a href="#">' +
-				                '<img src="../../template-customer/img/products/1.jpg" alt="Product Title" />' +
+				                '<img src="../../template-customer/img/products/'+ gadget_image +'" alt="Product Title" />' +
 				            '</a>' +
 				        '</div>' +
 				        '<div class="product-dsc">' +
-				            '<h3><a href="#">'  + ' ' + brand_name + ' ' + gadget_name + ' ' + gadget_model + '</a></h3>' +
+				            '<h3><a href="#">'  + ' ' + brand_name + ' ' + gadget_model + ' ' + gadget_name + '</a></h3>' +
 				            '<div class="star-price">' +
 				                '<span class="price-left">P' + rental_rate+ '</span>' +
 				                '<span class="star-right">' +
